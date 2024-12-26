@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>繪圖提示生成器 - 修正版</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 700px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .header .designer {
+      font-size: 14px;
+      color: #555;
+      font-style: italic;
+    }
+    .section {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .section label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .dropdown, .input-field {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+    .result, .selected-options {
+      margin-top: 20px;
+      padding: 10px;
+      background: #eef;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+    .button {
+      padding: 10px 15px;
+      font-size: 14px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>繪圖提示生成器 - 修正版</h1>
+    <div class="designer">Designed by Gavin Huang</div>
+  </div>
+
+  <div class="container">
+    <p>請選擇詳細繪圖風格與具體內容，生成專屬的繪圖提示！</p>
+
+    <!-- 繪圖風格描述 -->
+    <div class="section">
+      <label>繪圖風格描述 (Drawing Style Description)：</label>
+      <div>
+        <label>1. 潦草/細緻 (Sketchy/Detailed)：</label>
+        <select id="styleRoughness" class="dropdown" onchange="updateSelectedOptions()">
+          <option value="">請選擇</option>
+          <option value="潦草 (Sketchy)">潦草 (Sketchy)</option>
+          <option value="細緻 (Detailed)">細緻 (Detailed)</option>
+        </select>
+      </div>
+      <div>
+        <label>2. 線條粗細 (Line Thickness)：</label>
+        <select id="styleLineThickness" class="dropdown" onchange="updateSelectedOptions()">
+          <option value="">請選擇</option>
+          <option value="粗線條 (Thick lines)">粗線條 (Thick lines)</option>
+          <option value="細線條 (Thin lines)">細線條 (Thin lines)</option>
+        </select>
+      </div>
+      <div>
+        <label>3. 工具 (Tools)：</label>
+        <select id="styleTools" class="dropdown" onchange="updateSelectedOptions()">
+          <option value="">請選擇</option>
+          <option value="彩色筆 (Color pens)">彩色筆 (Color pens)</option>
+          <option value="蠟筆 (Crayons)">蠟筆 (Crayons)</option>
+          <option value="原子筆 (Ballpoint pens)">原子筆 (Ballpoint pens)</option>
+          <option value="粉筆 (Chalk)">粉筆 (Chalk)</option>
+          <option value="鉛筆 (Pencils)">鉛筆 (Pencils)</option>
+          <option value="水彩筆 (Watercolor pens)">水彩筆 (Watercolor pens)</option>
+          <option value="油畫 (Oil painting)">油畫 (Oil painting)</option>
+        </select>
+      </div>
+      <div>
+        <label>4. 年齡風格 (Age Style)：</label>
+        <select id="styleAge" class="dropdown" onchange="updateSelectedOptions()">
+          <option value="">請選擇</option>
+          <option value="三歲小孩畫的 (Drawn by a 3-year-old)">三歲小孩畫的 (Drawn by a 3-year-old)</option>
+          <option value="四歲小孩畫的 (Drawn by a 4-year-old)">四歲小孩畫的 (Drawn by a 4-year-old)</option>
+          <option value="五歲小孩畫的 (Drawn by a 5-year-old)">五歲小孩畫的 (Drawn by a 5-year-old)</option>
+          <option value="六歲小孩畫的 (Drawn by a 6-year-old)">六歲小孩畫的 (Drawn by a 6-year-old)</option>
+          <option value="七歲小孩畫的 (Drawn by a 7-year-old)">七歲小孩畫的 (Drawn by a 7-year-old)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 繪圖內容 -->
+    <div class="section">
+      <label>畫出的內容 (Drawing Content)：</label>
+      <div>
+        <label>人 (Who)：</label>
+        <select id="contentPerson" class="dropdown" onchange="updateSelectedOptions()">
+          <option value="">請選擇</option>
+          <option value="男孩 (a boy)">男孩 (a boy)</option>
+          <option value="女孩 (a girl)">女孩 (a girl)</option>
+        </select>
+      </div>
+      <div>
+        <label>事 (What)：</label>
+        <input type="text" id="contentAction" class="input-field" placeholder="例如：上菜市場買魚" oninput="updateSelectedOptions()">
+      </div>
+      <div>
+        <label>時 (When)：</label>
+        <input type="text" id="contentTime" class="input-field" placeholder="例如：早上" oninput="updateSelectedOptions()">
+      </div>
+      <div>
+        <label>地 (Where)：</label>
+        <input type="text" id="contentPlace" class="input-field" placeholder="例如：菜市場" oninput="updateSelectedOptions()">
+      </div>
+      <div>
+        <label>物 (What items are present)：</label>
+        <input type="text" id="contentObjects" class="input-field" placeholder="例如：市場中的物品" oninput="updateSelectedOptions()">
+      </div>
+    </div>
+
+    <!-- 已選項目 -->
+    <div class="selected-options" id="selectedOptions">
+      <strong>目前輸入：</strong>
+      <p>尚未輸入內容。</p>
+    </div>
+
+    <!-- 生成提示 -->
+    <button class="button" onclick="generatePrompt()">生成提示</button>
+    <div class="result" id="result">
+      <strong>生成的提示 (Generated Prompt)：</strong>
+      <p>請選擇風格與內容後點擊「生成提示」。</p>
+    </div>
+  </div>
+
+  <script>
+    function updateSelectedOptions() {
+      const styleRoughness = document.getElementById("styleRoughness").value;
+      const styleLineThickness = document.getElementById("styleLineThickness").value;
+      const styleTools = document.getElementById("styleTools").value;
+      const styleAge = document.getElementById("styleAge").value;
+      const contentPerson = document.getElementById("contentPerson").value;
+      const contentAction = document.getElementById("contentAction").value.trim();
+      const contentTime = document.getElementById("contentTime").value.trim();
+      const contentPlace = document.getElementById("contentPlace").value.trim();
+      const contentObjects = document.getElementById("contentObjects").value.trim();
+
+      const selectedContent = `
+風格描述：
+- 潦草/細緻：${styleRoughness || "尚未選擇"}
+- 線條粗細：${styleLineThickness || "尚未選擇"}
+- 工具：${styleTools || "尚未選擇"}
+- 年齡風格：${styleAge || "尚未選擇"}
+
+內容：
+人：${contentPerson || "尚未選擇"}
+事：${contentAction || "尚未輸入"}
+時：${contentTime || "尚未輸入"}
+地：${contentPlace || "尚未輸入"}
+物：${contentObjects || "尚未輸入"}
+      `;
+
+      document.getElementById("selectedOptions").innerHTML = `<strong>目前輸入：</strong>\n<pre>${selectedContent.trim()}</pre>`;
+    }
+
+    function generatePrompt() {
+      const styleRoughness = document.getElementById("styleRoughness").value;
+      const styleLineThickness = document.getElementById("styleLineThickness").value;
+      const styleTools = document.getElementById("styleTools").value;
+      const styleAge = document.getElementById("styleAge").value;
+      const contentPerson = document.getElementById("contentPerson").value;
+      const contentAction = document.getElementById("contentAction").value.trim();
+      const contentTime = document.getElementById("contentTime").value.trim();
+      const contentPlace = document.getElementById("contentPlace").value.trim();
+      const contentObjects = document.getElementById("contentObjects").value.trim();
+
+      if (!contentPerson || !contentAction || !contentTime || !contentPlace || !contentObjects) {
+        alert("請完整填寫所有內容！");
+        return;
+      }
+
+      const promptCN = `
+${styleRoughness || ""}，${styleLineThickness || ""}，使用${styleTools || ""}，${styleAge || ""}，畫出：${contentPerson}，${contentTime}，${contentPlace}，${contentAction}，畫面中包含：${contentObjects}`;
+      
+      const promptEN = `
+${styleRoughness || ""}, ${styleLineThickness || ""}, using ${styleTools || ""}, ${styleAge || ""}, draw: ${contentPerson}, ${contentTime}, ${contentPlace}, ${contentAction}, including: ${contentObjects}`;
+
+      document.getElementById("result").innerHTML = `<strong>生成的提示：</strong>\n<pre>${promptCN.trim()}\n\n${promptEN.trim()}</pre>`;
+    }
+  </script>
+</body>
+</html>
