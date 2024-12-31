@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國小學生期末評語選擇器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .category {
+            margin-bottom: 20px;
+        }
+        .category h3 {
+            margin-bottom: 10px;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .options label {
+            display: block;
+        }
+        .output {
+            margin-top: 30px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .limit {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>國小學生期末評語選擇器</h1>
+
+    <!-- 備註 -->
+    <p>設計者：Gavin Huang，搭配NOTEBOOK LM使用。</p>
+
+    <!-- 字數限制選擇 -->
+    <div class="limit">
+        <h3>選擇字數限制</h3>
+        <div class="options">
+            <label><input type="radio" name="wordLimit" value="50"> 50字內</label>
+            <label><input type="radio" name="wordLimit" value="100"> 100字內</label>
+            <label><input type="radio" name="wordLimit" value="150"> 150字內</label>
+            <label><input type="radio" name="wordLimit" value="200"> 200字內</label>
+        </div>
+    </div>
+
+    <!-- 個人特質 -->
+    <div class="category">
+        <h3>個人特質</h3>
+        <div class="options">
+            <label><input type="checkbox" value="個性溫和"> 個性溫和</label>
+            <label><input type="checkbox" value="乖巧懂事"> 乖巧懂事</label>
+            <label><input type="checkbox" value="聰明伶俐"> 聰明伶俐</label>
+            <label><input type="checkbox" value="心地善良"> 心地善良</label>
+            <label><input type="checkbox" value="活潑可愛"> 活潑可愛</label>
+            <label><input type="checkbox" value="天真可愛"> 天真可愛</label>
+            <label><input type="checkbox" value="大方"> 大方</label>
+            <label><input type="checkbox" value="有禮貌"> 有禮貌</label>
+            <label><input type="checkbox" value="手很靈巧"> 手很靈巧</label>
+            <label><input type="checkbox" value="好動"> 好動</label>
+            <label><input type="checkbox" value="迷糊"> 迷糊</label>
+            <label><input type="checkbox" value="隨興"> 隨興</label>
+            <label><input type="checkbox" value="獨立"> 獨立</label>
+            <label><input type="checkbox" value="耿直"> 耿直</label>
+            <label><input type="checkbox" value="沉靜寡言"> 沉靜寡言</label>
+            <label><input type="checkbox" value="熱心助人"> 熱心助人</label>
+            <label><input type="checkbox" value="富有創意及想像力"> 富有創意及想像力</label>
+        </div>
+    </div>
+
+    <!-- 團體與人際 -->
+    <div class="category">
+        <h3>團體與人際</h3>
+        <div class="options">
+            <label><input type="checkbox" value="與同學相處融洽"> 與同學相處融洽</label>
+            <label><input type="checkbox" value="樂於助人"> 樂於助人</label>
+            <label><input type="checkbox" value="樂於參與團體活動"> 樂於參與團體活動</label>
+            <label><input type="checkbox" value="熱心服務"> 熱心服務</label>
+            <label><input type="checkbox" value="擔任班級幹部盡責"> 擔任班級幹部盡責</label>
+            <label><input type="checkbox" value="會站在同學的角度思考"> 會站在同學的角度思考</label>
+        </div>
+    </div>
+
+    <!-- 學習表現 -->
+    <div class="category">
+        <h3>學習表現</h3>
+        <div class="options">
+            <label><input type="checkbox" value="學習認真"> 學習認真</label>
+            <label><input type="checkbox" value="作業書寫工整"> 作業書寫工整</label>
+            <label><input type="checkbox" value="努力向學"> 努力向學</label>
+            <label><input type="checkbox" value="數學理解力佳"> 數學理解力佳</label>
+            <label><input type="checkbox" value="數學計算能力需加強"> 數學計算能力需加強</label>
+            <label><input type="checkbox" value="國語文造詣佳"> 國語文造詣佳</label>
+            <label><input type="checkbox" value="英文表現佳"> 英文表現佳</label>
+            <label><input type="checkbox" value="寫作能力需加強"> 寫作能力需加強</label>
+            <label><input type="checkbox" value="學習態度需積極主動"> 學習態度需積極主動</label>
+            <label><input type="checkbox" value="上課專心度需加強"> 上課專心度需加強</label>
+            <label><input type="checkbox" value="學習方法需改進"> 學習方法需改進</label>
+            <label><input type="checkbox" value="表達能力佳"> 表達能力佳</label>
+        </div>
+    </div>
+
+    <!-- 品行與態度 -->
+    <div class="category">
+        <h3>品行與態度</h3>
+        <div class="options">
+            <label><input type="checkbox" value="做事認真負責"> 做事認真負責</label>
+            <label><input type="checkbox" value="樂於助人"> 樂於助人</label>
+            <label><input type="checkbox" value="待人處事謙虛有禮"> 待人處事謙虛有禮</label>
+            <label><input type="checkbox" value="有責任感"> 有責任感</label>
+            <label><input type="checkbox" value="懂得明辨是非"> 懂得明辨是非</label>
+            <label><input type="checkbox" value="有毅力"> 有毅力</label>
+            <label><input type="checkbox" value="有自信"> 有自信</label>
+            <label><input type="checkbox" value="體恤家人"> 體恤家人</label>
+        </div>
+    </div>
+
+    <!-- 老師建議 -->
+    <div class="category">
+        <h3>老師建議</h3>
+        <div class="options">
+            <label><input type="checkbox" value="善用自身優勢"> 善用自身優勢</label>
+            <label><input type="checkbox" value="留意自身特質可能帶來的影響"> 留意自身特質可能帶來的影響</label>
+            <label><input type="checkbox" value="保持良好的學習態度"> 保持良好的學習態度</label>
+            <label><input type="checkbox" value="加強特定學科能力"> 加強特定學科能力</label>
+            <label><input type="checkbox" value="培養良好品德"> 培養良好品德</label>
+            <label><input type="checkbox" value="積極參與團體活動"> 積極參與團體活動</label>
+            <label><input type="checkbox" value="尋求師長或同學的協助"> 尋求師長或同學的協助</label>
+        </div>
+    </div>
+
+    <button onclick="generateComment()">生成評語</button>
+
+    <div class="output" id="output">
+        <h3>生成的評語：</h3>
+        <p id="comment"></p>
+    </div>
+
+    <script>
+        function generateComment() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            const wordLimit = document.querySelector('input[name="wordLimit"]:checked');
+            const comments = Array.from(checkboxes).map(cb => cb.value);
+
+            if (!wordLimit) {
+                document.getElementById('comment').innerText = '請選擇字數限制。';
+                return;
+            }
+
+            const positiveIntro = "用正向管教的言語來描述，";
+            let commentText = comments.join('，');
+
+            if (commentText.length > parseInt(wordLimit.value)) {
+                commentText = commentText.substring(0, parseInt(wordLimit.value) - 1) + '...';
+            }
+
+            document.getElementById('comment').innerText = `${positiveIntro}${commentText}。 (限制：${wordLimit.value}字內)`;
+        }
+    </script>
+</body>
+</html>
