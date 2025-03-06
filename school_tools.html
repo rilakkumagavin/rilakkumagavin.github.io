@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>職缺分配系統</title>
+    <script>
+        function assignJobs() {
+            let jobsText = document.getElementById("jobs").value.trim();
+            let peopleText = document.getElementById("people").value.trim();
+            
+            if (jobsText === "" || peopleText === "") {
+                alert("請輸入職缺和人員名單");
+                return;
+            }
+            
+            let jobs = jobsText.split("\n").map(job => job.trim()).filter(job => job);
+            let people = peopleText.split("\n").map(person => person.trim()).filter(person => person);
+            let assignments = [];
+            let willingPeople = [];
+            let unwillingPeople = [];
+            
+            // 隨機決定是否有行政意願
+            people.forEach(person => {
+                let willing = Math.random() < 0.5 ? "有意願" : "無意願";
+                assignments.push({ "姓名": person, "行政意願": willing, "職缺": "" });
+                if (willing === "有意願") {
+                    willingPeople.push(person);
+                } else {
+                    unwillingPeople.push(person);
+                }
+            });
+            
+            // 確保每個職缺至少有人
+            while (willingPeople.length < jobs.length && unwillingPeople.length > 0) {
+                willingPeople.push(unwillingPeople.pop());
+            }
+            
+            // 隨機分配職缺
+            willingPeople.sort(() => Math.random() - 0.5);
+            jobs.sort(() => Math.random() - 0.5);
+            
+            for (let i = 0; i < jobs.length; i++) {
+                if (i < willingPeople.length) {
+                    for (let j = 0; j < assignments.length; j++) {
+                        if (assignments[j]["姓名"] === willingPeople[i]) {
+                            assignments[j]["職缺"] = jobs[i];
+                            assignments[j]["行政意願"] = "有意願"; // 確保被分配到職缺的都是有意願
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            let resultTable = `<table border='1'><tr><th>姓名</th><th>行政意願</th><th>職缺</th></tr>`;
+            assignments.forEach(assignment => {
+                resultTable += `<tr><td>${assignment["姓名"]}</td><td>${assignment["行政意願"]}</td><td>${assignment["職缺"]}</td></tr>`;
+            });
+            resultTable += "</table>";
+            document.getElementById("result").innerHTML = resultTable;
+        }
+    </script>
+</head>
+<body>
+    <h2>職缺分配系統</h2>
+    <label for="jobs">輸入職缺名稱 (每行一個)：</label><br>
+    <textarea id="jobs" rows="5" cols="30"></textarea><br>
+    <label for="people">輸入人員姓名 (每行一個)：</label><br>
+    <textarea id="people" rows="5" cols="30"></textarea><br>
+    <button onclick="assignJobs()">分配職缺</button>
+    <h3>分配結果：</h3>
+    <div id="result"></div>
+</body>
+</html>
