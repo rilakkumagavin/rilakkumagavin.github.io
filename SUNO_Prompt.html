@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suno Prompt Generator</title>
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      color: #3f51b5;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 1rem;
+      display: block;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .tag {
+      background: #e0e7ff;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .tag.selected {
+      background: #4338ca;
+      color: white;
+    }
+    .buttons {
+      display: flex;
+      gap: 1rem;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      background-color: #3f51b5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      white-space: pre-wrap;
+    }
+    .location-block {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Suno Prompt Generator</h1>
+  <label for="grade">拍攝者年級</label>
+  <input id="grade" onblur="suggestTags()">
+
+  <div id="locations"></div>
+  <button onclick="addLocation()">＋ 新增拍攝地點</button>
+
+  <label for="structure">詞曲結構</label>
+  <select id="structure">
+    <option>[Intro]-[Verse]-[Chorus]-[Verse]-[Chorus]-[Outro]</option>
+    <option>[Intro]-[Verse]-[Pre-chorus]-[Chorus]-[Bridge]-[Chorus]-[Outro]</option>
+    <option>[Verse1]-[Chorus]-[Verse2]-[Chorus]-[Bridge]-[Chorus]-[Outro]</option>
+    <option>[Intro]-[Hook]-[Verse]-[Chorus]-[Solo]-[Chorus]-[Outro]</option>
+  </select>
+
+  <label>音樂氛圍</label>
+  <div id="moodTags" class="tags"></div>
+
+  <label>音樂風格</label>
+  <div id="styleTags" class="tags"></div>
+
+  <div class="buttons">
+    <button onclick="generatePrompt()">生成提示詞</button>
+    <button onclick="copyPrompt()">複製提示詞</button>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    const moods = [
+  "深情的 (Heartfelt)", "悲傷的 (Sad)", "憂鬱的 (Melancholy)", "後悔的 (Regret)",
+  "思念的 (Missing someone)", "夢幻的 (Dreamy)", "迷幻的 (Psychedelic)", "空靈的 (Ethereal)",
+  "有活力的 (Energetic)", "浪漫的 (Romantic)", "強而有力的 (Powerful)", "撩人的 (Sultry)",
+  "歡快的 (Upbeat)", "可跳舞的 (Danceable)", "節日的 (Festive)", "有節奏感的 (Groovy)",
+  "中速的 (Mid-Tempo)", "切分音的 (Syncopated)", "醉意的 (Tipsy)", "大氣的 (Atmospheric)",
+  "寒冷的 (Cold)", "厄運的 (Doom)", "戲劇性的 (Dramatic)", "險惡的 (Sinister)",
+  "輕快的 (Light rhythm)", "有英雄氣概的 (Heroic)", "趾高氣昂的 (Strut)", "國歌般的 (Anthemic)",
+  "喜慶的 (Jubilant)", "挑釁的 (Aggressive)", "勁爆的 (Banger)", "體育場般的 (Stadium)",
+  "跺腳的 (Stomp)", "溫暖的 (Warm)", "令人振奮的 (Uplifting)", "懷舊的 (Nostalgic)",
+  "寧靜的 (Quiet)", "激昂的 (Excited)", "輕鬆的 (Relaxed)", "自信的 (Confident)",
+  "驕傲的 (Proud)", "深沉的 (Emotional)", "傳統的 (Traditional)", "實驗性的 (Experimental)",
+  "非主流的 (Non-mainstream)", "沉思的 (Pensive)", "激烈的 (Intense)"
+];
+    const styles = [
+  "流行音樂 (Pop)", "搖滾 (Rock)", "節奏藍調 (R&B)", "嘻哈 (Hip-hop)", "爵士樂 (Jazz)",
+  "藍調 (Blues)", "靈魂樂 (Soul)", "放克 (Funk)", "電子舞曲 (EDM)", "電子 (Electronic)",
+  "拉丁音樂 (Latin)", "雷鬼 (Reggae)", "世界音樂 (World Music)", "民謠 (Folk)", "鄉村音樂 (Country)",
+  "古典音樂 (Classical)", "合唱音樂 (Choral)", "金屬 (Metal)", "迪斯科 (Disco)", "回響貝斯 (Dubstep)",
+  "電梯音樂 (Elevator)", "廣告音樂 (Jingle)", "穆扎克 (Muzak)", "進行曲 (March)", "百老匯 (Broadway)",
+  "歌舞表演 (Cabaret)", "休息室音樂 (Lounge)", "歌劇 (Operatic)", "印度電子流行樂 (Hindustani Electro-pop)",
+  "華語流行 (Chinese Pop)", "韓國流行音樂 (KPOP)", "日本流行音樂 (JPOP)", "低傳真 (Lo-fi)",
+  "獨立民謠 (Indie Folk)", "夢幻合成器浪潮 (Dreamy Synth Wave)", "氛圍電子 (Atmospheric Electronic)",
+  "怪胎民謠 (Freak Folk)", "西部音樂 (Western)", "非洲裔古巴音樂 (Afro-Cuban)",
+  "密西西比藍調 (Mississippi Blues)", "阿巴拉契亞音樂 (Appalachian)", "藍草音樂 (Bluegrass)",
+  "格里高利聖歌 (Gregorian Chant)", "火炬休息室音樂 (Torch-Lounge)"
+];
+
+    const renderTags = (arr, targetId) => {
+      const container = document.getElementById(targetId);
+      container.innerHTML = '';
+      arr.forEach(item => {
+        const tag = document.createElement('div');
+        tag.className = 'tag';
+        tag.innerText = item;
+        tag.onclick = () => tag.classList.toggle('selected');
+        container.appendChild(tag);
+      });
+    }
+
+    const addLocation = () => {
+      const container = document.getElementById('locations');
+      const index = container.children.length;
+      const block = document.createElement('div');
+      block.className = 'location-block';
+      block.innerHTML = `
+        <label>拍攝地點 ${index + 1}</label>
+        <input class="location" placeholder="例如：校園操場">
+        <label>拍攝原因與感受</label>
+        <textarea class="reason" placeholder="描述你為何選擇這個場景，感覺如何..."></textarea>
+      `;
+      container.appendChild(block);
+    }
+
+    const suggestTags = () => {
+      const grade = document.getElementById('grade').value.trim();
+      let suggestedMoods = [];
+      let suggestedStyles = [];
+
+      if (grade.includes("一") || grade.includes("二")) {
+        suggestedMoods = ["歡快的 (Upbeat)", "溫暖的 (Warm)", "可愛的 (Cute)"];
+        suggestedStyles = ["合成流行 (Synth-pop)", "舞曲流行 (Dance-pop)", "韓國流行音樂 (K-pop)"];
+      } else if (grade.includes("三") || grade.includes("四")) {
+        suggestedMoods = ["有活力的 (Energetic)", "夢幻的 (Dreamy)", "深情的 (Heartfelt)"];
+        suggestedStyles = ["獨立流行 (Indie pop)", "柔和爵士 (Smooth jazz)", "另類嘻哈 (Alternative hip hop)"];
+      } else if (grade.includes("五") || grade.includes("六")) {
+        suggestedMoods = ["懷舊的 (Nostalgic)", "激昂的 (Excited)", "浪漫的 (Romantic)"];
+        suggestedStyles = ["經典搖滾 (Classic rock)", "陷阱音樂 (Trap)", "新靈魂 (Neo soul)"];
+      }
+
+      renderTags([...new Set([...suggestedMoods, ...moods])], 'moodTags');
+      renderTags([...new Set([...suggestedStyles, ...styles])], 'styleTags');
+    }
+
+    const generatePrompt = () => {
+      const grade = document.getElementById('grade').value.trim();
+      const structure = document.getElementById('structure').value;
+      const selectedMoods = Array.from(document.querySelectorAll('#moodTags .tag.selected')).map(t => t.innerText);
+      const selectedStyles = Array.from(document.querySelectorAll('#styleTags .tag.selected')).map(t => t.innerText);
+
+      const blocks = document.querySelectorAll('.location-block');
+      let description = '';
+      blocks.forEach((block, i) => {
+        const loc = block.querySelector('.location').value.trim();
+        const res = block.querySelector('.reason').value.trim();
+        description += `\n場景 ${i + 1}：我在${loc}拍攝了影片，因為${res}。`;
+      });
+
+      const result = document.getElementById('result');
+      let prompt = `我是一位國小${grade}的學生，請你寫一首${selectedMoods.join('、')}的歌詞。
+${description}
+
+音樂的風格是${selectedStyles.join('、')}。
+
+詞曲的結構是${structure}，整體歌詞（含標點符號、中英文、空行）限制在200字元以內。`;
+      
+      result.innerText = prompt;
+    }
+
+    const copyPrompt = () => {
+      const text = document.getElementById('result').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('提示詞已複製！');
+      });
+    }
+
+    window.onload = () => {
+      renderTags(moods, 'moodTags');
+      renderTags(styles, 'styleTags');
+      addLocation(); // 初始化一筆
+    }
+  </script>
+<footer style="text-align: center; margin-top: 3rem; color: #888;">
+  設計者 Gavin Huang
+</footer>
+</body>
+</html>
