@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>115年度校園數位內容與教學軟體 - 智慧查詢系統</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+
+    <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-md p-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-bold">115年度校園數位內容與教學軟體</h1>
+                <p class="text-blue-100 text-sm mt-1">智慧匯入與快速篩選系統（由 青溪國小 Gavin Huang 設計開發）</p>
+            </div>
+            <div class="w-full md:w-96">
+                <input type="text" id="searchInput" oninput="filterData()" disabled
+                       placeholder="請先上傳檔案再開始搜尋..." 
+                       class="w-full px-4 py-2 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-inner bg-gray-100 disabled:opacity-50">
+            </div>
+        </div>
+    </header>
+
+    <section class="max-w-7xl w-full mx-auto p-4 md:p-6 pb-0">
+        <div class="bg-white border-2 border-dashed border-blue-300 rounded-xl p-6 text-center shadow-sm hover:border-blue-500 transition-colors">
+            <input type="file" id="fileInput" accept=".ods,.xlsx,.xls" class="hidden" onchange="handleFile(this)">
+            <label for="fileInput" class="cursor-pointer flex flex-col items-center justify-center gap-2">
+                <svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                <span class="text-lg font-medium text-gray-700" id="uploadStatus">點擊此處上傳您的「115年度...參考清冊.ods」檔案</span>
+                <span class="text-xs text-gray-400">支援 .ods, .xlsx 格式，純前端解析，資料不會外傳</span>
+            </label>
+        </div>
+    </section>
+
+    <main class="max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col md:flex-row gap-6 flex-1">
+        <aside class="w-full md:w-64 shrink-0">
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="font-semibold text-lg mb-3 pb-2 border-b border-gray-100 text-gray-700">📌 智慧分類導覽</h2>
+                <div class="flex flex-col gap-2" id="categoryFilters">
+                    <button onclick="selectCategory('全部')" class="cat-btn w-full text-left px-3 py-2 rounded-md font-medium text-sm bg-blue-50 text-blue-700 font-bold">顯示全部</button>
+                    <button onclick="selectCategory('語文人文')" class="cat-btn w-full text-left px-3 py-2 rounded-md font-medium text-sm text-gray-600 hover:bg-gray-100">A. 語文與人文領域</button>
+                    <button onclick="selectCategory('數理自然')" class="cat-btn w-full text-left px-3 py-2 rounded-md font-medium text-sm text-gray-600 hover:bg-gray-100">B. 數理與自然科學</button>
+                    <button onclick="selectCategory('科技資訊')" class="cat-btn w-full text-left px-3 py-2 rounded-md font-medium text-sm text-gray-600 hover:bg-gray-100">C. 科技與資訊素養</button>
+                    <button onclick="selectCategory('課堂互動')" class="cat-btn w-full text-left px-3 py-2 rounded-md font-medium text-sm text-gray-600 hover:bg-gray-100">D. 課堂互動與管理</button>
+                    <button onclick="selectCategory('多媒體')" class="cat-btn w-full text-left px-3 py-2 rounded-md font-medium text-sm text-gray-600 hover:bg-gray-100">E. 數位內容與多媒體</button>
+                    <button onclick="selectCategory('行政辦公')" class="cat-btn w-full text-left px-3 py-2 rounded-md font-medium text-sm text-gray-600 hover:bg-gray-100">F. 通用行政與辦公</button>
+                </div>
+            </div>
+        </aside>
+
+        <section class="flex-1 min-w-0">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="p-4 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
+                    <span class="text-sm text-gray-500 font-medium">資料列表 (<span id="matchCount">0</span> 筆結果)</span>
+                    <span id="loadingNotice" class="text-sm text-blue-600 font-bold hidden animate-pulse">正在精準解析中，請稍候...</span>
+                </div>
+                
+                <div class="overflow-x-auto max-h-[600px] overflow-y-auto">
+                    <table class="w-full text-left border-collapse sticky-header">
+                        <thead class="sticky top-0 bg-gray-100 shadow-sm z-10">
+                            <tr class="text-gray-600 text-sm uppercase tracking-wider border-b border-gray-200">
+                                <th class="p-4 font-semibold w-20">項次</th>
+                                <th class="p-4 font-semibold">軟體名稱</th>
+                                <th class="p-4 font-semibold w-40">原始分類/組別</th>
+                                <th class="p-4 font-semibold">廠商</th>
+                                <th class="p-4 font-semibold w-32">單價</th>
+                            </tr>
+                        </thead>
+                        <tbody id="softwareTableBody" class="divide-y divide-gray-100 text-sm">
+                            <tr>
+                                <td colspan="5" class="p-12 text-center text-gray-400">請先點擊上方區塊，並選取您的 ODS 軟體清單檔案。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-4 mt-auto shadow-inner">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-400 gap-2">
+            <div>115年度校園數位內容與教學軟體需求調查參考清冊 - 快速查詢系統</div>
+            <div class="flex items-center gap-1">
+                <span>System Designed by</span>
+                <span class="font-semibold text-gray-600 bg-gray-100 px-2 py-0.5 rounded text-xs">青溪國小 Gavin Huang</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let softwareData = [];
+        let currentCategory = "全部";
+
+        // 讀取檔案邏輯
+        function handleFile(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            document.getElementById('uploadStatus').innerText = `正在讀取：${file.name} ...`;
+            document.getElementById('loadingNotice').classList.remove('hidden');
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    
+                    const firstSheetName = workbook.SheetNames[0];
+                    const worksheet = workbook.Sheets[firstSheetName];
+                    const rawRows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                    
+                    processRawData(rawRows);
+                    
+                    document.getElementById('uploadStatus').innerText = `🎉 成功載入檔案：${file.name}！共 ${softwareData.length} 筆軟體`;
+                    document.getElementById('searchInput').disabled = false;
+                    document.getElementById('searchInput').placeholder = "輸入軟體名稱、廠商名稱直接查詢...";
+                    document.getElementById('loadingNotice').classList.add('hidden');
+                } catch (error) {
+                    alert('檔案解析失敗，請確認是否為正確的 Excel 或 ODS 檔案。');
+                    document.getElementById('uploadStatus').innerText = '檔案讀取失敗，請重新選擇。';
+                    document.getElementById('loadingNotice').classList.add('hidden');
+                    console.error(error);
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // 智慧解析欄位與自動歸類
+        function processRawData(rows) {
+            if (!rows || rows.length === 0) return;
+
+            let headerIndex = 0;
+            for (let i = 0; i < Math.min(rows.length, 15); i++) {
+                if (rows[i] && rows[i].some(cell => String(cell).includes("名稱") || String(cell).includes("產品"))) {
+                    headerIndex = i;
+                    break;
+                }
+            }
+
+            const headers = rows[headerIndex].map(h => String(h || '').trim());
+
+            let nameIdx = headers.findIndex(h => h.includes("名稱") || h.includes("產品"));
+            let catIdx = headers.findIndex(h => h.includes("類") || h.includes("組") || h.includes("科目") || h.includes("項別"));
+            let vendorIdx = headers.findIndex(h => h.includes("廠商") || h.includes("代理") || h.includes("公司"));
+            let priceIdx = headers.findIndex(h => h.includes("價") || h.includes("金額") || h.includes("經費"));
+            let idIdx = headers.findIndex(h => h.includes("項次") || h.includes("序號") || h.includes("編號") || h.includes("ID"));
+
+            if (nameIdx === -1) nameIdx = 1;
+            if (catIdx === -1) catIdx = 2;
+            if (vendorIdx === -1) vendorIdx = 3;
+            if (priceIdx === -1) priceIdx = 4;
+            if (idIdx === -1) idIdx = 0;
+
+            softwareData = [];
+            let fallbackId = 1;
+
+            for (let i = headerIndex + 1; i < rows.length; i++) {
+                const row = rows[i];
+                if (!row || row.length === 0 || !row[nameIdx]) continue;
+
+                let rawName = String(row[nameIdx]).trim();
+                if (rawName === "undefined" || rawName === "" || rawName === "軟體名稱") continue;
+
+                let rawCat = row[catIdx] ? String(row[catIdx]).trim() : "未分類";
+                let rawVendor = row[vendorIdx] ? String(row[vendorIdx]).trim() : "未記載";
+                let rawPrice = row[priceIdx] ? String(row[priceIdx]).trim() : "—";
+                let rawId = row[idIdx] ? String(row[idIdx]).trim() : String(fallbackId++);
+
+                let mappedCat = "行政辦公"; 
+                if (rawCat.match(/(語文|英語|本土語|人文|歷史|地理|藝術|音樂|社會)/)) mappedCat = "語文人文";
+                else if (rawCat.match(/(數理|自然|科學|數學|物理|化學|生物|地科|模擬實驗)/)) mappedCat = "數理自然";
+                else if (rawCat.match(/(科技|資訊|程式|積木|機器人|AI|人工智慧|機電|資安)/)) mappedCat = "科技資訊";
+                else if (rawCat.match(/(互動|管理|廣播|教學平台|IRS|即時反饋|班級|測驗|防護)/)) mappedCat = "課堂互動";
+                else if (rawCat.match(/(多媒體|影片|剪輯|音效|創客|3D|繪圖|電子書|圖庫|素材)/)) mappedCat = "多媒體";
+                else mappedCat = "行政辦公";
+
+                if (!isNaN(rawPrice) && rawPrice !== "") {
+                    rawPrice = "NT$ " + Number(rawPrice).toLocaleString();
+                }
+
+                softwareData.push({
+                    id: rawId,
+                    name: rawName,
+                    rawCategory: rawCat,
+                    category: mappedCat,
+                    vendor: rawVendor,
+                    price: rawPrice
+                });
+            }
+
+            selectCategory("全部");
+        }
+
+        // 渲染表格資料
+        function renderTable(data) {
+            const tbody = document.getElementById("softwareTableBody");
+            const matchCount = document.getElementById("matchCount");
+            tbody.innerHTML = "";
+            
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-400">查無相符的軟體資料。</td></tr>`;
+                matchCount.innerText = 0;
+                return;
+            }
+
+            const maxDisplay = 500;
+            const displayData = data.slice(0, maxDisplay);
+
+            displayData.forEach(item => {
+                const row = `
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="p-4 text-gray-500 font-mono">${item.id}</td>
+                        <td class="p-4 font-medium text-gray-900 max-w-sm break-words">${item.name}</td>
+                        <td class="p-4">
+                            <span class="block px-2 py-0.5 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 w-max mb-1">${item.category}</span>
+                            <span class="text-xs text-gray-400 block">${item.rawCategory}</span>
+                        </td>
+                        <td class="p-4 text-gray-600">${item.vendor}</td>
+                        <td class="p-4 font-mono text-emerald-600 font-bold">${item.price}</td>
+                    </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+
+            if (data.length > maxDisplay) {
+                const noticeRow = `<tr><td colspan="5" class="p-4 bg-yellow-50 text-center text-xs text-yellow-700 font-medium">⚠️ 提示：搜尋結果過多（共 ${data.length} 筆），上方已為您限制僅顯示前 ${maxDisplay} 筆，請輸入更精準的關鍵字縮小範圍。</td></tr>`;
+                tbody.insertAdjacentHTML('beforeend', noticeRow);
+            }
+
+            matchCount.innerText = data.length;
+        }
+
+        // 切換左側大類別
+        function selectCategory(cat) {
+            currentCategory = cat;
+            
+            const buttons = document.querySelectorAll("#categoryFilters button");
+            buttons.forEach(btn => {
+                if(btn.innerText.includes(cat) || (cat === "全部" && btn.innerText === "顯示全部")) {
+                    btn.className = "cat-btn w-full text-left px-3 py-2 rounded-md font-medium text-sm bg-blue-50 text-blue-700 font-bold";
+                } else {
+                    btn.className = "cat-btn w-full text-left px-3 py-2 rounded-md font-medium text-sm text-gray-600 hover:bg-gray-100";
+                }
+            });
+            
+            filterData();
+        }
+
+        // 核心複合篩選（分類 + 搜尋框）
+        function filterData() {
+            const keyword = document.getElementById("searchInput").value.toLowerCase().trim();
+            
+            const filtered = softwareData.filter(item => {
+                const matchesCategory = (currentCategory === "全部" || item.category === currentCategory);
+                const matchesKeyword = item.name.toLowerCase().includes(keyword) || 
+                                       item.vendor.toLowerCase().includes(keyword) ||
+                                       item.rawCategory.toLowerCase().includes(keyword);
+                return matchesCategory && matchesKeyword;
+            });
+            
+            renderTable(filtered);
+        }
+    </script>
+</body>
+</html>
