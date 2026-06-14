@@ -11,10 +11,10 @@ const lessons = [
     learning:"構造的形狀與位置，常和它能完成的工作有關。",
     taskType:"match",
     pairs:[
-      ["鳥的翅膀","拍動空氣幫助飛行"],
-      ["魚的鰭","游泳、轉向與保持平衡"],
-      ["鴨的腳蹼","增加推水面積"],
-      ["龜的外殼","遇到危險時保護身體"]
+      ["鳥的翅膀","拍動空氣幫助飛行","🪽","🌬️ ⬆️"],
+      ["魚的鰭","游泳、轉向與保持平衡","🐟","🌊 ↔️"],
+      ["鴨的腳蹼","增加推水面積","🦆","💧 〰️"],
+      ["龜的外殼","遇到危險時保護身體","🐢","🛡️"]
     ],
     correctFeedback:"太棒了！你是從構造推理功能，而不是只背動物名稱。",
     wrongFeedback:"再看看構造的形狀，想想它在水中、空中或遇到危險時能做什麼。",
@@ -32,10 +32,11 @@ const lessons = [
     learning:"適應要同時連結環境條件、身體構造和活動方式。",
     taskType:"classify",
     categories:["水中活動","陸地活動","空中活動"],
+    categoryIcons:["🌊","🌳","☁️"],
     items:[
-      ["流線形身體與鰭",0],["腳蹼與防水羽毛",0],
-      ["強壯後腿適合跳躍",1],["肉墊幫助行走",1],
-      ["翅膀與輕盈羽毛",2],["流線形翼面",2]
+      ["流線形身體與鰭",0,"🐟"],["腳蹼與防水羽毛",0,"🦆"],
+      ["強壯後腿適合跳躍",1,"🐇"],["肉墊幫助行走",1,"🐾"],
+      ["翅膀與輕盈羽毛",2,"🦅"],["流線形翼面",2,"🪽"]
     ],
     correctFeedback:"分類完成！構造是否有利，要放進實際環境中判斷。",
     wrongFeedback:"這張卡片最常幫助動物在哪一種環境移動？",
@@ -54,11 +55,11 @@ const lessons = [
     taskType:"multiSelect",
     question:"哪些是動物的生存策略？請選出全部正確答案。",
     options:[
-      ["體色和環境相似，降低被發現機會",true],
-      ["用硬殼或尖刺降低受傷",true],
-      ["醒目顏色警告可能有毒或危險",true],
-      ["任意改變天氣讓天敵消失",false],
-      ["快速逃跑、飛行或躲入洞中",true]
+      ["體色和環境相似，降低被發現機會",true,"🦎🍃"],
+      ["用硬殼或尖刺降低受傷",true,"🦔🛡️"],
+      ["醒目顏色警告可能有毒或危險",true,"🐸⚠️"],
+      ["任意改變天氣讓天敵消失",false,"🪄🌦️"],
+      ["快速逃跑、飛行或躲入洞中",true,"🐇💨"]
     ],
     correctFeedback:"全部找到了！藏、擋、嚇、逃，都是不同的生存方法。",
     wrongFeedback:"想想這個方法是否真的能讓動物降低被發現、受傷或被捕食的機會。",
@@ -76,9 +77,10 @@ const lessons = [
     learning:"天氣的影響和強度、時間、地點及活動有關，沒有絕對的好或壞。",
     taskType:"classify",
     categories:["可能帶來幫助","需要防範風險"],
+    categoryIcons:["🌱","⚠️"],
     items:[
-      ["雨水補充水庫",0],["晴天適合曬衣",0],["微風幫助通風",0],
-      ["豪雨可能造成淹水",1],["烈日可能造成晒傷",1],["強風可能吹落物品",1]
+      ["雨水補充水庫",0,"🌧️💧"],["晴天適合曬衣",0,"☀️👕"],["微風幫助通風",0,"🍃🏠"],
+      ["豪雨可能造成淹水",1,"🌧️🌊"],["烈日可能造成晒傷",1,"☀️🥵"],["強風可能吹落物品",1,"🌬️📦"]
     ],
     correctFeedback:"判斷正確！好的準備來自分析影響，不是只背天氣名稱。",
     wrongFeedback:"想想這個情況會提供需要的資源，還是可能造成安全問題。",
@@ -102,6 +104,7 @@ const lessons = [
       "眼睛平視酒精柱頂端",
       "記錄日期、時間、地點與攝氏讀值"
     ],
+    stepIcons:["🌳🌬️","🌡️👇","⏳🌡️","👁️↔️","📝°C"],
     correctFeedback:"流程修復完成！位置、工具、讀值與紀錄缺一不可。",
     wrongFeedback:"想想正式讀值前，工具要先放在哪裡、保持什麼狀態。",
     reward:"精準觀測晶章"
@@ -118,12 +121,18 @@ const lessons = [
     learning:"使用預報時要整合地區、時間、氣溫、降雨與風，並依風險調整計畫。",
     taskType:"multiSelect",
     question:"根據預報，哪些準備最合理？請選出全部正確答案。",
+    forecast:[
+      ["最高溫","31°C","☀️"],
+      ["降雨機率","70%","🌧️"],
+      ["午後天氣","雷雨","⛈️"],
+      ["風勢","強風","🌬️"]
+    ],
     options:[
-      ["準備飲水與遮陽用品",true],
-      ["攜帶雨具並準備室內備案",true],
-      ["午後雷雨時仍到空曠處活動",false],
-      ["固定容易被風吹動的物品",true],
-      ["活動前再次查看最新預報",true]
+      ["準備飲水與遮陽用品",true,"🥤🧢"],
+      ["攜帶雨具並準備室內備案",true,"☂️🏠"],
+      ["午後雷雨時仍到空曠處活動",false,"⛈️🏃"],
+      ["固定容易被風吹動的物品",true,"🪢📦"],
+      ["活動前再次查看最新預報",true,"📱🔄"]
     ],
     correctFeedback:"氣象決策成功！你已能把預報轉成具體、安全的生活行動。",
     wrongFeedback:"逐項對照高溫、降雨、雷電與強風，看看這個行動會降低還是增加風險。",
@@ -211,18 +220,25 @@ function taskProgress(l){
   if(l.taskType==="sequence")return taskState.order.length/l.steps.length*80;
   return 0;
 }
+function visual(icon,text){
+  return `<span class="visual-icon" aria-hidden="true">${icon||"🔎"}</span><span class="visual-text">${text}</span>`;
+}
+function forecastBoard(items){
+  if(!items)return "";
+  return `<section class="forecast-board" aria-label="明日天氣預報">${items.map(x=>`<div class="forecast-tile"><span aria-hidden="true">${x[2]}</span><small>${x[0]}</small><strong>${x[1]}</strong></div>`).join("")}</section>`;
+}
 function renderTask(){
   const l=lessons[current];
   let body="";
   if(l.taskType==="match"){
-    const right=l.pairs.map((p,i)=>({text:p[1],i})).sort((a,b)=>((a.i*7+3)%l.pairs.length)-((b.i*7+3)%l.pairs.length));
-    body=`<p>先點左邊的動物構造，再點右邊最適合的功能。</p><div class="match-area"><div class="match-col">${l.pairs.map((p,i)=>`<button class="match-btn ${taskState.left===i?"active":""} ${taskState.matched.includes(i)?"matched":""}" data-left="${i}">${p[0]}</button>`).join("")}</div><div class="match-col">${right.map(x=>`<button class="match-btn ${taskState.matched.includes(x.i)?"matched":""}" data-right="${x.i}">${x.text}</button>`).join("")}</div></div>`;
+    const right=l.pairs.map((p,i)=>({text:p[1],icon:p[3],i})).sort((a,b)=>((a.i*7+3)%l.pairs.length)-((b.i*7+3)%l.pairs.length));
+    body=`<p>觀察圖形：先點左邊的動物構造，再點右邊最適合的動作或功能。</p><div class="visual-legend"><span>身體構造</span><b>配對</b><span>動作與功能</span></div><div class="match-area"><div class="match-col">${l.pairs.map((p,i)=>`<button class="match-btn visual-card ${taskState.left===i?"active":""} ${taskState.matched.includes(i)?"matched":""}" data-left="${i}">${visual(p[2],p[0])}</button>`).join("")}</div><div class="match-col">${right.map(x=>`<button class="match-btn visual-card ${taskState.matched.includes(x.i)?"matched":""}" data-right="${x.i}">${visual(x.icon,x.text)}</button>`).join("")}</div></div>`;
   }
-  if(l.taskType==="classify")body=`<p>先選分類箱，再點選應放入的卡片。</p><div class="category-row">${l.categories.map((x,i)=>`<button class="category ${taskState.category===i?"active":""}" data-cat="${i}">${x}</button>`).join("")}</div><div class="task-grid">${l.items.map((x,i)=>`<button class="task-card ${taskState.done.includes(i)?"correct":""}" data-item="${i}">${x[0]}</button>`).join("")}</div>`;
-  if(l.taskType==="multiSelect")body=`<p>${l.question}</p><div class="task-grid">${l.options.map((x,i)=>`<button class="task-card ${taskState.selected.includes(i)?"selected":""}" data-option="${i}">${x[0]}</button>`).join("")}</div>`;
+  if(l.taskType==="classify")body=`<p>先選一個圖像分類箱，再點選應放入的卡片。</p><div class="category-row">${l.categories.map((x,i)=>`<button class="category ${taskState.category===i?"active":""}" data-cat="${i}"><span aria-hidden="true">${l.categoryIcons?.[i]||"📦"}</span>${x}</button>`).join("")}</div><div class="task-grid visual-grid">${l.items.map((x,i)=>`<button class="task-card visual-card ${taskState.done.includes(i)?"correct":""}" data-item="${i}">${visual(x[2],x[0])}</button>`).join("")}</div>`;
+  if(l.taskType==="multiSelect")body=`${forecastBoard(l.forecast)}<p>${l.question}</p><div class="task-grid visual-grid">${l.options.map((x,i)=>`<button class="task-card visual-card ${taskState.selected.includes(i)?"selected":""}" data-option="${i}">${visual(x[2],x[0])}</button>`).join("")}</div>`;
   if(l.taskType==="sequence"){
     const bank=l.steps.map((x,i)=>({x,i})).sort((a,b)=>((a.i*3+2)%l.steps.length)-((b.i*3+2)%l.steps.length));
-    body=`<p>依正確的實驗順序點選卡片。</p><img class="science-props" src="assets/science_props.png" alt="氣溫計、雨量筒、風向計與自然觀察工具"><div class="task-grid">${bank.map(v=>`<button class="task-card ${taskState.order.includes(v.i)?"correct":""}" data-step="${v.i}">${v.x}</button>`).join("")}</div><div class="sequence-list">${l.steps.map((_,i)=>`<div class="sequence-slot">${taskState.order[i]!==undefined?l.steps[taskState.order[i]]:""}</div>`).join("")}</div>`;
+    body=`<p>看圖判斷動作，依正確的實驗順序點選卡片。</p><img class="science-props" src="assets/science_props.png" alt="氣溫計、雨量筒、風向計與自然觀察工具"><div class="task-grid visual-grid">${bank.map(v=>`<button class="task-card visual-card ${taskState.order.includes(v.i)?"correct":""}" data-step="${v.i}">${visual(l.stepIcons[v.i],v.x)}</button>`).join("")}</div><div class="sequence-list">${l.steps.map((_,i)=>`<div class="sequence-slot">${taskState.order[i]!==undefined?`${l.stepIcons[taskState.order[i]]} ${l.steps[taskState.order[i]]}`:""}</div>`).join("")}</div>`;
   }
   app.innerHTML=taskShell(body);bindTask();
 }
