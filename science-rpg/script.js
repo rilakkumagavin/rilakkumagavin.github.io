@@ -1,142 +1,130 @@
 const lessons = [
   {
-    id:"stage1", title:"第一關：森之構造圖鑑", subtitle:"動物構造與功能",
-    background:"assets/stage1_bg.png", npc:"assets/npc_science_teacher.png", badge:"assets/badge_stage1.png",
-    mapPosition:[25,38],
-    dialogues:[
-      "歡迎來到森語天候王國！我是自然導師露米。",
-      "動物圖鑑的構造頁被魔風吹散了。翅膀、鰭、腳蹼和外殼都找不到自己的功能。",
-      "先觀察構造的形狀，再想想它如何幫助動物運動或保護自己。"
+    id:"stage1",chapter:1,title:"第1關：動物圖鑑啟動",subtitle:"先觀察，再命名",background:"assets/stage1_bg.png",npc:"assets/npc_science_teacher.png",badge:"assets/badge_stage1.png",reward:"觀察徽章",rewardIcon:"🔎",
+    dialogues:["森林圖鑑失去動物資料了！","先別急著分類，真正的解說員會先說出「我看到了什麼」。","觀察外形、辨認名稱，再完成第一張動物觀察卡。"],
+    learning:"觀察要先看外形，再用看到的證據說明。",
+    taskType:"guidedQuiz",
+    questions:[
+      {icon:"🦆",prompt:"這隻動物有扁嘴、羽毛和腳蹼，牠是誰？",options:["兔子","鴨子","蜥蜴","蚯蚓"],answer:1,explain:"扁嘴、羽毛和腳蹼是鴨子的外形線索。"},
+      {icon:"🦆🔍",prompt:"觀察鴨子，可以直接看到哪些特徵？",options:["有羽毛和兩隻腳","會預測明天天氣","最喜歡的食物","出生日期"],answer:0,explain:"外形特徵是眼睛可以直接觀察到的證據。"},
+      {icon:"🪶🦶",prompt:"哪一份紀錄最像科學觀察？",options:["牠很可愛","我猜牠跑很快","牠有羽毛、扁嘴和腳蹼","牠一定每天游泳"],answer:2,explain:"科學觀察要記下真正看到的特徵。"}
     ],
-    learning:"構造的形狀與位置，常和它能完成的工作有關。",
+    hints:["再仔細看圖中的嘴、羽毛和腳。","選擇眼睛能直接看到的特徵。","扁嘴、羽毛、腳蹼都是重要線索。"],
+    misconception:"觀察不是猜測。先記下看到的外形，再進一步推理。",
+    summary:"我學會了：觀察動物時，要先記錄真正看到的外形特徵。"
+  },
+  {
+    id:"stage2",chapter:1,title:"第2關：身體構造標記挑戰",subtitle:"頭、軀幹、肢與尾巴",background:"assets/stage1_bg.png",npc:"assets/npc_science_teacher.png",badge:"assets/badge_stage2.png",reward:"構造徽章",rewardIcon:"🧩",
+    dialogues:["動物醫生需要一張清楚的身體構造圖。","頭、軀幹和肢是常見的主要構造，不同動物還有翅膀、鰭和尾巴。","請依圖中的位置完成標記。"],
+    learning:"構造名稱要和它在身體上的位置連起來。",
+    taskType:"guidedQuiz",
+    questions:[
+      {icon:"🐇 ①頭 ②身體 ③腳 ④尾",prompt:"兔子的腳屬於哪一類主要構造？",options:["頭","軀幹","肢","尾巴"],answer:2,explain:"兔子的四肢連接軀幹，幫助行走和跳躍。"},
+      {icon:"🐦🪽",prompt:"鳥的翅膀可以看成特別的哪一類構造？",options:["肢","頭","軀幹","嘴"],answer:0,explain:"翅膀是鳥類特化的前肢，可以幫助飛行。"},
+      {icon:"🐟〰️",prompt:"魚身上幫助游泳、轉向和平衡的構造是？",options:["毛","鰭","腳蹼","翅膀"],answer:1,explain:"魚的鰭長在軀幹周圍，能幫助游泳與轉向。"}
+    ],
+    hints:["看看這個構造長在身體哪個位置。","想想它是連接軀幹、幫助移動的部分嗎？","翅膀是前肢，鰭則是魚的重要運動構造。"],
+    misconception:"翅膀不是裝飾，它也是鳥類的肢，具有飛行功能。",
+    summary:"我學會了：動物常有頭、軀幹和肢，還可能有翅膀、鰭或尾巴。"
+  },
+  {
+    id:"stage3",chapter:1,title:"第3關：構造功能配對戰",subtitle:"把正確裝備交給動物",background:"assets/stage2_bg.png",npc:"assets/npc_science_teacher.png",badge:"assets/badge_stage3.png",reward:"功能徽章",rewardIcon:"⚙️",
+    dialogues:["森林道路被構造封印擋住了。","每一種構造都有工作，不是只長得不一樣。","把正確的構造裝備和功能配對，動物才能前進。"],
+    learning:"動物的身體構造具有功能，能幫助移動、攀爬或保護。",
     taskType:"match",
     pairs:[
-      ["鳥的翅膀","拍動空氣幫助飛行","🪽","🌬️ ⬆️"],
-      ["魚的鰭","游泳、轉向與保持平衡","🐟","🌊 ↔️"],
-      ["鴨的腳蹼","增加推水面積","🦆","💧 〰️"],
-      ["龜的外殼","遇到危險時保護身體","🐢","🛡️"]
+      ["魚的鰭","幫助游泳與轉向","🐟","🌊↔️"],["鳥的翅膀","幫助飛行","🪽","☁️⬆️"],["鴨腳的蹼","增加推水面積","🦆","💧〰️"],
+      ["貓腳的肉墊","減輕衝擊與腳步聲","🐾","🔇"],["樹蛙腳的吸盤","吸附葉片或樹枝","🐸","🍃🧲"],["蜥蜴的爪子","抓住表面幫助攀爬","🦎","🧗"]
     ],
-    correctFeedback:"太棒了！你是從構造推理功能，而不是只背動物名稱。",
-    wrongFeedback:"再看看構造的形狀，想想它在水中、空中或遇到危險時能做什麼。",
-    reward:"構造功能晶章"
+    hints:["先觀察構造的形狀。","想想這個形狀如何幫助動物移動。","蹼推水、吸盤吸附、肉墊減輕衝擊。"],
+    misconception:"構造不是裝飾；形狀、位置和功能會互相配合。",
+    summary:"我學會了：不同身體構造有不同功能，能幫助動物活動。"
   },
   {
-    id:"stage2", title:"第二關：三界棲地之門", subtitle:"構造與環境適應",
-    background:"assets/stage2_bg.png", npc:"assets/npc_science_teacher.png", badge:"assets/badge_stage2.png",
-    mapPosition:[50,24],
-    dialogues:[
-      "前方是水域、陸地與天空交會的三界之門。",
-      "動物不是住在哪裡都一樣方便；身體構造要能配合環境。",
-      "請把構造線索送回最適合發揮作用的環境。"
-    ],
-    learning:"適應要同時連結環境條件、身體構造和活動方式。",
-    taskType:"classify",
-    categories:["水中活動","陸地活動","空中活動"],
-    categoryIcons:["🌊","🌳","☁️"],
-    items:[
-      ["流線形身體與鰭",0,"🐟"],["腳蹼與防水羽毛",0,"🦆"],
-      ["強壯後腿適合跳躍",1,"🐇"],["肉墊幫助行走",1,"🐾"],
-      ["翅膀與輕盈羽毛",2,"🦅"],["流線形翼面",2,"🪽"]
-    ],
-    correctFeedback:"分類完成！構造是否有利，要放進實際環境中判斷。",
-    wrongFeedback:"這張卡片最常幫助動物在哪一種環境移動？",
-    reward:"棲地適應晶章"
+    id:"stage4",chapter:1,title:"第4關：動物住哪裡",subtitle:"構造與生活環境",background:"assets/stage2_bg.png",npc:"assets/npc_science_teacher.png",badge:"assets/badge_stage4.png",reward:"環境徽章",rewardIcon:"🏞️",
+    dialogues:["森林、池塘、泥土和樹上的入口混在一起了。","動物適合的環境，常和牠的構造及移動方式有關。","請幫動物回家，並讀出牠適合這裡的理由。"],
+    learning:"判斷棲地時，要把環境、構造與活動方式一起思考。",
+    taskType:"classify",categories:["水中","水邊","土裡","樹上","陸地"],categoryIcons:["🌊","🏞️","🟫","🌳","🌿"],
+    items:[["魚：用鰭游泳",0,"🐟"],["鴨：腳蹼可划水",1,"🦆"],["青蛙：可在水邊活動",1,"🐸"],["蚯蚓：柔軟身體能鑽動",2,"🪱"],["鳥：腳爪能抓住樹枝",3,"🐦"],["樹蛙：吸盤可吸附葉片",3,"🐸🍃"],["兔：強壯後腿在地面跳躍",4,"🐇"],["狗：四肢適合地面行走",4,"🐕"]],
+    hints:["先看環境中有水、土或樹嗎？","再看動物用什麼構造移動。","鴨有蹼適合水邊；蚯蚓柔軟，適合土裡。"],
+    misconception:"不是每種動物都能住在任何地方；構造要能配合環境。",
+    summary:"我學會了：動物的構造和生活環境有關。"
   },
   {
-    id:"stage3", title:"第三關：隱身草原", subtitle:"動物的生存法寶",
-    background:"assets/stage3_bg.png", npc:"assets/npc_science_teacher.png", badge:"assets/badge_stage3.png",
-    mapPosition:[73,39],
-    dialogues:[
-      "隱身草原的守護光消失了，動物們需要找回自己的保護方法。",
-      "有些動物藏起來，有些用硬殼防禦，也有些用醒目顏色發出警告。",
-      "請找出所有真正能幫助動物生存的策略。"
+    id:"stage5",chapter:1,title:"第5關：生存法寶迷宮",subtitle:"找出藏在環境中的動物",background:"assets/stage3_bg.png",npc:"assets/npc_science_teacher.png",badge:"assets/badge_stage5.png",reward:"保護徽章",rewardIcon:"🛡️",
+    dialogues:["迷宮裡有天敵出沒，許多動物藏進環境中了。","有些顏色用來隱藏，有些鮮豔顏色則是警告。","找出牠們，再說明這種外形如何幫助生存。"],
+    learning:"身體顏色或形態可能幫助躲藏、捕食或警告敵人。",
+    taskType:"guidedQuiz",
+    questions:[
+      {icon:"🌳🦎",prompt:"蜥蜴的顏色和樹幹相似，最可能帶來什麼好處？",options:["比較不容易被發現","一定能控制風向","會長出腳蹼","可以測量雨量"],answer:0,explain:"顏色和環境相似能降低被天敵發現的機會。"},
+      {icon:"🍃🐸",prompt:"綠色樹蛙躲在葉片上，運用的是哪種生存方法？",options:["警告色","保護色","群體合作","改變天氣"],answer:1,explain:"綠色身體和葉片相似，是保護色。"},
+      {icon:"🐸⚠️",prompt:"某些有毒動物顏色鮮豔，可能是在做什麼？",options:["警告掠食者不要靠近","讓自己完全隱形","測量氣溫","增加划水面積"],answer:0,explain:"鮮豔顏色可能是警告訊號，不一定是為了好看。"}
     ],
-    learning:"動物可能同時利用隱藏、防禦、警告、逃生與群體合作。",
-    taskType:"multiSelect",
-    question:"哪些是動物的生存策略？請選出全部正確答案。",
-    options:[
-      ["體色和環境相似，降低被發現機會",true,"🦎🍃"],
-      ["用硬殼或尖刺降低受傷",true,"🦔🛡️"],
-      ["醒目顏色警告可能有毒或危險",true,"🐸⚠️"],
-      ["任意改變天氣讓天敵消失",false,"🪄🌦️"],
-      ["快速逃跑、飛行或躲入洞中",true,"🐇💨"]
-    ],
-    correctFeedback:"全部找到了！藏、擋、嚇、逃，都是不同的生存方法。",
-    wrongFeedback:"想想這個方法是否真的能讓動物降低被發現、受傷或被捕食的機會。",
-    reward:"生存法寶晶章"
+    hints:["先比較動物和背景的顏色。","相似顏色常用來躲藏；鮮豔顏色可能是警告。","樹蛙的綠色是保護色，有毒動物的鮮色可能是警告色。"],
+    misconception:"動物顏色不只是好看，也可能幫助躲藏或警告敵人。",
+    summary:"我學會了：動物的顏色和形態能成為保護自己的生存法寶。"
   },
   {
-    id:"stage4", title:"第四關：晴雨生活村", subtitle:"天氣對生活的影響",
-    background:"assets/stage4_bg.png", npc:"assets/npc_science_teacher.png", badge:"assets/badge_stage4.png",
-    mapPosition:[70,68],
-    dialogues:[
-      "晴雨生活村把天氣簡單分成好天氣和壞天氣，結果準備常常出錯。",
-      "同一種天氣可能帶來幫助，也可能需要防範。",
-      "請依實際影響分類，不要只看晴天或雨天的名稱。"
+    id:"stage6",chapter:2,title:"第6關：今日天氣觀察站",subtitle:"太陽、雲、雨、風與冷熱",background:"assets/stage4_bg.png",npc:"assets/npc_science_teacher.png",badge:"assets/badge_stage6.png",reward:"天氣觀察徽章",rewardIcon:"🌦️",
+    dialogues:["天候王國的天氣水晶失去今日資料了。","天氣不只看晴或雨，還要觀察太陽、雲、風和身體的冷熱感覺。","恢復觀測資料，並選出適合的生活行動。"],
+    learning:"綜合太陽、雲、雨、風和冷熱，才能描述天氣。",
+    taskType:"guidedQuiz",
+    questions:[
+      {icon:"☀️☁️🍃",prompt:"天空有太陽、雲少，樹葉微微飄動。哪個描述最完整？",options:["晴天、有微風","只知道很熱","一定會下豪雨","完全沒有天氣"],answer:0,explain:"太陽、雲量和樹葉飄動都能提供天氣線索。"},
+      {icon:"☀️🥵",prompt:"晴朗炎熱時，戶外活動最需要什麼？",options:["補充水分並遮陽","穿厚外套跑步","站在大太陽下不休息","不用注意身體感覺"],answer:0,explain:"炎熱時要補充水分、遮陽並適度休息。"},
+      {icon:"🌬️🧥",prompt:"風變大、身體覺得涼時，可以怎麼做？",options:["增加合適衣物","把物品放到風口","完全不理會","只看太陽不看風"],answer:0,explain:"風和冷熱感覺會影響穿著與生活安排。"}
     ],
-    learning:"天氣的影響和強度、時間、地點及活動有關，沒有絕對的好或壞。",
-    taskType:"classify",
-    categories:["可能帶來幫助","需要防範風險"],
-    categoryIcons:["🌱","⚠️"],
-    items:[
-      ["雨水補充水庫",0,"🌧️💧"],["晴天適合曬衣",0,"☀️👕"],["微風幫助通風",0,"🍃🏠"],
-      ["豪雨可能造成淹水",1,"🌧️🌊"],["烈日可能造成晒傷",1,"☀️🥵"],["強風可能吹落物品",1,"🌬️📦"]
-    ],
-    correctFeedback:"判斷正確！好的準備來自分析影響，不是只背天氣名稱。",
-    wrongFeedback:"想想這個情況會提供需要的資源，還是可能造成安全問題。",
-    reward:"天氣影響晶章"
+    hints:["看看天空，也看看樹葉或旗子。","把觀察到的天氣和生活選擇連起來。","炎熱要補水遮陽，風大或涼冷要調整衣物。"],
+    misconception:"判斷天氣不能只看太陽，還要觀察雲、雨、風和冷熱。",
+    summary:"我學會了：觀察太陽、雲、雨、風和冷熱，可以知道天氣狀況。"
   },
   {
-    id:"stage5", title:"第五關：雲頂觀測塔", subtitle:"正確觀測天氣",
-    background:"assets/stage5_bg.png", npc:"assets/npc_science_teacher.png", badge:"assets/badge_stage5.png",
-    mapPosition:[43,70],
-    dialogues:[
-      "觀測塔的氣溫紀錄互相矛盾，因為研究員使用工具的方法不同。",
-      "科學資料要能比較，觀測位置、操作方法和紀錄都必須正確。",
-      "請重建氣溫觀測流程，讓資料恢復可信度。"
-    ],
-    learning:"公平觀測要使用合適工具，保持條件一致，並留下完整紀錄。",
+    id:"stage7",chapter:2,title:"第7關：氣溫計訓練所",subtitle:"正確測量一天氣溫",background:"assets/stage5_bg.png",npc:"assets/npc_science_teacher.png",badge:"assets/badge_stage1.png",reward:"測量徽章",rewardIcon:"🌡️",
+    dialogues:["小主播的氣溫紀錄不準確，預報差點出錯。","測量地點、拿法、等待和讀值方式都會影響結果。","請重建正確流程。"],
+    learning:"氣溫計要放在陰涼通風處，等待穩定並平視讀值。",
     taskType:"sequence",
-    steps:[
-      "選擇陰涼通風、不受太陽直射的位置",
-      "讓液囊朝下，手不要碰液囊",
-      "等待酒精柱穩定",
-      "眼睛平視酒精柱頂端",
-      "記錄日期、時間、地點與攝氏讀值"
-    ],
-    stepIcons:["🌳🌬️","🌡️👇","⏳🌡️","👁️↔️","📝°C"],
-    correctFeedback:"流程修復完成！位置、工具、讀值與紀錄缺一不可。",
-    wrongFeedback:"想想正式讀值前，工具要先放在哪裡、保持什麼狀態。",
-    reward:"精準觀測晶章"
+    steps:["選擇陰涼通風、不受太陽直射的位置","讓液囊朝下，手不要碰液囊","等待酒精柱穩定","眼睛平視酒精柱頂端","記錄上午、中午、下午的時間與氣溫"],
+    stepIcons:["🌳🌬️","🌡️👇","⏳🌡️","👁️↔️","📝🕒"],
+    hints:["先選不受太陽直接照射的位置。","工具放好後要等待數值穩定。","陰涼通風、別碰液囊、等待、平視、完整記錄。"],
+    misconception:"太陽直射或手碰液囊都可能讓氣溫讀值不準。",
+    summary:"我學會了：正確測量氣溫要選對地點、拿對工具、平視並記錄。"
   },
   {
-    id:"stage6", title:"第六關：氣象水晶塔", subtitle:"應用氣象資訊",
-    background:"assets/stage6_bg.png", npc:"assets/npc_science_teacher.png", badge:"assets/badge_stage6.png",
-    mapPosition:[18,69],
-    dialogues:[
-      "最後一座水晶塔顯示：明日最高31℃、降雨機率70%，午後可能雷雨並有強風。",
-      "預報不是只看一個圖示，要先確認地區和時間，再整合溫度、雨和風。",
-      "請選出適合明日校外活動的所有準備。"
+    id:"stage8",chapter:2,title:"第8關：雲量與雨量實驗室",subtitle:"選工具、地點與讀值",background:"assets/stage5_bg.png",npc:"assets/npc_science_teacher.png",badge:"assets/badge_stage2.png",reward:"雨量徽章",rewardIcon:"🌧️",
+    dialogues:["雨量精靈收到的資料忽高忽低。","原來有人把容器放在屋簷和樹下，雨水被擋住了。","請選出正確工具與空曠地點。"],
+    learning:"雨量要在空曠處用平底直筒容器收集，再測量雨水高度。",
+    taskType:"guidedQuiz",
+    questions:[
+      {icon:"🌧️🥤",prompt:"哪一種容器最適合收集並比較雨量？",options:["平底直筒容器","寬口淺盤","有洞的籃子","形狀不規則的袋子"],answer:0,explain:"平底直筒容器的粗細一致，方便用水高比較雨量。"},
+      {icon:"🌳🏠🌧️",prompt:"哪個地點最適合放雨量容器？",options:["屋簷下","大樹下","空曠草地","司令臺內"],answer:2,explain:"空曠處較不會被屋簷、樹葉或建築物遮擋雨水。"},
+      {icon:"📏💧",prompt:"收集雨水後，要用什麼表示雨量？",options:["雨水顏色","容器重量名稱","雨水高度","天空亮度"],answer:2,explain:"可以測量容器中雨水的高度來表示雨量。"}
     ],
-    learning:"使用預報時要整合地區、時間、氣溫、降雨與風，並依風險調整計畫。",
-    taskType:"multiSelect",
-    question:"根據預報，哪些準備最合理？請選出全部正確答案。",
-    forecast:[
-      ["最高溫","31°C","☀️"],
-      ["降雨機率","70%","🌧️"],
-      ["午後天氣","雷雨","⛈️"],
-      ["風勢","強風","🌬️"]
+    hints:["先看容器底部和側面是否規則。","想想哪裡不會被屋簷、樹葉擋雨。","平底直筒容器放在空曠處，再量雨水高度。"],
+    misconception:"屋簷和樹葉會擋住雨水，在下面測到的雨量不準。",
+    summary:"我學會了：測量雨量要在空曠處使用平底直筒容器。"
+  },
+  {
+    id:"stage9",chapter:2,title:"第9關：風向風力偵查隊",subtitle:"風從哪裡來？",background:"assets/stage6_bg.png",npc:"assets/npc_science_teacher.png",badge:"assets/badge_stage3.png",reward:"風力徽章",rewardIcon:"🧭",
+    dialogues:["風之龍捲把方向線索吹亂了。","記住：風向是風吹來的方向，不是紙條飄去的方向。","觀察紙條位置，找出風向與風力。"],
+    learning:"紙條飄動的相反方向是風向；飄得越高通常表示風越強。",
+    taskType:"guidedQuiz",
+    questions:[
+      {icon:"西 ➜ 🎏 ➜ 東",prompt:"紙條向東飄，風是從哪裡吹來？",options:["東風","西風","南風","無風"],answer:1,explain:"紙條往東飄，表示風從西方吹來，所以是西風。"},
+      {icon:"🎏⬆️📍",prompt:"紙條飄得高於強風記號，表示什麼？",options:["無風","弱風","強風","正在下雨"],answer:2,explain:"紙條被吹得越高，表示風力越強。"},
+      {icon:"📅📍🕒🧭",prompt:"哪一份風的紀錄最完整？",options:["今天有風","西風","6月14日、操場、10點、西風、弱風","紙條很好看"],answer:2,explain:"完整紀錄要包含日期、地點、時間、風向和風力。"}
     ],
-    options:[
-      ["準備飲水與遮陽用品",true,"🥤🧢"],
-      ["攜帶雨具並準備室內備案",true,"☂️🏠"],
-      ["午後雷雨時仍到空曠處活動",false,"⛈️🏃"],
-      ["固定容易被風吹動的物品",true,"🪢📦"],
-      ["活動前再次查看最新預報",true,"📱🔄"]
-    ],
-    correctFeedback:"氣象決策成功！你已能把預報轉成具體、安全的生活行動。",
-    wrongFeedback:"逐項對照高溫、降雨、雷電與強風，看看這個行動會降低還是增加風險。",
-    reward:"氣象應用晶章"
+    hints:["不要只看紙條飄去哪裡。","風向是風吹來的方向，所以要看相反邊。","紙條往東飄是西風；位置越高，風力越強。"],
+    misconception:"紙條向東飄不是東風；風向要用風吹來的方向命名。",
+    summary:"我學會了：紙條飄動方向的相反方向才是風向。"
+  },
+  {
+    id:"stage10",chapter:2,title:"第10關：天氣小主播總挑戰",subtitle:"整理資料並完成播報",background:"assets/stage6_bg.png",npc:"assets/npc_science_teacher.png",badge:"assets/badge_stage4.png",reward:"預報徽章",rewardIcon:"🎙️",
+    dialogues:["最後試煉是把觀測資料整理成大家聽得懂的播報。","一份完整紀錄要有日期、地點、時間、天氣、氣溫、風向和風力。","選擇資料並產生你的天氣播報稿。"],
+    learning:"整理完整觀測資料，才能清楚分享天氣並提出生活提醒。",
+    taskType:"broadcast",
+    hints:["先把日期、地點和時間補完整。","再加入天氣、氣溫、風向和風力。","最後根據天氣選擇合適的生活提醒。"],
+    misconception:"只說晴天還不夠；完整播報需要時間、地點與多項觀測資料。",
+    summary:"我學會了：整理觀測紀錄，可以完成清楚又有用的天氣播報。"
   }
 ];
 
@@ -269,15 +257,15 @@ const finalQuiz = [
 ];
 
 const conceptInfo = {
-  structure:{title:"動物構造與功能",icon:"🪽",stage:0,review:"回到第一關，練習從形狀推理翅膀、鰭、腳蹼與外殼的工作。"},
-  habitat:{title:"構造與環境適應",icon:"🌊",stage:1,review:"回到第二關，把身體構造放進水中、陸地與空中情境判斷。"},
-  survival:{title:"動物生存策略",icon:"🛡️",stage:2,review:"回到第三關，比較隱藏、防禦、警告與逃生策略。"},
-  weatherImpact:{title:"天氣與生活影響",icon:"🌦️",stage:3,review:"回到第四關，分析天氣強度、時間、地點與風險。"},
-  observation:{title:"正確觀測與紀錄",icon:"🌡️",stage:4,review:"回到第五關，重建位置、等待、平視與紀錄流程。"},
-  forecast:{title:"氣象資訊應用",icon:"⛈️",stage:5,review:"回到第六關，把氣溫、降雨、雷電與風轉成安全行動。"}
+  structure:{title:"動物構造與功能",icon:"🪽",stage:2,review:"回到第3關，練習把鰭、翅膀、蹼、肉墊、吸盤和爪子連到功能。"},
+  habitat:{title:"構造與環境適應",icon:"🌊",stage:3,review:"回到第4關，把動物的構造、移動方式和生活環境連起來。"},
+  survival:{title:"動物生存策略",icon:"🛡️",stage:4,review:"回到第5關，比較保護色、警告色和防禦方式。"},
+  weatherImpact:{title:"天氣與生活影響",icon:"🌦️",stage:5,review:"回到第6關，綜合太陽、雲、雨、風和冷熱做生活決定。"},
+  observation:{title:"正確觀測與紀錄",icon:"🌡️",stage:6,review:"回到第7至9關，練習氣溫、雨量、風向風力的正確觀測。"},
+  forecast:{title:"氣象資訊應用",icon:"⛈️",stage:9,review:"回到第10關，把完整觀測資料整理成天氣播報與提醒。"}
 };
 
-const STORAGE_KEY="forest-weather-rpg-v1";
+const STORAGE_KEY="forest-weather-rpg-v2";
 let state=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{"completed":[]}');
 if(!Array.isArray(state.completed))state.completed=[];
 if(state.quizResult&&state.quizResult.total!==finalQuiz.length)delete state.quizResult;
@@ -285,9 +273,17 @@ let screen="map",current=0,dialogIndex=0,typeTimer=null,typingDone=true,activeDi
 const app=document.getElementById("app");
 
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+function currentTitle(){
+  const n=state.completed.length;
+  if(n>=10)return "森語天候王國守護者";
+  if(n>=8)return "天氣小主播";
+  if(n>=5)return "初級天氣觀測員";
+  if(n>=2)return "森林動物解說員";
+  return "初級動物觀察員";
+}
 function topbar(){
-  const badges=lessons.filter(x=>state.completed.includes(x.id)).map(x=>`<img src="${x.badge}" alt="${x.reward}">`).join("");
-  return `<header class="topbar"><div class="brand"><span class="brand-mark">🔬</span><div><b>森語天候王國</b><small>自然科 RPG 冒險</small><span class="designer-credit">設計者：Gavin Huang</span></div></div><div class="progress-card"><span>晶章 ${state.completed.length}/${lessons.length}</span><div class="mini-badges">${badges}</div></div></header>`;
+  const badges=lessons.filter(x=>state.completed.includes(x.id)).map(x=>`<span title="${x.reward}">${x.rewardIcon}</span>`).join("");
+  return `<header class="topbar"><div class="brand"><span class="brand-mark">🔬</span><div><b>森語天候王國</b><small>${currentTitle()}</small><span class="designer-credit">設計者：Gavin Huang</span></div></div><div class="progress-card"><span>任務 ${state.completed.length}/${lessons.length}</span><div class="mini-badges">${badges}</div></div></header>`;
 }
 function render(){
   clearInterval(typeTimer);
@@ -299,15 +295,22 @@ function render(){
   if(screen==="quizIntro")renderQuizIntro();
   if(screen==="quiz")renderQuiz();
   if(screen==="diagnosis")renderDiagnosis();
+  if(screen==="portfolio")renderPortfolio();
   if(screen==="ending")renderEnding();
 }
 function renderMap(){
   const allDone=state.completed.length===lessons.length;
-  app.innerHTML=topbar()+`<main class="map-screen"><section class="map-frame"><img src="assets/map_main.png" alt="森語天候王國冒險地圖"><div class="map-title"><h1>六枚自然晶章</h1><p>跟隨露米老師，修復動物領域與天氣領域。每完成一關，就能取回一枚晶章。</p></div>${lessons.map((l,i)=>`<button class="stage-node ${state.completed.includes(l.id)?"done":""}" style="left:${l.mapPosition[0]}%;top:${l.mapPosition[1]}%" data-stage="${i}"><span class="check">✓ </span>${l.title}<small>${l.subtitle}</small></button>`).join("")}<img class="hero-on-map" src="assets/hero_student.png" alt="自然見習巡護員"></section><div class="map-actions">${allDone?`<button class="main-btn" id="startFinalQuiz">開始總測驗與離線診斷</button>${state.quizResult?`<button class="soft-btn" id="seeDiagnosis">查看上次診斷</button>`:""}`:""}<button class="soft-btn" id="resetGame">重新開始</button></div></main>`;
-  document.querySelectorAll("[data-stage]").forEach(b=>b.onclick=()=>startStage(+b.dataset.stage));
+  const chapter=(number,title,subtitle)=>`<section class="chapter-panel chapter-${number}"><div class="chapter-heading"><span>第 ${number} 章</span><div><h2>${title}</h2><p>${subtitle}</p></div></div><div class="chapter-stages">${lessons.map((l,i)=>{
+    if(l.chapter!==number)return "";
+    const done=state.completed.includes(l.id),unlocked=i===0||state.completed.includes(lessons[i-1].id);
+    return `<button class="chapter-stage ${done?"done":""} ${unlocked?"":"locked"}" data-stage="${i}" ${unlocked?"":"disabled"}><span class="stage-number">${done?"✓":i+1}</span><span><b>${l.title.replace(/^第\d+關：/,"")}</b><small>${unlocked?l.subtitle:"完成上一關後解鎖"}</small></span><em>${l.rewardIcon}</em></button>`;
+  }).join("")}</div></section>`;
+  app.innerHTML=topbar()+`<main class="map-screen"><section class="adventure-map"><img class="adventure-bg" src="assets/map_main.png" alt="森語天候王國冒險地圖"><div class="map-title"><h1>學會後才能闖關</h1><p>每關先觀察與操作，再說明理由。完成學習總結後，下一關才會解鎖。</p></div><div class="chapter-grid">${chapter(1,"動物森林調查隊","第3單元：我是動物解說員")}${chapter(2,"天候王國觀測員","第4單元：天氣變變變")}</div><img class="hero-on-map" src="assets/hero_student.png" alt="自然見習巡護員"></section><div class="map-actions">${allDone?`<button class="main-btn" id="startFinalQuiz">開始25題總測驗與離線診斷</button><button class="soft-btn" id="seePortfolio">查看我的成果卡</button>${state.quizResult?`<button class="soft-btn" id="seeDiagnosis">查看上次診斷</button>`:""}`:""}<button class="soft-btn" id="resetGame">重新開始</button></div></main>`;
+  document.querySelectorAll("[data-stage]:not(:disabled)").forEach(b=>b.onclick=()=>startStage(+b.dataset.stage));
   document.getElementById("resetGame").onclick=()=>{if(confirm("要清除所有晶章並重新開始嗎？")){state={completed:[]};save();render()}};
   if(allDone){
     document.getElementById("startFinalQuiz").onclick=()=>{screen="quizIntro";render()};
+    document.getElementById("seePortfolio").onclick=()=>{screen="portfolio";render()};
     if(state.quizResult)document.getElementById("seeDiagnosis").onclick=()=>{screen="diagnosis";render()};
   }
 }
@@ -349,20 +352,26 @@ function finishTyping(){
 }
 function prepareTask(){
   const l=lessons[current];
-  if(l.taskType==="match")taskState={left:null,matched:[]};
-  if(l.taskType==="classify")taskState={category:null,done:[]};
-  if(l.taskType==="multiSelect")taskState={selected:[]};
-  if(l.taskType==="sequence")taskState={order:[]};
+  const base={hintLevel:0,message:"先觀察畫面，再開始操作。",messageBad:false};
+  if(l.taskType==="guidedQuiz")taskState={...base,question:0,answers:[],resolved:false};
+  if(l.taskType==="match")taskState={...base,left:null,matched:[]};
+  if(l.taskType==="classify")taskState={...base,category:null,done:[]};
+  if(l.taskType==="multiSelect")taskState={...base,selected:[]};
+  if(l.taskType==="sequence")taskState={...base,order:[]};
+  if(l.taskType==="broadcast")taskState={...base,broadcast:{date:"6月14日",place:"操場",time:"上午10點",weather:"晴天",temp:"30℃",windDir:"西南風",windForce:"弱風",reminder:"天氣炎熱，戶外活動要補充水分。"}};
 }
 function taskShell(body){
   const l=lessons[current],progress=taskProgress(l);
-  return scene(`<section class="task-panel"><h2>${l.title}</h2><p><strong>學習祕訣：</strong>${l.learning}</p>${body}<div class="feedback" id="feedback">依照任務說明完成挑戰。</div><div class="task-footer"><button class="soft-btn" id="backMap">回地圖</button><div class="task-meter"><span style="width:${progress}%"></span></div><button class="main-btn" id="checkTask">檢查答案</button></div></section>`);
+  const hint=taskState.hintLevel?l.hints[Math.min(taskState.hintLevel-1,l.hints.length-1)]:"";
+  return scene(`<section class="task-panel"><div class="task-kicker">任務流程：觀察 → 操作 → 判斷 → 說明理由</div><h2>${l.title}</h2><p><strong>學習祕訣：</strong>${l.learning}</p>${body}<div class="hint-box ${hint?"show":""}" id="hintBox">${hint?`💡 提示 ${taskState.hintLevel}：${hint}`:"需要幫忙時，可以逐層查看提示。"}</div><div class="feedback ${taskState.messageBad?"bad":""}" id="feedback">${taskState.message}</div><div class="task-footer"><button class="soft-btn" id="backMap">回地圖</button><button class="hint-btn" id="showHint">提示 ${Math.min(taskState.hintLevel+1,3)}/3</button><div class="task-meter"><span style="width:${progress}%"></span></div><button class="main-btn" id="checkTask">${l.taskType==="guidedQuiz"&&!taskState.resolved?"檢查這一題":"完成任務"}</button></div></section>`);
 }
 function taskProgress(l){
+  if(l.taskType==="guidedQuiz")return (taskState.answers.length+(taskState.resolved?1:0))/l.questions.length*100;
   if(l.taskType==="match")return taskState.matched.length/l.pairs.length*100;
   if(l.taskType==="classify")return taskState.done.length/l.items.length*100;
   if(l.taskType==="multiSelect")return taskState.selected.length/l.options.length*80;
   if(l.taskType==="sequence")return taskState.order.length/l.steps.length*80;
+  if(l.taskType==="broadcast")return Object.values(taskState.broadcast).filter(Boolean).length/8*100;
   return 0;
 }
 function visual(icon,text){
@@ -375,6 +384,10 @@ function forecastBoard(items){
 function renderTask(){
   const l=lessons[current];
   let body="";
+  if(l.taskType==="guidedQuiz"){
+    const q=l.questions[taskState.question],selected=taskState.selected;
+    body=`<div class="guided-progress">學習任務 ${taskState.question+1}／${l.questions.length}</div><div class="guided-scene" aria-hidden="true">${q.icon}</div><h3 class="guided-question">${q.prompt}</h3><div class="guided-options">${q.options.map((x,i)=>`<button class="guided-option ${selected===i?"selected":""} ${taskState.resolved&&i===q.answer?"correct":""}" data-guided="${i}" ${taskState.resolved?"disabled":""}><span>${String.fromCharCode(65+i)}</span>${x}</button>`).join("")}</div>${taskState.resolved?`<div class="reason-box"><strong>為什麼？</strong>${q.explain}<button class="main-btn" id="nextGuided">${taskState.question===l.questions.length-1?"整理我學會的內容":"下一個觀察"}</button></div>`:""}`;
+  }
   if(l.taskType==="match"){
     const right=l.pairs.map((p,i)=>({text:p[1],icon:p[3],i})).sort((a,b)=>((a.i*7+3)%l.pairs.length)-((b.i*7+3)%l.pairs.length));
     body=`<p>觀察圖形：先點左邊的動物構造，再點右邊最適合的動作或功能。</p><div class="visual-legend"><span>身體構造</span><b>配對</b><span>動作與功能</span></div><div class="match-area"><div class="match-col">${l.pairs.map((p,i)=>`<button class="match-btn visual-card ${taskState.left===i?"active":""} ${taskState.matched.includes(i)?"matched":""}" data-left="${i}">${visual(p[2],p[0])}</button>`).join("")}</div><div class="match-col">${right.map(x=>`<button class="match-btn visual-card ${taskState.matched.includes(x.i)?"matched":""}" data-right="${x.i}">${visual(x.icon,x.text)}</button>`).join("")}</div></div>`;
@@ -385,34 +398,79 @@ function renderTask(){
     const bank=l.steps.map((x,i)=>({x,i})).sort((a,b)=>((a.i*3+2)%l.steps.length)-((b.i*3+2)%l.steps.length));
     body=`<p>看圖判斷動作，依正確的實驗順序點選卡片。</p><img class="science-props" src="assets/science_props.png" alt="氣溫計、雨量筒、風向計與自然觀察工具"><div class="task-grid visual-grid">${bank.map(v=>`<button class="task-card visual-card ${taskState.order.includes(v.i)?"correct":""}" data-step="${v.i}">${visual(l.stepIcons[v.i],v.x)}</button>`).join("")}</div><div class="sequence-list">${l.steps.map((_,i)=>`<div class="sequence-slot">${taskState.order[i]!==undefined?`${l.stepIcons[taskState.order[i]]} ${l.steps[taskState.order[i]]}`:""}</div>`).join("")}</div>`;
   }
+  if(l.taskType==="broadcast"){
+    const b=taskState.broadcast;
+    const field=(key,label,options)=>`<label><span>${label}</span><select data-broadcast="${key}">${options.map(x=>`<option ${b[key]===x?"selected":""}>${x}</option>`).join("")}</select></label>`;
+    body=`<div class="broadcast-studio"><div class="broadcast-icon">🎙️🌦️</div><div class="broadcast-fields">${field("date","日期",["6月14日","6月15日"])}${field("place","地點",["操場","教室外走廊","公園"])}${field("time","時間",["上午10點","中午12點","下午3點"])}${field("weather","天氣",["晴天","陰天","雨天"])}${field("temp","氣溫",["24℃","30℃","35℃"])}${field("windDir","風向",["西南風","北風","東風"])}${field("windForce","風力",["無風","弱風","強風"])}${field("reminder","生活提醒",["天氣炎熱，戶外活動要補充水分。","可能下雨，記得攜帶雨具。","風力較強，要固定容易吹動的物品。"])}</div><div class="broadcast-preview"><strong>播報稿預覽</strong><p>${broadcastText(b)}</p></div></div>`;
+  }
   app.innerHTML=taskShell(body);bindTask();
 }
 function setFeedback(text,bad=false){
-  const el=document.getElementById("feedback");el.textContent=text;el.style.background=bad?"#fde7e7":"#e9f2d2";
+  taskState.message=text;taskState.messageBad=bad;
+  const el=document.getElementById("feedback");if(el){el.textContent=text;el.classList.toggle("bad",bad)}
 }
+function broadcastText(b){return `大家好，我是今天的天氣小主播。${b.date}${b.time}，我在${b.place}觀測到${b.weather}，氣溫是${b.temp}，風向是${b.windDir}，風力是${b.windForce}。提醒大家：${b.reminder}`}
 function bindTask(){
   const l=lessons[current];
   document.getElementById("backMap").onclick=()=>{screen="map";render()};
   document.getElementById("checkTask").onclick=checkTask;
+  document.getElementById("showHint").onclick=()=>{
+    taskState.hintLevel=Math.min(3,taskState.hintLevel+1);
+    taskState.message="提示會帶你觀察線索，不會直接替你作答。";
+    taskState.messageBad=false;
+    renderTask();
+  };
+  document.querySelectorAll("[data-guided]").forEach(b=>b.onclick=()=>{
+    taskState.selected=+b.dataset.guided;
+    taskState.message="已選擇答案。請按「檢查這一題」，並準備說明理由。";
+    taskState.messageBad=false;
+    renderTask();
+  });
+  const nextGuided=document.getElementById("nextGuided");
+  if(nextGuided)nextGuided.onclick=()=>{
+    const lq=l.questions[taskState.question];
+    taskState.answers.push({question:taskState.question,answer:taskState.selected,correct:taskState.selected===lq.answer});
+    if(taskState.question<l.questions.length-1){
+      taskState.question++;taskState.selected=undefined;taskState.resolved=false;taskState.hintLevel=0;
+      taskState.message="先觀察新的情境，再做判斷。";taskState.messageBad=false;renderTask();
+    }else completeLesson();
+  };
   document.querySelectorAll("[data-left]").forEach(b=>b.onclick=()=>{if(taskState.matched.includes(+b.dataset.left))return;taskState.left=+b.dataset.left;renderTask()});
   document.querySelectorAll("[data-right]").forEach(b=>b.onclick=()=>{
     const r=+b.dataset.right;
     if(taskState.left===null||taskState.matched.includes(r))return;
-    if(r===taskState.left){taskState.matched.push(r);taskState.left=null;renderTask();setFeedback("配對成功！繼續找下一組。")}
-    else{setFeedback(l.wrongFeedback,true);b.classList.add("wrong")}
+    if(r===taskState.left){taskState.matched.push(r);taskState.left=null;taskState.message="配對成功！請繼續觀察下一組。";taskState.messageBad=false;renderTask()}
+    else{taskState.message=l.misconception;taskState.messageBad=true;b.classList.add("wrong");setFeedback(l.misconception,true)}
   });
   document.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{taskState.category=+b.dataset.cat;renderTask()});
   document.querySelectorAll("[data-item]").forEach(b=>b.onclick=()=>{
     const i=+b.dataset.item;if(taskState.done.includes(i))return;
-    if(taskState.category===null){setFeedback("請先選一個分類箱。",true);return}
-    if(l.items[i][1]===taskState.category){taskState.done.push(i);renderTask();setFeedback("分類正確！")}
-    else{setFeedback(l.wrongFeedback,true);b.classList.add("wrong")}
+    if(taskState.category===null){setFeedback("請先選一個環境，再選動物。",true);return}
+    if(l.items[i][1]===taskState.category){taskState.done.push(i);taskState.message=`分類正確！${l.items[i][0]}`;taskState.messageBad=false;renderTask()}
+    else{setFeedback(l.misconception,true);b.classList.add("wrong")}
   });
   document.querySelectorAll("[data-option]").forEach(b=>b.onclick=()=>{const i=+b.dataset.option;taskState.selected=taskState.selected.includes(i)?taskState.selected.filter(x=>x!==i):[...taskState.selected,i];renderTask()});
   document.querySelectorAll("[data-step]").forEach(b=>b.onclick=()=>{const i=+b.dataset.step;if(taskState.order.includes(i))return;taskState.order.push(i);renderTask()});
+  document.querySelectorAll("[data-broadcast]").forEach(el=>el.onchange=()=>{
+    taskState.broadcast[el.dataset.broadcast]=el.value;
+    taskState.message="資料已更新，請讀一次播報稿，確認內容完整。";
+    taskState.messageBad=false;
+    renderTask();
+  });
 }
 function checkTask(){
   const l=lessons[current];let ok=false;
+  if(l.taskType==="guidedQuiz"){
+    if(taskState.selected===undefined){setFeedback("先選一個答案，再檢查理由。",true);return}
+    const q=l.questions[taskState.question];
+    if(taskState.selected===q.answer){
+      taskState.resolved=true;taskState.message="判斷正確！現在閱讀「為什麼」，把觀察變成解釋。";taskState.messageBad=false;renderTask();
+    }else{
+      taskState.hintLevel=Math.min(3,taskState.hintLevel+1);
+      taskState.message=l.misconception;taskState.messageBad=true;renderTask();
+    }
+    return;
+  }
   if(l.taskType==="match")ok=taskState.matched.length===l.pairs.length;
   if(l.taskType==="classify")ok=taskState.done.length===l.items.length;
   if(l.taskType==="multiSelect"){
@@ -420,20 +478,39 @@ function checkTask(){
     ok=correct.length===taskState.selected.length&&correct.every(x=>taskState.selected.includes(x));
   }
   if(l.taskType==="sequence")ok=taskState.order.length===l.steps.length&&taskState.order.every((x,i)=>x===i);
-  if(ok){if(!state.completed.includes(l.id)){state.completed.push(l.id);save()}screen="reward";render()}
+  if(l.taskType==="broadcast")ok=Object.values(taskState.broadcast).every(Boolean);
+  if(ok)completeLesson();
   else{
-    setFeedback(l.wrongFeedback,true);
+    taskState.hintLevel=Math.min(3,taskState.hintLevel+1);
+    setFeedback(l.misconception,true);
     if(l.taskType==="sequence"){taskState.order=[];setTimeout(renderTask,900)}
   }
 }
+function completeLesson(){
+  const l=lessons[current];
+  if(!state.completed.includes(l.id))state.completed.push(l.id);
+  if(l.id==="stage1")state.animalCard={name:"鴨子",icon:"🦆",features:"扁嘴、羽毛、兩隻腳和腳蹼",structure:"腳上的蹼",habitat:"水邊",function:"增加推水面積，幫助划水",survival:"羽毛防水，能在水邊活動"};
+  if(l.id==="stage10")state.weatherCard={...taskState.broadcast,text:broadcastText(taskState.broadcast)};
+  save();screen="reward";render();
+}
 function renderReward(){
   const l=lessons[current],allDone=state.completed.length===lessons.length;
-  app.innerHTML=scene(`<section class="task-panel reward"><img src="${l.badge}" alt="${l.reward}"><div><p>任務完成</p><h2>獲得「${l.reward}」！</h2><p>${l.correctFeedback}</p><button class="main-btn" id="rewardNext">${allDone?"前往自然晶章總測驗":"帶著晶章回地圖"}</button></div></section>`);
-  document.getElementById("rewardNext").onclick=()=>{screen=allDone?"quizIntro":"map";render()};
+  app.innerHTML=scene(`<section class="task-panel reward"><div class="knowledge-badge"><img src="${l.badge}" alt="${l.reward}"><span>${l.rewardIcon}</span></div><div><p>任務完成 · 稱號：${currentTitle()}</p><h2>獲得「${l.reward}」！</h2><div class="learned-summary"><strong>我學會了</strong><p>${l.summary.replace(/^我學會了：/,"")}</p></div><div class="concept-fix"><strong>觀念修正</strong><p>${l.misconception}</p></div><button class="main-btn" id="rewardNext">${allDone?"查看成果卡":"回地圖解鎖下一關"}</button></div></section>`);
+  document.getElementById("rewardNext").onclick=()=>{screen=allDone?"portfolio":"map";render()};
+}
+function renderPortfolio(){
+  const a=state.animalCard||{name:"鴨子",icon:"🦆",features:"扁嘴、羽毛、兩隻腳和腳蹼",structure:"腳上的蹼",habitat:"水邊",function:"增加推水面積，幫助划水",survival:"羽毛防水，能在水邊活動"};
+  const w=state.weatherCard||{date:"6月14日",place:"操場",time:"上午10點",weather:"晴天",temp:"30℃",windDir:"西南風",windForce:"弱風",reminder:"天氣炎熱，戶外活動要補充水分。"};
+  const weatherText=w.text||broadcastText(w);
+  app.innerHTML=topbar()+`<main class="portfolio-screen"><section class="portfolio-wrap"><p class="eyebrow">學習成果</p><h1>我的自然任務成果卡</h1><p>這兩張卡記錄你從觀察、操作、判斷到說明理由的學習成果。</p><div class="portfolio-grid"><article class="result-card animal-result"><div class="result-card-head"><span>${a.icon}</span><div><small>成果卡 1</small><h2>我的動物解說卡</h2></div></div><dl><dt>動物名稱</dt><dd>${a.name}</dd><dt>外形特徵</dt><dd>${a.features}</dd><dt>重要構造</dt><dd>${a.structure}</dd><dt>生活環境</dt><dd>${a.habitat}</dd><dt>構造功能</dt><dd>${a.function}</dd><dt>生存法寶</dt><dd>${a.survival}</dd></dl><p class="card-summary">動物的構造、功能、環境和生存方式會互相配合。</p></article><article class="result-card weather-result"><div class="result-card-head"><span>🎙️</span><div><small>成果卡 2</small><h2>我的天氣主播卡</h2></div></div><dl><dt>日期時間</dt><dd>${w.date} ${w.time}</dd><dt>地點</dt><dd>${w.place}</dd><dt>天氣氣溫</dt><dd>${w.weather}，${w.temp}</dd><dt>風向風力</dt><dd>${w.windDir}，${w.windForce}</dd><dt>生活提醒</dt><dd>${w.reminder}</dd></dl><blockquote>${weatherText}</blockquote></article></div><div class="portfolio-actions"><button class="main-btn" id="portfolioQuiz">進入25題總測驗</button><button class="soft-btn" id="printPortfolio">列印／另存PDF</button><button class="soft-btn" id="portfolioMap">回地圖</button></div><p class="portfolio-credit">設計者：Gavin Huang</p></section></main>`;
+  document.getElementById("portfolioQuiz").onclick=()=>{screen="quizIntro";render()};
+  document.getElementById("printPortfolio").onclick=()=>window.print();
+  document.getElementById("portfolioMap").onclick=()=>{screen="map";render()};
 }
 function renderQuizIntro(){
-  app.innerHTML=topbar()+`<main class="quiz-screen"><section class="quiz-card quiz-intro"><div class="quiz-orb">🧠✨</div><p class="eyebrow">終局任務</p><h1>自然晶章總測驗</h1><p>${finalQuiz.length} 題情境題會把六個單元連在一起。完成後，裝置內的診斷規則會根據錯題、概念標籤與跨題關聯，推估需要優先複習的單元。</p><div class="offline-note"><strong>🔒 完全離線</strong><span>不傳送答案、不連接外部 AI；判斷由網頁內的加權規則完成。</span></div><div class="relation-preview">${Object.values(conceptInfo).map(x=>`<span>${x.icon} ${x.title}</span>`).join("")}</div><button class="main-btn" id="beginQuiz">開始 ${finalQuiz.length} 題總測驗</button> <button class="soft-btn" id="quizBackMap">回地圖</button></section></main>`;
+  app.innerHTML=topbar()+`<main class="quiz-screen"><section class="quiz-card quiz-intro"><div class="quiz-orb">🧠✨</div><p class="eyebrow">終局任務</p><h1>自然晶章總測驗</h1><p>${finalQuiz.length} 題情境題會把兩章的六個核心概念連在一起。完成後，裝置內的診斷規則會根據錯題、概念標籤與跨題關聯，推估需要優先複習的單元。</p><div class="offline-note"><strong>🔒 完全離線</strong><span>不傳送答案、不連接外部 AI；判斷由網頁內的加權規則完成。</span></div><div class="relation-preview">${Object.values(conceptInfo).map(x=>`<span>${x.icon} ${x.title}</span>`).join("")}</div><button class="main-btn" id="beginQuiz">開始 ${finalQuiz.length} 題總測驗</button> <button class="soft-btn" id="quizPortfolio">查看成果卡</button> <button class="soft-btn" id="quizBackMap">回地圖</button></section></main>`;
   document.getElementById("beginQuiz").onclick=()=>{quizIndex=0;quizAnswers=[];screen="quiz";render()};
+  document.getElementById("quizPortfolio").onclick=()=>{screen="portfolio";render()};
   document.getElementById("quizBackMap").onclick=()=>{screen="map";render()};
 }
 function renderQuiz(){
@@ -477,7 +554,8 @@ function renderDiagnosis(){
   const priority=result.ranked.filter(x=>x.score<80).slice(0,3);
   const strengths=result.ranked.filter(x=>x.score>=80).reverse();
   const relationRows=Object.entries(result.relations).sort((a,b)=>b[1]-a[1]);
-  const headline=result.correct>=9?"自然推理非常穩定":result.correct>=7?"基礎穩定，少數關聯要補強":result.correct>=5?"部分概念需要重新連結":"建議依診斷順序重新闖關";
+  const ratio=result.correct/result.total;
+  const headline=ratio>=.9?"自然推理非常穩定":ratio>=.7?"基礎穩定，少數關聯要補強":ratio>=.5?"部分概念需要重新連結":"建議依診斷順序重新闖關";
   app.innerHTML=topbar()+`<main class="quiz-screen diagnosis-screen"><section class="quiz-card diagnosis-card"><p class="eyebrow">離線智慧診斷報告</p><div class="score-ring" style="--score:${result.correct/result.total*360}deg"><strong>${result.correct}<small>／${result.total}</small></strong></div><h1>${headline}</h1><p>這是規則式推估，不是醫療或正式能力鑑定。系統依主要概念 2 分、關聯概念 1 分加權，找出錯題集中處。</p><h2>概念雷達</h2><div class="concept-bars">${result.ranked.map(x=>{const c=conceptInfo[x.id];return `<div class="concept-row"><span>${c.icon} ${c.title}</span><div><i style="width:${x.score}%"></i></div><b>${x.score}%</b></div>`}).join("")}</div><h2>優先複習預測</h2><div class="diagnosis-grid">${priority.length?priority.map((x,i)=>{const c=conceptInfo[x.id];return `<article class="review-card"><span class="priority">優先 ${i+1}</span><div class="review-icon">${c.icon}</div><h3>${c.title}</h3><p>${c.review}</p><small>關聯錯題：${x.questions.length?`第 ${x.questions.join("、")} 題`:"綜合表現"}</small><button class="soft-btn" data-review-stage="${c.stage}">回到這一關複習</button></article>`}).join(""):`<article class="review-card strong-card"><div class="review-icon">🏆</div><h3>沒有明顯弱項</h3><p>六個單元的關聯表現都達到 80%，可以挑戰重新測驗保持熟練。</p></article>`}</div>${relationRows.length?`<h2>需要重新連結的概念</h2><div class="relation-results">${relationRows.map(x=>`<span>🔗 ${x[0]} <b>${x[1]} 題</b></span>`).join("")}</div>`:""}${strengths.length?`<p class="strength-line"><strong>目前較穩定：</strong>${strengths.map(x=>conceptInfo[x.id].title).join("、")}</p>`:""}<div class="diagnosis-actions"><button class="main-btn" id="finishAdventure">開啟王國結局</button><button class="soft-btn" id="retryQuiz">重新測驗</button><button class="soft-btn" id="diagnosisMap">回地圖</button></div></section></main>`;
   document.querySelectorAll("[data-review-stage]").forEach(b=>b.onclick=()=>startStage(+b.dataset.reviewStage));
   document.getElementById("finishAdventure").onclick=()=>{screen="ending";render()};
@@ -485,8 +563,9 @@ function renderDiagnosis(){
   document.getElementById("diagnosisMap").onclick=()=>{screen="map";render()};
 }
 function renderEnding(){
-  app.innerHTML=topbar()+`<main class="ending" style="background-image:url('assets/ending_complete.png')"><section class="ending-card"><h1>自然王國修復完成！</h1><p>你完成六關與跨單元總測驗，運用觀察、分類、證據與科學方法找回所有自然晶章。從今天起，你就是能連結知識並做出安全決定的「自然晶章巡護員」！</p><div class="badge-rack">${lessons.map(l=>`<img src="${l.badge}" alt="${l.reward}">`).join("")}</div>${state.quizResult?`<p><strong>總測驗：${state.quizResult.correct}／${state.quizResult.total}</strong></p><button class="main-btn" id="endingDiagnosis">查看診斷報告</button>`:""} <button class="soft-btn" id="endingMap">回到冒險地圖</button> <button class="soft-btn" id="endingReset">重新開始</button></section></main>`;
+  app.innerHTML=topbar()+`<main class="ending" style="background-image:url('assets/ending_complete.png')"><section class="ending-card"><h1>森語天候王國守護者！</h1><p>你完成兩章十關、學習成果卡與跨單元總測驗。你不只答對題目，也能觀察、操作、判斷、說明理由並整理科學資料。</p><div class="badge-rack">${lessons.map(l=>`<span title="${l.reward}">${l.rewardIcon}</span>`).join("")}</div>${state.quizResult?`<p><strong>總測驗：${state.quizResult.correct}／${state.quizResult.total}</strong></p><button class="main-btn" id="endingDiagnosis">查看診斷報告</button>`:""} <button class="soft-btn" id="endingPortfolio">成果卡</button> <button class="soft-btn" id="endingMap">回到冒險地圖</button> <button class="soft-btn" id="endingReset">重新開始</button></section></main>`;
   if(state.quizResult)document.getElementById("endingDiagnosis").onclick=()=>{screen="diagnosis";render()};
+  document.getElementById("endingPortfolio").onclick=()=>{screen="portfolio";render()};
   document.getElementById("endingMap").onclick=()=>{screen="map";render()};
   document.getElementById("endingReset").onclick=()=>{state={completed:[]};save();screen="map";render()};
 }
