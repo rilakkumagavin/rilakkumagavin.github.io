@@ -140,9 +140,72 @@ const lessons = [
   }
 ];
 
+const finalQuiz = [
+  {
+    icon:"🦆🌊", scene:"池塘任務", question:"鴨子能在水中前進，哪一組「構造與功能」的關聯最合理？",
+    options:["羽毛讓水變溫暖","腳蹼增加推水面積","鳥喙製造水流","外殼幫助飛行"], answer:1,
+    tags:["structure","habitat"], relation:"構造 → 棲地活動"
+  },
+  {
+    icon:"🐟🏜️", scene:"環境轉換", question:"如果魚離開水域，最先遇到的困難是什麼？",
+    options:["身體顏色一定會消失","外殼會變得太硬","鰭不適合在陸地支撐移動","翅膀無法拍動"], answer:2,
+    tags:["habitat","structure"], relation:"棲地條件 ↔ 身體構造"
+  },
+  {
+    icon:"🦎🍃", scene:"隱身草原", question:"綠色昆蟲停在綠葉上比較不容易被發現，這同時說明了什麼？",
+    options:["綠葉會讓昆蟲長出翅膀","體色能配合環境形成保護","昆蟲可以控制天氣","所有動物都只住在樹上"], answer:1,
+    tags:["survival","habitat"], relation:"環境適應 → 生存策略"
+  },
+  {
+    icon:"🐢🛡️🌧️", scene:"暴雨避難", question:"暴雨時烏龜縮進殼裡。這個行為主要運用了哪兩個概念？",
+    options:["飛行構造與氣溫讀值","警告色與風向觀測","腳蹼推水與天氣預報","外殼保護與因應天氣風險"], answer:3,
+    tags:["structure","survival","weatherImpact"], relation:"構造功能 → 生存與天氣因應"
+  },
+  {
+    icon:"🌧️🏞️", scene:"晴雨生活村", question:"同樣是下雨，為什麼可能補充水庫，也可能造成淹水？",
+    options:["所有雨水的結果都相同","只要下雨就不能外出","影響和雨勢、時間、地點有關","天氣名稱可以決定全部結果"], answer:2,
+    tags:["weatherImpact","forecast"], relation:"天氣條件 → 生活影響"
+  },
+  {
+    icon:"🌡️☀️", scene:"觀測塔疑案", question:"把氣溫計放在陽光直射處，讀值可能偏高。最好的修正方法是？",
+    options:["用手握住液囊讓它固定","移到陰涼通風處，等待穩定再讀","立刻記下最高數字","把氣溫計放進水中"], answer:1,
+    tags:["observation","weatherImpact"], relation:"觀測方法 → 資料可信度"
+  },
+  {
+    icon:"👁️🌡️📝", scene:"科學紀錄", question:"哪一組做法最能讓兩天的氣溫資料公平比較？",
+    options:["每天換工具和地點","只記得比較熱或比較冷","挑自己喜歡的數字","同地點同時段觀測並記錄條件"], answer:3,
+    tags:["observation"], relation:"控制條件 → 公平比較"
+  },
+  {
+    icon:"⛈️🌬️🎒", scene:"校外活動", question:"預報顯示午後雷雨和強風，最完整的行動是哪一個？",
+    options:["只帶帽子照常到空曠處","完全不看地區與時間","準備室內備案、雨具並固定物品","看到雲再決定，不必先準備"], answer:2,
+    tags:["forecast","weatherImpact"], relation:"預報資訊 → 安全決策"
+  },
+  {
+    icon:"🐦🌬️⛈️", scene:"動物觀察日", question:"強風雷雨天要觀察鳥類，哪個推理最完整？",
+    options:["鳥有翅膀，所以雷雨完全沒有影響","鳥能飛不代表任何天氣都安全，應調整觀察計畫","只要有羽毛就不用看預報","強風一定會幫助所有鳥飛行"], answer:1,
+    tags:["structure","weatherImpact","forecast"], relation:"動物構造 × 天氣風險"
+  },
+  {
+    icon:"🔬🗺️", scene:"巡護員終極任務", question:"要判斷某種動物是否適合某環境，最科學的思考順序是？",
+    options:["先猜答案，再只找支持的線索","只看動物名稱就決定","觀察環境與構造，再用行為和資料驗證","每次改變很多條件，不必記錄"], answer:2,
+    tags:["structure","habitat","survival","observation"], relation:"觀察證據 → 綜合推理"
+  }
+];
+
+const conceptInfo = {
+  structure:{title:"動物構造與功能",icon:"🪽",stage:0,review:"回到第一關，練習從形狀推理翅膀、鰭、腳蹼與外殼的工作。"},
+  habitat:{title:"構造與環境適應",icon:"🌊",stage:1,review:"回到第二關，把身體構造放進水中、陸地與空中情境判斷。"},
+  survival:{title:"動物生存策略",icon:"🛡️",stage:2,review:"回到第三關，比較隱藏、防禦、警告與逃生策略。"},
+  weatherImpact:{title:"天氣與生活影響",icon:"🌦️",stage:3,review:"回到第四關，分析天氣強度、時間、地點與風險。"},
+  observation:{title:"正確觀測與紀錄",icon:"🌡️",stage:4,review:"回到第五關，重建位置、等待、平視與紀錄流程。"},
+  forecast:{title:"氣象資訊應用",icon:"⛈️",stage:5,review:"回到第六關，把氣溫、降雨、雷電與風轉成安全行動。"}
+};
+
 const STORAGE_KEY="forest-weather-rpg-v1";
 let state=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{"completed":[]}');
-let screen="map",current=0,dialogIndex=0,typeTimer=null,typingDone=true,activeDialogText="",taskState={};
+if(!Array.isArray(state.completed))state.completed=[];
+let screen="map",current=0,dialogIndex=0,typeTimer=null,typingDone=true,activeDialogText="",taskState={},quizIndex=0,quizAnswers=[];
 const app=document.getElementById("app");
 
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
@@ -157,14 +220,20 @@ function render(){
   if(screen==="dialog")renderDialog();
   if(screen==="task")renderTask();
   if(screen==="reward")renderReward();
+  if(screen==="quizIntro")renderQuizIntro();
+  if(screen==="quiz")renderQuiz();
+  if(screen==="diagnosis")renderDiagnosis();
   if(screen==="ending")renderEnding();
 }
 function renderMap(){
   const allDone=state.completed.length===lessons.length;
-  app.innerHTML=topbar()+`<main class="map-screen"><section class="map-frame"><img src="assets/map_main.png" alt="森語天候王國冒險地圖"><div class="map-title"><h1>六枚自然晶章</h1><p>跟隨露米老師，修復動物領域與天氣領域。每完成一關，就能取回一枚晶章。</p></div>${lessons.map((l,i)=>`<button class="stage-node ${state.completed.includes(l.id)?"done":""}" style="left:${l.mapPosition[0]}%;top:${l.mapPosition[1]}%" data-stage="${i}"><span class="check">✓ </span>${l.title}<small>${l.subtitle}</small></button>`).join("")}<img class="hero-on-map" src="assets/hero_student.png" alt="自然見習巡護員"></section><div class="map-actions">${allDone?`<button class="main-btn" id="seeEnding">前往王國結局</button>`:""}<button class="soft-btn" id="resetGame">重新開始</button></div></main>`;
+  app.innerHTML=topbar()+`<main class="map-screen"><section class="map-frame"><img src="assets/map_main.png" alt="森語天候王國冒險地圖"><div class="map-title"><h1>六枚自然晶章</h1><p>跟隨露米老師，修復動物領域與天氣領域。每完成一關，就能取回一枚晶章。</p></div>${lessons.map((l,i)=>`<button class="stage-node ${state.completed.includes(l.id)?"done":""}" style="left:${l.mapPosition[0]}%;top:${l.mapPosition[1]}%" data-stage="${i}"><span class="check">✓ </span>${l.title}<small>${l.subtitle}</small></button>`).join("")}<img class="hero-on-map" src="assets/hero_student.png" alt="自然見習巡護員"></section><div class="map-actions">${allDone?`<button class="main-btn" id="startFinalQuiz">開始總測驗與離線診斷</button>${state.quizResult?`<button class="soft-btn" id="seeDiagnosis">查看上次診斷</button>`:""}`:""}<button class="soft-btn" id="resetGame">重新開始</button></div></main>`;
   document.querySelectorAll("[data-stage]").forEach(b=>b.onclick=()=>startStage(+b.dataset.stage));
   document.getElementById("resetGame").onclick=()=>{if(confirm("要清除所有晶章並重新開始嗎？")){state={completed:[]};save();render()}};
-  if(allDone)document.getElementById("seeEnding").onclick=()=>{screen="ending";render()};
+  if(allDone){
+    document.getElementById("startFinalQuiz").onclick=()=>{screen="quizIntro";render()};
+    if(state.quizResult)document.getElementById("seeDiagnosis").onclick=()=>{screen="diagnosis";render()};
+  }
 }
 function startStage(i){current=i;dialogIndex=0;taskState={};screen="dialog";render()}
 function scene(inner){const l=lessons[current];return topbar()+`<main class="stage-screen"><section class="stage-scene" style="background-image:url('${l.background}')"><div class="stage-label">${l.title}｜${l.subtitle}</div>${inner}</section></main>`}
@@ -283,11 +352,65 @@ function checkTask(){
 }
 function renderReward(){
   const l=lessons[current],allDone=state.completed.length===lessons.length;
-  app.innerHTML=scene(`<section class="task-panel reward"><img src="${l.badge}" alt="${l.reward}"><div><p>任務完成</p><h2>獲得「${l.reward}」！</h2><p>${l.correctFeedback}</p><button class="main-btn" id="rewardNext">${allDone?"開啟王國結局":"帶著晶章回地圖"}</button></div></section>`);
-  document.getElementById("rewardNext").onclick=()=>{screen=allDone?"ending":"map";render()};
+  app.innerHTML=scene(`<section class="task-panel reward"><img src="${l.badge}" alt="${l.reward}"><div><p>任務完成</p><h2>獲得「${l.reward}」！</h2><p>${l.correctFeedback}</p><button class="main-btn" id="rewardNext">${allDone?"前往自然晶章總測驗":"帶著晶章回地圖"}</button></div></section>`);
+  document.getElementById("rewardNext").onclick=()=>{screen=allDone?"quizIntro":"map";render()};
+}
+function renderQuizIntro(){
+  app.innerHTML=topbar()+`<main class="quiz-screen"><section class="quiz-card quiz-intro"><div class="quiz-orb">🧠✨</div><p class="eyebrow">終局任務</p><h1>自然晶章總測驗</h1><p>10 題情境題會把六個單元連在一起。完成後，裝置內的診斷規則會根據錯題、概念標籤與跨題關聯，推估需要優先複習的單元。</p><div class="offline-note"><strong>🔒 完全離線</strong><span>不傳送答案、不連接外部 AI；判斷由網頁內的加權規則完成。</span></div><div class="relation-preview">${Object.values(conceptInfo).map(x=>`<span>${x.icon} ${x.title}</span>`).join("")}</div><button class="main-btn" id="beginQuiz">開始 10 題總測驗</button> <button class="soft-btn" id="quizBackMap">回地圖</button></section></main>`;
+  document.getElementById("beginQuiz").onclick=()=>{quizIndex=0;quizAnswers=[];screen="quiz";render()};
+  document.getElementById("quizBackMap").onclick=()=>{screen="map";render()};
+}
+function renderQuiz(){
+  const q=finalQuiz[quizIndex],selected=quizAnswers[quizIndex];
+  app.innerHTML=topbar()+`<main class="quiz-screen"><section class="quiz-card"><div class="quiz-progress"><span style="width:${(quizIndex+1)/finalQuiz.length*100}%"></span></div><div class="quiz-count">第 ${quizIndex+1} 題／共 ${finalQuiz.length} 題</div><div class="relation-chip">🔗 ${q.relation}</div><div class="quiz-scene-icon" aria-hidden="true">${q.icon}</div><p class="eyebrow">${q.scene}</p><h2>${q.question}</h2><div class="quiz-options">${q.options.map((x,i)=>`<button class="quiz-option ${selected===i?"selected":""}" data-quiz-option="${i}"><span>${String.fromCharCode(65+i)}</span>${x}</button>`).join("")}</div><div class="quiz-actions"><button class="soft-btn" id="quizPrevious" ${quizIndex===0?"disabled":""}>上一題</button><button class="main-btn" id="quizNext">${quizIndex===finalQuiz.length-1?"完成並產生診斷":"下一題"}</button></div><p class="quiz-hint" id="quizHint">${selected===undefined?"請選擇一個最完整的答案。":"已選擇答案，可以繼續。"}</p></section></main>`;
+  document.querySelectorAll("[data-quiz-option]").forEach(b=>b.onclick=()=>{quizAnswers[quizIndex]=+b.dataset.quizOption;renderQuiz()});
+  document.getElementById("quizPrevious").onclick=()=>{if(quizIndex>0){quizIndex--;renderQuiz()}};
+  document.getElementById("quizNext").onclick=()=>{
+    if(quizAnswers[quizIndex]===undefined){document.getElementById("quizHint").textContent="先觀察圖示和情境，再選一個答案。";return}
+    if(quizIndex<finalQuiz.length-1){quizIndex++;renderQuiz()}
+    else{state.quizResult=diagnoseQuiz(quizAnswers);save();screen="diagnosis";render()}
+  };
+}
+function diagnoseQuiz(answers){
+  const concepts={};
+  Object.keys(conceptInfo).forEach(k=>concepts[k]={earned:0,total:0,wrong:0,questions:[]});
+  let correct=0;
+  finalQuiz.forEach((q,i)=>{
+    const ok=answers[i]===q.answer;
+    if(ok)correct++;
+    q.tags.forEach((tag,tagIndex)=>{
+      const weight=tagIndex===0?2:1;
+      concepts[tag].total+=weight;
+      if(ok)concepts[tag].earned+=weight;
+      else{concepts[tag].wrong+=weight;concepts[tag].questions.push(i+1)}
+    });
+  });
+  const ranked=Object.entries(concepts).map(([id,x])=>({
+    id,score:x.total?Math.round(x.earned/x.total*100):100,
+    wrong:x.wrong,questions:[...new Set(x.questions)]
+  })).sort((a,b)=>a.score-b.score||b.wrong-a.wrong);
+  const relations={};
+  finalQuiz.forEach((q,i)=>{
+    if(answers[i]!==q.answer&&q.tags.length>1)relations[q.relation]=(relations[q.relation]||0)+1;
+  });
+  return {answers,correct,total:finalQuiz.length,ranked,relations,createdAt:new Date().toISOString()};
+}
+function renderDiagnosis(){
+  const result=state.quizResult;
+  if(!result){screen="quizIntro";render();return}
+  const priority=result.ranked.filter(x=>x.score<80).slice(0,3);
+  const strengths=result.ranked.filter(x=>x.score>=80).reverse();
+  const relationRows=Object.entries(result.relations).sort((a,b)=>b[1]-a[1]);
+  const headline=result.correct>=9?"自然推理非常穩定":result.correct>=7?"基礎穩定，少數關聯要補強":result.correct>=5?"部分概念需要重新連結":"建議依診斷順序重新闖關";
+  app.innerHTML=topbar()+`<main class="quiz-screen diagnosis-screen"><section class="quiz-card diagnosis-card"><p class="eyebrow">離線智慧診斷報告</p><div class="score-ring" style="--score:${result.correct/result.total*360}deg"><strong>${result.correct}<small>／${result.total}</small></strong></div><h1>${headline}</h1><p>這是規則式推估，不是醫療或正式能力鑑定。系統依主要概念 2 分、關聯概念 1 分加權，找出錯題集中處。</p><h2>概念雷達</h2><div class="concept-bars">${result.ranked.map(x=>{const c=conceptInfo[x.id];return `<div class="concept-row"><span>${c.icon} ${c.title}</span><div><i style="width:${x.score}%"></i></div><b>${x.score}%</b></div>`}).join("")}</div><h2>優先複習預測</h2><div class="diagnosis-grid">${priority.length?priority.map((x,i)=>{const c=conceptInfo[x.id];return `<article class="review-card"><span class="priority">優先 ${i+1}</span><div class="review-icon">${c.icon}</div><h3>${c.title}</h3><p>${c.review}</p><small>關聯錯題：${x.questions.length?`第 ${x.questions.join("、")} 題`:"綜合表現"}</small><button class="soft-btn" data-review-stage="${c.stage}">回到這一關複習</button></article>`}).join(""):`<article class="review-card strong-card"><div class="review-icon">🏆</div><h3>沒有明顯弱項</h3><p>六個單元的關聯表現都達到 80%，可以挑戰重新測驗保持熟練。</p></article>`}</div>${relationRows.length?`<h2>需要重新連結的概念</h2><div class="relation-results">${relationRows.map(x=>`<span>🔗 ${x[0]} <b>${x[1]} 題</b></span>`).join("")}</div>`:""}${strengths.length?`<p class="strength-line"><strong>目前較穩定：</strong>${strengths.map(x=>conceptInfo[x.id].title).join("、")}</p>`:""}<div class="diagnosis-actions"><button class="main-btn" id="finishAdventure">開啟王國結局</button><button class="soft-btn" id="retryQuiz">重新測驗</button><button class="soft-btn" id="diagnosisMap">回地圖</button></div></section></main>`;
+  document.querySelectorAll("[data-review-stage]").forEach(b=>b.onclick=()=>startStage(+b.dataset.reviewStage));
+  document.getElementById("finishAdventure").onclick=()=>{screen="ending";render()};
+  document.getElementById("retryQuiz").onclick=()=>{quizIndex=0;quizAnswers=[];screen="quiz";render()};
+  document.getElementById("diagnosisMap").onclick=()=>{screen="map";render()};
 }
 function renderEnding(){
-  app.innerHTML=topbar()+`<main class="ending" style="background-image:url('assets/ending_complete.png')"><section class="ending-card"><h1>自然王國修復完成！</h1><p>你運用觀察、分類、證據與科學方法，找回六枚自然晶章。從今天起，你就是能理解動物、觀測天氣並做出安全決定的「自然晶章巡護員」！</p><div class="badge-rack">${lessons.map(l=>`<img src="${l.badge}" alt="${l.reward}">`).join("")}</div><button class="main-btn" id="endingMap">回到冒險地圖</button> <button class="soft-btn" id="endingReset">重新開始</button></section></main>`;
+  app.innerHTML=topbar()+`<main class="ending" style="background-image:url('assets/ending_complete.png')"><section class="ending-card"><h1>自然王國修復完成！</h1><p>你完成六關與跨單元總測驗，運用觀察、分類、證據與科學方法找回所有自然晶章。從今天起，你就是能連結知識並做出安全決定的「自然晶章巡護員」！</p><div class="badge-rack">${lessons.map(l=>`<img src="${l.badge}" alt="${l.reward}">`).join("")}</div>${state.quizResult?`<p><strong>總測驗：${state.quizResult.correct}／${state.quizResult.total}</strong></p><button class="main-btn" id="endingDiagnosis">查看診斷報告</button>`:""} <button class="soft-btn" id="endingMap">回到冒險地圖</button> <button class="soft-btn" id="endingReset">重新開始</button></section></main>`;
+  if(state.quizResult)document.getElementById("endingDiagnosis").onclick=()=>{screen="diagnosis";render()};
   document.getElementById("endingMap").onclick=()=>{screen="map";render()};
   document.getElementById("endingReset").onclick=()=>{state={completed:[]};save();screen="map";render()};
 }
