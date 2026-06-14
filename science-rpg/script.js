@@ -283,7 +283,7 @@ function currentTitle(){
 }
 function topbar(){
   const badges=lessons.filter(x=>state.completed.includes(x.id)).map(x=>`<span title="${x.reward}">${x.rewardIcon}</span>`).join("");
-  return `<header class="topbar"><div class="brand"><span class="brand-mark">🔬</span><div><b>森語天候王國</b><small>${currentTitle()}</small><span class="designer-credit">設計者：Gavin Huang</span></div></div><div class="progress-card"><span>任務 ${state.completed.length}/${lessons.length}</span><div class="mini-badges">${badges}</div></div></header>`;
+  return `<header class="topbar"><div class="brand"><span class="brand-mark">🔬</span><div><b>森語天候王國</b><small>${currentTitle()}</small><span class="designer-credit">設計者：Gavin Huang</span></div></div><div class="progress-card"><span>自然晶章 ${state.completed.length}/${lessons.length}</span><div class="mini-badges">${badges}</div></div></header>`;
 }
 function render(){
   clearInterval(typeTimer);
@@ -300,12 +300,17 @@ function render(){
 }
 function renderMap(){
   const allDone=state.completed.length===lessons.length;
-  const chapter=(number,title,subtitle)=>`<section class="chapter-panel chapter-${number}"><div class="chapter-heading"><span>第 ${number} 章</span><div><h2>${title}</h2><p>${subtitle}</p></div></div><div class="chapter-stages">${lessons.map((l,i)=>{
-    if(l.chapter!==number)return "";
+  const positions=[[16,35],[42,28],[54,39],[42,57],[23,65],[57,67],[69,53],[82,43],[74,27],[89,20]];
+  const nodes=lessons.map((l,i)=>{
     const done=state.completed.includes(l.id),unlocked=i===0||state.completed.includes(lessons[i-1].id);
-    return `<button class="chapter-stage ${done?"done":""} ${unlocked?"":"locked"}" data-stage="${i}" ${unlocked?"":"disabled"}><span class="stage-number">${done?"✓":i+1}</span><span><b>${l.title.replace(/^第\d+關：/,"")}</b><small>${unlocked?l.subtitle:"完成上一關後解鎖"}</small></span><em>${l.rewardIcon}</em></button>`;
-  }).join("")}</div></section>`;
-  app.innerHTML=topbar()+`<main class="map-screen"><section class="adventure-map"><img class="adventure-bg" src="assets/map_main.png" alt="森語天候王國冒險地圖"><div class="map-title"><h1>學會後才能闖關</h1><p>每關先觀察與操作，再說明理由。完成學習總結後，下一關才會解鎖。</p></div><div class="chapter-grid">${chapter(1,"動物森林調查隊","第3單元：我是動物解說員")}${chapter(2,"天候王國觀測員","第4單元：天氣變變變")}</div><img class="hero-on-map" src="assets/hero_student.png" alt="自然見習巡護員"></section><div class="map-actions">${allDone?`<button class="main-btn" id="startFinalQuiz">開始25題總測驗與離線診斷</button><button class="soft-btn" id="seePortfolio">查看我的成果卡</button>${state.quizResult?`<button class="soft-btn" id="seeDiagnosis">查看上次診斷</button>`:""}`:""}<button class="soft-btn" id="resetGame">重新開始</button></div></main>`;
+    const status=done?"已取得晶章":unlocked?"發光任務":"尚未解鎖";
+    return `<button class="rpg-node ${done?"done":""} ${unlocked&&!done?"active":""} ${unlocked?"":"locked"}" style="--x:${positions[i][0]}%;--y:${positions[i][1]}%" data-stage="${i}" ${unlocked?"":"disabled"} aria-label="第${i+1}關 ${l.title.replace(/^第\d+關：/,"")}，${status}"><span class="node-gem">${done?l.rewardIcon:unlocked?"✨":"🔒"}</span><span class="node-number">${done?"✓":i+1}</span><span class="node-label"><b>${l.title.replace(/^第\d+關：/,"")}</b><small>${status}</small></span></button>`;
+  }).join("");
+  const vault=lessons.map((l,i)=>{
+    const done=state.completed.includes(l.id);
+    return `<div class="crystal-slot ${done?"collected":""}" title="${done?l.reward:`第${i+1}關尚未取得`}"><span>${done?l.rewardIcon:"◇"}</span><small>${i+1}</small></div>`;
+  }).join("");
+  app.innerHTML=topbar()+`<main class="map-screen"><section class="adventure-map"><img class="adventure-bg" src="assets/map_main.png" alt="森語天候王國冒險地圖"><div class="map-title"><span>RPG 冒險地圖</span><h1>尋回十枚自然晶章</h1><p>沿著發光道路探索。完成觀察、操作與解釋，晶章才會收入寶庫。</p></div><div class="chapter-flag animal-flag"><b>第 1 章</b><span>動物森林</span></div><div class="chapter-flag weather-flag"><b>第 2 章</b><span>天候王國</span></div><svg class="quest-path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${positions.map(p=>p.join(",")).join(" ")}"></polyline></svg>${nodes}<img class="hero-on-map" src="assets/hero_student.png" alt="自然見習巡護員"></section><section class="crystal-vault"><div><span class="vault-icon">💎</span><h2>自然晶章寶庫</h2><p>${allDone?"十枚晶章已集齊，終局試煉開啟！":`已尋回 ${state.completed.length} 枚，下一枚正在地圖上發光。`}</p></div><div class="crystal-slots">${vault}</div></section><div class="map-actions">${allDone?`<button class="main-btn" id="startFinalQuiz">開啟終局試煉：25題總測驗</button><button class="soft-btn" id="seePortfolio">查看我的成果卡</button>${state.quizResult?`<button class="soft-btn" id="seeDiagnosis">查看上次診斷</button>`:""}`:""}<button class="soft-btn" id="resetGame">重新開始</button></div></main>`;
   document.querySelectorAll("[data-stage]:not(:disabled)").forEach(b=>b.onclick=()=>startStage(+b.dataset.stage));
   document.getElementById("resetGame").onclick=()=>{if(confirm("要清除所有晶章並重新開始嗎？")){state={completed:[]};save();render()}};
   if(allDone){
@@ -501,7 +506,7 @@ function completeLesson(){
 }
 function renderReward(){
   const l=lessons[current],allDone=state.completed.length===lessons.length;
-  app.innerHTML=scene(`<section class="task-panel reward"><div class="knowledge-badge"><img src="${l.badge}" alt="${l.reward}"><span>${l.rewardIcon}</span></div><div><p>任務完成 · 稱號：${currentTitle()}</p><h2>獲得「${l.reward}」！</h2><div class="learned-summary"><strong>我學會了</strong><p>${l.summary.replace(/^我學會了：/,"")}</p></div><div class="concept-fix"><strong>觀念修正</strong><p>${l.misconception}</p></div><button class="main-btn" id="rewardNext">${allDone?"查看成果卡":"回地圖解鎖下一關"}</button></div></section>`);
+  app.innerHTML=scene(`<section class="task-panel reward"><div class="knowledge-badge"><img src="${l.badge}" alt="${l.reward}"><span>${l.rewardIcon}</span></div><div><p>任務完成 · 晶章已收入寶庫 · 稱號：${currentTitle()}</p><h2>尋回「${l.reward}」！</h2><div class="learned-summary"><strong>我學會了</strong><p>${l.summary.replace(/^我學會了：/,"")}</p></div><div class="concept-fix"><strong>觀念修正</strong><p>${l.misconception}</p></div><button class="main-btn" id="rewardNext">${allDone?"查看成果卡":"回到冒險地圖"}</button></div></section>`);
   document.getElementById("rewardNext").onclick=()=>{screen=allDone?"portfolio":"map";render()};
 }
 function renderPortfolio(){
