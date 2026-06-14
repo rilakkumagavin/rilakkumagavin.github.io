@@ -190,6 +190,81 @@ const finalQuiz = [
     icon:"🔬🗺️", scene:"巡護員終極任務", question:"要判斷某種動物是否適合某環境，最科學的思考順序是？",
     options:["先猜答案，再只找支持的線索","只看動物名稱就決定","觀察環境與構造，再用行為和資料驗證","每次改變很多條件，不必記錄"], answer:2,
     tags:["structure","habitat","survival","observation"], relation:"觀察證據 → 綜合推理"
+  },
+  {
+    icon:"🐦🥜", scene:"鳥喙研究所", question:"鳥喙又短又厚，最可能適合進行哪一種活動？",
+    options:["啄開堅硬種子","像吸管一樣吸花蜜","在水中當作魚鰭","包住全身抵擋攻擊"], answer:0,
+    tags:["structure"], relation:"構造形狀 → 取食功能"
+  },
+  {
+    icon:"🦅☁️", scene:"天空巡航", question:"老鷹的寬大翅膀能乘著上升氣流滑翔，這是哪一種關聯？",
+    options:["警告色與天敵","外殼與防禦","翅膀構造與空中活動","腳蹼與陸地跳躍"], answer:2,
+    tags:["structure","habitat"], relation:"翅膀構造 → 空中適應"
+  },
+  {
+    icon:"🐸⚠️", scene:"彩色森林", question:"某種青蛙有非常醒目的顏色，最合理的生存作用是什麼？",
+    options:["讓身體變得透明","警告天敵可能有毒或危險","控制附近的氣溫","增加在水中的推力"], answer:1,
+    tags:["survival","structure"], relation:"外觀特徵 → 警告策略"
+  },
+  {
+    icon:"🐟🐟🐟", scene:"魚群守護隊", question:"小魚聚成魚群活動，可能帶來什麼生存好處？",
+    options:["讓每條魚長出硬殼","使水溫永遠不變","共同警戒並分散被捕食風險","讓魚離開水也能呼吸"], answer:2,
+    tags:["survival","habitat"], relation:"群體行為 → 生存機會"
+  },
+  {
+    icon:"🌬️🏠", scene:"強風來襲", question:"強風可能吹落陽台物品。最適合的事前準備是？",
+    options:["把物品移入室內或固定","把所有窗戶完全打開","站在陽台觀察掉落方向","等物品掉落後再看預報"], answer:0,
+    tags:["weatherImpact","forecast"], relation:"強風風險 → 防護行動"
+  },
+  {
+    icon:"☀️🏃", scene:"炎熱運動日", question:"預報最高溫 35°C，戶外運動應如何調整？",
+    options:["穿更厚的衣服保持熱度","選較涼時段並補充水分","完全不需要查看身體狀況","中午在無遮蔭處增加運動量"], answer:1,
+    tags:["forecast","weatherImpact"], relation:"高溫預報 → 活動調整"
+  },
+  {
+    icon:"👁️🌡️", scene:"讀值挑戰", question:"讀取氣溫計時，眼睛應放在哪裡？",
+    options:["從上方向下斜看","從下方向上斜看","閉一隻眼睛隨意看","與液柱頂端保持平視"], answer:3,
+    tags:["observation"], relation:"視線位置 → 正確讀值"
+  },
+  {
+    icon:"🌧️🥤", scene:"雨量觀測站", question:"要比較兩地雨量，哪一種做法最公平？",
+    options:["使用相同雨量筒並觀測相同時間","一地觀測一天，另一地觀測一小時","把雨量筒放在屋簷下","只比較地面看起來多濕"], answer:0,
+    tags:["observation","weatherImpact"], relation:"一致條件 → 雨量比較"
+  },
+  {
+    icon:"📍🕒🌦️", scene:"預報解碼", question:"查看天氣預報時，為什麼要先確認地區和時間？",
+    options:["不同地點與時段的天氣可能不同","預報只對成年人有用","只要看到圖示就代表全年天氣","地區名稱會改變氣溫計構造"], answer:0,
+    tags:["forecast"], relation:"地區時間 → 預報適用性"
+  },
+  {
+    icon:"☁️🌬️📝", scene:"天空觀察簿", question:"要描述一天的天氣，哪一份紀錄最完整？",
+    options:["今天感覺不錯","只畫一個太陽","記錄雲量、風、氣溫、時間與地點","只寫最高溫，不記日期"], answer:2,
+    tags:["observation","forecast"], relation:"多項觀測 → 天氣描述"
+  },
+  {
+    icon:"🌱☀️💧", scene:"環境實驗室", question:"想知道陽光是否影響植物生長，公平實驗應怎麼做？",
+    options:["兩盆植物的水量、土壤相同，只改變光照","同時改變水量、土壤和光照","只觀察一天就下結論","挑長得最好的一盆當作全部結果"], answer:0,
+    tags:["observation"], relation:"控制變因 → 找出影響因素"
+  },
+  {
+    icon:"🦆🌧️🌊", scene:"濕地調查", question:"雨後濕地水位升高，鴨子的腳蹼仍有利於活動。這題連結了哪些概念？",
+    options:["構造、棲地與天氣影響","警告色、氣溫計與陸地跳躍","外殼、飛行與晴天曬衣","鳥喙、雷電與控制變因"], answer:0,
+    tags:["structure","habitat","weatherImpact"], relation:"身體構造 × 棲地變化"
+  },
+  {
+    icon:"🦔🍂", scene:"落葉防衛戰", question:"刺蝟遇到危險時蜷縮身體、豎起尖刺，主要目的是什麼？",
+    options:["增加飛行速度","降低被攻擊受傷的機會","改變周圍天氣","測量地面溫度"], answer:1,
+    tags:["survival","structure"], relation:"身體構造 → 防禦行為"
+  },
+  {
+    icon:"⛈️🏞️📱", scene:"河岸探險", question:"預報上游有豪雨，原訂河岸活動應如何處理？",
+    options:["只看活動地點現在沒下雨就照常進行","改到安全室內並持續查看最新警報","站到河中央觀察水位","豪雨只影響植物，不影響人"], answer:1,
+    tags:["forecast","weatherImpact"], relation:"區域降雨 → 下游安全"
+  },
+  {
+    icon:"🔍📊🧠", scene:"證據法庭", question:"兩次觀測結果不同時，最科學的下一步是什麼？",
+    options:["選自己喜歡的結果","檢查工具、條件與紀錄，再重複觀測","把不同資料全部刪除","立刻認定其中一人說謊"], answer:1,
+    tags:["observation","forecast"], relation:"資料差異 → 檢查與驗證"
   }
 ];
 
@@ -205,6 +280,7 @@ const conceptInfo = {
 const STORAGE_KEY="forest-weather-rpg-v1";
 let state=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{"completed":[]}');
 if(!Array.isArray(state.completed))state.completed=[];
+if(state.quizResult&&state.quizResult.total!==finalQuiz.length)delete state.quizResult;
 let screen="map",current=0,dialogIndex=0,typeTimer=null,typingDone=true,activeDialogText="",taskState={},quizIndex=0,quizAnswers=[];
 const app=document.getElementById("app");
 
@@ -356,7 +432,7 @@ function renderReward(){
   document.getElementById("rewardNext").onclick=()=>{screen=allDone?"quizIntro":"map";render()};
 }
 function renderQuizIntro(){
-  app.innerHTML=topbar()+`<main class="quiz-screen"><section class="quiz-card quiz-intro"><div class="quiz-orb">🧠✨</div><p class="eyebrow">終局任務</p><h1>自然晶章總測驗</h1><p>10 題情境題會把六個單元連在一起。完成後，裝置內的診斷規則會根據錯題、概念標籤與跨題關聯，推估需要優先複習的單元。</p><div class="offline-note"><strong>🔒 完全離線</strong><span>不傳送答案、不連接外部 AI；判斷由網頁內的加權規則完成。</span></div><div class="relation-preview">${Object.values(conceptInfo).map(x=>`<span>${x.icon} ${x.title}</span>`).join("")}</div><button class="main-btn" id="beginQuiz">開始 10 題總測驗</button> <button class="soft-btn" id="quizBackMap">回地圖</button></section></main>`;
+  app.innerHTML=topbar()+`<main class="quiz-screen"><section class="quiz-card quiz-intro"><div class="quiz-orb">🧠✨</div><p class="eyebrow">終局任務</p><h1>自然晶章總測驗</h1><p>${finalQuiz.length} 題情境題會把六個單元連在一起。完成後，裝置內的診斷規則會根據錯題、概念標籤與跨題關聯，推估需要優先複習的單元。</p><div class="offline-note"><strong>🔒 完全離線</strong><span>不傳送答案、不連接外部 AI；判斷由網頁內的加權規則完成。</span></div><div class="relation-preview">${Object.values(conceptInfo).map(x=>`<span>${x.icon} ${x.title}</span>`).join("")}</div><button class="main-btn" id="beginQuiz">開始 ${finalQuiz.length} 題總測驗</button> <button class="soft-btn" id="quizBackMap">回地圖</button></section></main>`;
   document.getElementById("beginQuiz").onclick=()=>{quizIndex=0;quizAnswers=[];screen="quiz";render()};
   document.getElementById("quizBackMap").onclick=()=>{screen="map";render()};
 }
