@@ -363,7 +363,10 @@ function prepareTask(){
 function taskShell(body){
   const l=lessons[current],progress=taskProgress(l);
   const hint=taskState.hintLevel?l.hints[Math.min(taskState.hintLevel-1,l.hints.length-1)]:"";
-  return scene(`<section class="task-panel"><div class="task-kicker">任務流程：觀察 → 操作 → 判斷 → 說明理由</div><h2>${l.title}</h2><p><strong>學習祕訣：</strong>${l.learning}</p>${body}<div class="hint-box ${hint?"show":""}" id="hintBox">${hint?`💡 提示 ${taskState.hintLevel}：${hint}`:"需要幫忙時，可以逐層查看提示。"}</div><div class="feedback ${taskState.messageBad?"bad":""}" id="feedback">${taskState.message}</div><div class="task-footer"><button class="soft-btn" id="backMap">回地圖</button><button class="hint-btn" id="showHint">提示 ${Math.min(taskState.hintLevel+1,3)}/3</button><div class="task-meter"><span style="width:${progress}%"></span></div><button class="main-btn" id="checkTask">${l.taskType==="guidedQuiz"&&!taskState.resolved?"檢查這一題":"完成任務"}</button></div></section>`);
+  const actionLabel=l.taskType==="guidedQuiz"
+    ?(!taskState.resolved?"檢查這一題":taskState.question===l.questions.length-1?"整理我學會的內容":"下一個觀察")
+    :"完成任務";
+  return scene(`<section class="task-panel"><div class="task-kicker">任務流程：觀察 → 操作 → 判斷 → 說明理由</div><h2>${l.title}</h2><p><strong>學習祕訣：</strong>${l.learning}</p>${body}<div class="hint-box ${hint?"show":""}" id="hintBox">${hint?`💡 提示 ${taskState.hintLevel}：${hint}`:"需要幫忙時，可以逐層查看提示。"}</div><div class="feedback ${taskState.messageBad?"bad":""}" id="feedback">${taskState.message}</div><div class="task-footer"><button class="soft-btn" id="backMap">回地圖</button><button class="hint-btn" id="showHint">提示 ${Math.min(taskState.hintLevel+1,3)}/3</button><div class="task-meter"><span style="width:${progress}%"></span></div><button class="main-btn" id="checkTask">${actionLabel}</button></div></section>`);
 }
 function taskProgress(l){
   if(l.taskType==="guidedQuiz")return (taskState.answers.length+(taskState.resolved?1:0))/l.questions.length*100;
@@ -427,14 +430,7 @@ function bindTask(){
     renderTask();
   });
   const nextGuided=document.getElementById("nextGuided");
-  if(nextGuided)nextGuided.onclick=()=>{
-    const lq=l.questions[taskState.question];
-    taskState.answers.push({question:taskState.question,answer:taskState.selected,correct:taskState.selected===lq.answer});
-    if(taskState.question<l.questions.length-1){
-      taskState.question++;taskState.selected=undefined;taskState.resolved=false;taskState.hintLevel=0;
-      taskState.message="先觀察新的情境，再做判斷。";taskState.messageBad=false;renderTask();
-    }else completeLesson();
-  };
+  if(nextGuided)nextGuided.onclick=advanceGuided;
   document.querySelectorAll("[data-left]").forEach(b=>b.onclick=()=>{if(taskState.matched.includes(+b.dataset.left))return;taskState.left=+b.dataset.left;renderTask()});
   document.querySelectorAll("[data-right]").forEach(b=>b.onclick=()=>{
     const r=+b.dataset.right;
@@ -461,6 +457,7 @@ function bindTask(){
 function checkTask(){
   const l=lessons[current];let ok=false;
   if(l.taskType==="guidedQuiz"){
+    if(taskState.resolved){advanceGuided();return}
     if(taskState.selected===undefined){setFeedback("先選一個答案，再檢查理由。",true);return}
     const q=l.questions[taskState.question];
     if(taskState.selected===q.answer){
@@ -485,6 +482,15 @@ function checkTask(){
     setFeedback(l.misconception,true);
     if(l.taskType==="sequence"){taskState.order=[];setTimeout(renderTask,900)}
   }
+}
+function advanceGuided(){
+  const l=lessons[current],q=l.questions[taskState.question];
+  if(!taskState.resolved)return;
+  taskState.answers.push({question:taskState.question,answer:taskState.selected,correct:taskState.selected===q.answer});
+  if(taskState.question<l.questions.length-1){
+    taskState.question++;taskState.selected=undefined;taskState.resolved=false;taskState.hintLevel=0;
+    taskState.message="先觀察新的情境，再做判斷。";taskState.messageBad=false;renderTask();
+  }else completeLesson();
 }
 function completeLesson(){
   const l=lessons[current];
