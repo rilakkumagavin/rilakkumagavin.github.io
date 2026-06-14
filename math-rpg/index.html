@@ -11,6 +11,7 @@
 .r1{left:2%;top:28%;bottom:auto}.r4{right:3%;bottom:3%}.r5{left:20%;bottom:3%}
 @media(max-width:850px){.map{aspect-ratio:10/13}.map-title{max-width:60%}.node{width:96px}.dungeon-grid{grid-template-columns:repeat(2,1fr)}.badge-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:520px){.top{align-items:flex-start}.status{font-size:.8rem}.map-wrap{padding:7px}.map{aspect-ratio:auto;min-height:1280px}.map-title{max-width:94%}.map-title p{display:none}.map>svg{display:none}.region{font-size:.72rem}.r1{top:15%;bottom:auto}.r2{top:30%;left:65%}.r3{top:48%;left:4%}.r4{top:65%;right:4%;bottom:auto}.r5{top:82%;left:4%;bottom:auto}.node{left:auto!important;width:132px}.node:nth-of-type(odd){left:27%!important}.node:nth-of-type(even){left:72%!important}.node:nth-of-type(1){top:20%}.node:nth-of-type(2){top:25%}.node:nth-of-type(3){top:35%}.node:nth-of-type(4){top:40%}.node:nth-of-type(5){top:45%}.node:nth-of-type(6){top:53%}.node:nth-of-type(7){top:58%}.node:nth-of-type(8){top:63%}.node:nth-of-type(9){top:68%}.node:nth-of-type(10){top:73%}.node:nth-of-type(11){top:78%}.node:nth-of-type(12){top:83%}.node:nth-of-type(13){top:88%}.node:nth-of-type(14){top:93%}.node:nth-of-type(15){top:97%}.hero-token{display:none}.choices,.sequence-bank,.sequence-slots{grid-template-columns:1fr}.lesson-card>header{align-items:flex-start}.lesson-card>header>span{font-size:2.6rem}.mission{padding:14px}.dayline{overflow:auto;justify-content:flex-start}.dungeon-grid,.badge-grid{grid-template-columns:1fr}.report-stats{grid-template-columns:1fr}.final-card dl{grid-template-columns:105px 1fr}.tile-grid,.array-grid{grid-template-columns:repeat(4,48px)}.tile-grid button,.array-grid i{width:48px;height:48px}}
+.sequence-bank button small{display:block;margin-top:5px;color:#668083}.sequence-bank button.used{opacity:.62;background:#e7eeee}.sequence-bank button.used small{color:#9b4a3f}.reset-sequence{display:block;margin:0 auto 14px;border:2px solid #789e9d;border-radius:11px;padding:9px 15px;background:#fff;color:var(--navy);font-weight:900}
 @media print{.top,.no-print{display:none!important}.subpage{padding:0;background:#fff}.final-card{box-shadow:none;break-inside:avoid;margin-bottom:18px}}
 
   </style>
@@ -154,7 +155,7 @@ function map(){
  document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{screen=b.dataset.go;render()});
 }
 function visual(l){
- if(l.type==="sequence")return `<div class="sequence-bank">${l.options.map((x,i)=>`<button data-seq="${i}" class="${sequence.includes(i)?"used":""}">${x}</button>`).join("")}</div><div class="sequence-slots">${[0,1].map((_,i)=>`<div>${sequence[i]!==undefined?l.options[sequence[i]]:`第${i+1}步`}</div>`).join("")}</div>`;
+ if(l.type==="sequence")return `<div class="sequence-bank">${l.options.map((x,i)=>`<button data-seq="${i}" class="${sequence.includes(i)?"used":""}">${x}<small>${sequence.includes(i)?"再點一次可撤回":"點選加入順序"}</small></button>`).join("")}</div><div class="sequence-slots">${[0,1].map((_,i)=>`<div>${sequence[i]!==undefined?l.options[sequence[i]]:`第${i+1}步`}</div>`).join("")}</div><button class="reset-sequence" id="resetSequence" type="button">↻ 重新排序</button>`;
  if(l.type==="tenths")return `<div class="ten-bars">${Array.from({length:20},(_,i)=>`<button data-tenth="${i}" class="${i<tenths?"on":""}"></button>`).join("")}</div><div class="readout">${tenths} 個 0.1 ＝ <strong>${(tenths/10).toFixed(1)}</strong></div>`;
  if(l.type==="clock")return `<div class="clock"><span class="hand minute seven"></span><span class="hand hour"></span><i></i>${Array.from({length:12},(_,i)=>`<b style="--a:${(i+1)*30}deg">${i+1}</b>`).join("")}</div>`;
  if(l.type==="timeline")return `<div class="timeline"><span>10:17</span><i style="width:42%"></i><span>10:42</span></div>`;
@@ -177,7 +178,8 @@ function lesson(){
  shell(`<main class="lesson-page" style="--region:${D.regions.find(r=>r.id===l.region).color}"><button class="back" id="back">← 冒險地圖</button><section class="lesson-card"><header><span>${l.icon}</span><div><small>${l.concept}</small><h1>第${current+1}關：${l.title}</h1><p>${l.objective}</p></div></header><div class="npc"><b>🦉 米米：</b>${l.npc}</div><section class="mission"><h2>${l.prompt}</h2>${visual(l)}${choices}<div class="reason"><label>我的理由（可選填）<textarea id="reason" placeholder="我先觀察到……所以我判斷……">${state.notes[l.id]||""}</textarea></label></div><div class="hint ${hintLevel?"show":""}">💡 ${h}</div><div class="actions"><button id="hint">提示 ${Math.min(hintLevel+1,3)}/3</button><button class="primary" id="check">完成判斷</button></div><p id="feedback"></p></section></section></main>`);
  document.getElementById("back").onclick=()=>{screen="map";render()};document.getElementById("hint").onclick=()=>{hintLevel=Math.min(3,hintLevel+1);render()};
  document.querySelectorAll("[data-answer]").forEach(b=>b.onclick=()=>{selected=+b.dataset.answer;render()});
- document.querySelectorAll("[data-seq]").forEach(b=>b.onclick=()=>{let n=+b.dataset.seq;if(!sequence.includes(n)){sequence.push(n);render()}});
+ document.querySelectorAll("[data-seq]").forEach(b=>b.onclick=()=>{let n=+b.dataset.seq;sequence=sequence.includes(n)?sequence.filter(x=>x!==n):sequence.length<l.answer.length?[...sequence,n]:sequence;render()});
+ const resetSequence=document.getElementById("resetSequence");if(resetSequence)resetSequence.onclick=()=>{sequence=[];render()};
  document.querySelectorAll("[data-tenth]").forEach(b=>b.onclick=()=>{tenths=+b.dataset.tenth+1;render()});
  document.querySelectorAll("[data-tile]").forEach(b=>b.onclick=()=>{tiles=+b.dataset.tile+1;render()});
  document.getElementById("check").onclick=()=>checkLesson(l);
@@ -188,7 +190,7 @@ function checkLesson(l){
  else if(l.type==="tenths"){ok=tenths===13;answer=(tenths/10).toFixed(1)}
  else if(l.type==="cover"){ok=tiles===6;answer=tiles}
  else{ok=selected===l.answer;answer=selected===null?"未作答":l.options[selected]}
- state.answers[l.id]={answer,ok,time:Date.now()};if(!ok){state.errors.push({lesson:l.id,answer,time:Date.now()});hintLevel=Math.min(3,hintLevel+1);save();document.getElementById("feedback").innerHTML=`<strong>迷思怪物出現：</strong>${l.misconception} 請查看提示後再試一次。`;document.getElementById("feedback").className="bad";return}
+ state.answers[l.id]={answer,ok,time:Date.now()};if(!ok){state.errors.push({lesson:l.id,answer,time:Date.now()});hintLevel=Math.min(3,hintLevel+1);save();document.getElementById("feedback").innerHTML=`<strong>迷思怪物出現：</strong>${l.misconception} ${l.type==="sequence"?"請按「重新排序」或再點一次步驟卡撤回。":"請查看提示後再試一次。"}`;document.getElementById("feedback").className="bad";return}
  if(!done(l.id))state.completed.push(l.id);save();screen="reward";render();
 }
 function reward(){let l=D.lessons[current];shell(`<main class="reward-page"><section><div class="reward-icon">${l.icon}</div><p>任務完成，知識道具已收入背包</p><h1>獲得「${l.reward}」</h1><div class="learned"><b>我學會了</b><p>${l.learned}</p></div><div class="fix"><b>迷思修正</b><p>${l.misconception}</p></div><button class="primary" id="map">回到冒險地圖</button></section></main>`);document.getElementById("map").onclick=()=>{screen="map";render()}}
