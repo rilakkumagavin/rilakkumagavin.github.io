@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>數學王國：五大智慧試煉</title>
+  <style>
+:root{--ink:#18344a;--navy:#153c57;--gold:#ffd76a;--paper:#fffaf0;--green:#278b63;--red:#c84e52;--sky:#cbeef4}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Microsoft JhengHei","Noto Sans TC",sans-serif;color:var(--ink);background:#e9f4ec}button,input,textarea{font:inherit}button{cursor:pointer}.top{min-height:72px;padding:9px 4vw;background:linear-gradient(120deg,#102f43,#216a68);color:#fff;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:20}.brand{display:flex;align-items:center;gap:10px}.brand>span{font-size:2.2rem}.brand b,.brand small{display:block}.brand small{color:#ffe9a1}.status{font-weight:900}.primary,.back,.dock button,.actions button,.dungeon-grid button{border:0;border-radius:13px;padding:12px 17px;font-weight:950}.primary{background:var(--gold);color:#4e3904;box-shadow:0 5px 0 #a87a1b}.back{background:#fff;color:var(--navy);box-shadow:0 4px 0 #aac5c3}.eyebrow{color:#b65736;font-weight:950;letter-spacing:1px}.home{min-height:calc(100vh - 72px);display:grid;place-items:center;padding:22px;background:radial-gradient(circle at 20% 20%,#fff0a2,transparent 25%),linear-gradient(145deg,#a5dfe7,#e8f3d3)}.story-card{width:min(900px,95%);padding:35px;text-align:center;border:6px solid #fff;border-radius:30px;background:#fffaf0ed;box-shadow:0 18px 45px #163b5366}.owl{font-size:6rem}.story-card h1{font-size:clamp(2.2rem,6vw,4.6rem);margin:4px;color:var(--navy)}.story-card>p{line-height:1.8}.world-list{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:20px}.world-list span{border-bottom:6px solid var(--c);background:#fff;padding:10px 14px;border-radius:13px;font-weight:950}.world-list small{display:block;color:#6b7a80}.map-wrap{min-height:calc(100vh - 72px);padding:18px;background:linear-gradient(#bce9ef,#edf4d5)}.map{position:relative;max-width:1280px;aspect-ratio:16/9;margin:auto;border:7px solid #fff7d9;border-radius:28px;overflow:hidden;background:linear-gradient(155deg,#8dd4e6 0 25%,#77be7d 26% 53%,#b28a62 54% 72%,#8bc56c 73%);box-shadow:0 15px 36px #153c5755}.map-bg{position:absolute;inset:0;background:radial-gradient(circle at 13% 70%,#3f955f 0 11%,transparent 12%),radial-gradient(circle at 40% 48%,#46a5d3 0 15%,transparent 16%),radial-gradient(circle at 66% 35%,#9e83c8 0 12%,transparent 13%),radial-gradient(circle at 74% 72%,#9b6848 0 16%,transparent 17%),radial-gradient(circle at 15% 88%,#d980a2 0 14%,transparent 15%);opacity:.92}.map::after{content:"";position:absolute;inset:0;background:linear-gradient(#ffffff20,#173d4518);pointer-events:none}.map-title{position:absolute;z-index:5;left:3%;top:3%;width:360px;max-width:42%;padding:13px 16px;border:3px solid #fff;border-radius:17px;background:#fffaf0eb;box-shadow:0 6px 14px #173d4544}.map-title h1{margin:3px 0;color:var(--navy)}.map-title p{margin:5px 0}.map>svg{position:absolute;z-index:2;inset:0;width:100%;height:100%;pointer-events:none}.map polyline{fill:none;stroke:#fff0a5;stroke-width:1.2;stroke-dasharray:2.5 1.3;stroke-linecap:round;filter:drop-shadow(0 3px 2px #173d4566)}.region{position:absolute;z-index:3;padding:7px 11px;border:3px solid #fff;border-radius:12px;background:var(--c);color:#fff;box-shadow:0 5px 10px #173d4555}.region b,.region small{display:block}.r1{left:3%;bottom:4%}.r2{left:32%;top:14%}.r3{left:58%;top:4%}.r4{right:4%;bottom:8%}.r5{left:6%;bottom:24%}.node{position:absolute;z-index:5;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:112px;min-height:58px;border:4px solid #fff;border-radius:17px;background:linear-gradient(#fff4bd,#ffc94f);color:var(--navy);box-shadow:0 6px 0 #8f6722,0 10px 15px #173d4555;font-weight:950;padding:19px 5px 5px}.node i{position:absolute;left:50%;top:-23px;transform:translateX(-50%);display:grid;place-items:center;width:43px;height:43px;border-radius:50%;background:#153c57;border:3px solid #fff1ad;font-style:normal;font-size:1.35rem}.node>b{position:absolute;left:5px;top:5px;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#163e55;color:#fff;font-size:.7rem}.node span{display:block;font-size:.77rem}.node.done{background:linear-gradient(#dcffe8,#6bd398);box-shadow:0 6px 0 #317956}.node.active{animation:glow 1.4s infinite}.node.locked{filter:grayscale(1);opacity:.62}.hero-token{position:absolute;z-index:4;left:4%;top:49%;font-size:4.5rem;filter:drop-shadow(0 5px 4px #173d4555)}@keyframes glow{50%{box-shadow:0 6px 0 #8f6722,0 0 0 10px #fff0a555}}.dock{max-width:1000px;margin:-16px auto 0;position:relative;z-index:9;padding:15px;display:flex;justify-content:center;gap:9px;flex-wrap:wrap;border:5px solid #fff7d9;border-radius:22px;background:#153f4b;box-shadow:0 10px 23px #173d4544}.dock button{background:#fff;color:var(--navy)}.dock em{display:inline-grid;place-items:center;width:24px;height:24px;background:var(--red);color:#fff;border-radius:50%;font-style:normal}.lesson-page{min-height:calc(100vh - 72px);padding:18px;background:linear-gradient(145deg,var(--region),#dcefdc)}.lesson-page>.back{display:block;margin:0 auto 12px;max-width:1100px}.lesson-card{max-width:1100px;margin:auto;border:5px solid #fff;border-radius:25px;overflow:hidden;background:#fffaf1ed;box-shadow:0 15px 35px #173d4566}.lesson-card>header{display:flex;gap:16px;align-items:center;padding:20px;background:linear-gradient(120deg,#153c57,#277b72);color:#fff}.lesson-card>header>span{font-size:4rem}.lesson-card h1{margin:3px 0}.lesson-card header p{margin:5px 0}.npc{padding:14px 20px;background:#fff0b9;line-height:1.7}.mission{padding:22px}.mission h2{text-align:center;color:var(--navy);line-height:1.55}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:17px 0}.choices button,.sequence-bank button{min-height:62px;padding:12px;border:3px solid #bdd0d2;border-radius:14px;background:#fff;text-align:left;font-weight:850}.choices button.selected{border-color:#e09a28;background:#fff0b4}.reason textarea,.final-card textarea{width:100%;min-height:80px;padding:10px;border:2px solid #b9caca;border-radius:11px;margin-top:6px}.hint{padding:12px;border:2px dashed #aec8c5;border-radius:12px;background:#eef4f1;color:#657778;margin:13px 0}.hint.show{background:#fff3bf;color:#614a0c;border-color:#d8ad37}.actions{display:flex;justify-content:space-between;gap:10px}.actions button:first-child{background:#fff0b7;color:#634900}.actions .primary{background:var(--gold)}#feedback{padding:12px;border-radius:11px}#feedback.bad{background:#fde4e4;color:#853b3f}.sequence-bank{display:grid;grid-template-columns:1fr 1fr;gap:9px}.sequence-bank button.used{opacity:.4}.sequence-slots{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}.sequence-slots div{min-height:65px;padding:12px;border:3px dashed #7ca8a7;border-radius:13px;background:#eaf6f2}.ten-bars{display:grid;grid-template-columns:repeat(10,1fr);max-width:650px;margin:18px auto;border:3px solid var(--navy)}.ten-bars button{height:55px;border:1px solid var(--navy);background:#fff}.ten-bars button.on{background:linear-gradient(#8fe1ff,#287eb5)}.readout,.center{text-align:center;font-size:1.25rem}.clock{position:relative;width:260px;aspect-ratio:1;margin:15px auto;border:10px solid var(--navy);border-radius:50%;background:#fff}.clock>b{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(var(--a)) translateY(-104px) rotate(calc(-1*var(--a)))}.clock .hand{position:absolute;left:50%;bottom:50%;transform-origin:bottom}.minute.seven{width:5px;height:39%;background:#e8694b;transform:translateX(-50%) rotate(210deg)}.clock .hour{width:8px;height:27%;background:var(--navy);transform:translateX(-50%) rotate(105deg)}.clock>i{position:absolute;left:50%;top:50%;width:16px;height:16px;border-radius:50%;background:var(--gold);transform:translate(-50%,-50%)}.timeline,.dayline{display:flex;align-items:center;justify-content:center;margin:30px auto;max-width:700px}.timeline i{height:10px;background:linear-gradient(90deg,#e9684b,var(--gold));border-radius:99px}.timeline span,.dayline span{padding:10px;background:#fff;border:3px solid var(--navy);border-radius:12px;font-weight:950}.dayline{justify-content:space-between;border-bottom:8px solid #7957b7}.dayline span{font-size:.8rem}.gear,.balance,.layers,.cogs,.estimate,.compare{display:flex;align-items:center;justify-content:center;gap:15px;flex-wrap:wrap;margin:25px}.gear span,.balance span,.layers span,.cogs i,.estimate strong,.compare span{padding:15px 20px;border-radius:15px;background:#fff;border:4px solid var(--region);font-size:1.35rem;font-weight:950}.gear strong{font-size:2rem}.decimal-board{width:220px;margin:20px auto;display:grid;grid-template-columns:1fr 30px;gap:4px;text-align:right;font-size:2rem;font-weight:950}.decimal-board hr{grid-column:1/-1;width:100%;border:2px solid}.tile-grid,.array-grid{display:grid;grid-template-columns:repeat(4,58px);width:max-content;margin:20px auto}.tile-grid button,.array-grid i{width:58px;height:58px;border:2px solid #276781;background:#fff}.tile-grid button.on,.array-grid i{background:#ffd76a}.halves{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:20px}.halves i{width:58px;height:58px;border:2px solid #276781;background:#ffd76a}.halves .half{background:linear-gradient(135deg,#e96d51 0 50%,#fff 51%)}.halves .flip{transform:rotate(180deg)}.reward-page{min-height:calc(100vh - 72px);display:grid;place-items:center;padding:20px;background:radial-gradient(circle,#fff0a4,#84cdb5)}.reward-page>section{width:min(760px,95%);padding:30px;text-align:center;border:6px solid #fff;border-radius:28px;background:#fffaf1;box-shadow:0 18px 40px #173d4566}.reward-icon{font-size:6rem}.learned,.fix{padding:13px;border-radius:13px;text-align:left;margin:10px}.learned{background:#dff5e7;border-left:7px solid var(--green)}.fix{background:#fff0bd;border-left:7px solid #d69526}.subpage{min-height:calc(100vh - 72px);padding:24px;background:linear-gradient(#d7eff0,#edf4dc)}.subpage>header,.dungeon-grid,.badge-grid,.report-list,.report-stats,.cards .final-card{max-width:1100px;margin:0 auto 18px}.dungeon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.dungeon-grid article{position:relative;padding:17px;border:4px solid #fff;border-radius:19px;background:#fffaf1;box-shadow:0 8px 18px #173d4533}.dungeon-grid article>span{font-size:3rem}.dungeon-grid article>small{display:block;color:#a45837}.dungeon-grid article>em{position:absolute;right:10px;top:10px;background:var(--red);color:#fff;padding:4px 8px;border-radius:99px;font-style:normal}.dungeon-grid article.recommended{border-color:#ffcf62}.dungeon-grid button{width:100%;background:#183f51;color:#fff;margin-top:10px}.badge-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.badge-grid article{display:grid;place-items:center;min-height:150px;padding:12px;text-align:center;border:3px dashed #9eb8b6;border-radius:16px;background:#e5eeee;color:#6b7c7d}.badge-grid article.got{border:4px solid #fff0a0;background:radial-gradient(circle,#fff9c6,#e5ad45);color:#513903;box-shadow:0 8px 16px #173d4533}.badge-grid span{font-size:3rem}.badge-grid small,.badge-grid b{display:block}.report-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.report-stats span{padding:17px;text-align:center;border-radius:15px;background:#153f4b;color:#fff}.report-stats b{display:block;font-size:2.3rem;color:var(--gold)}.report-list{padding:20px;border-radius:20px;background:#fff}.report-list p{padding:11px;border-bottom:1px solid #d8e4e1}.final-card{padding:24px;border:5px solid #e0b44e;border-radius:22px;background:#fffdf5;box-shadow:0 10px 25px #173d4533}.final-card>h1{text-align:center;color:var(--navy)}.final-card label{display:block;font-weight:900;margin:10px 0}.final-card input{padding:8px;border:0;border-bottom:2px solid;width:250px}.final-card dl{display:grid;grid-template-columns:140px 1fr}.final-card dt,.final-card dd{padding:9px;border-bottom:1px solid #ddd}.final-card dt{font-weight:950}.final-card dd{margin:0}.card-actions{text-align:center}
+.r1{left:2%;top:28%;bottom:auto}.r4{right:3%;bottom:3%}.r5{left:20%;bottom:3%}
+@media(max-width:850px){.map{aspect-ratio:10/13}.map-title{max-width:60%}.node{width:96px}.dungeon-grid{grid-template-columns:repeat(2,1fr)}.badge-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.top{align-items:flex-start}.status{font-size:.8rem}.map-wrap{padding:7px}.map{aspect-ratio:auto;min-height:1280px}.map-title{max-width:94%}.map-title p{display:none}.map>svg{display:none}.region{font-size:.72rem}.r1{top:15%;bottom:auto}.r2{top:30%;left:65%}.r3{top:48%;left:4%}.r4{top:65%;right:4%;bottom:auto}.r5{top:82%;left:4%;bottom:auto}.node{left:auto!important;width:132px}.node:nth-of-type(odd){left:27%!important}.node:nth-of-type(even){left:72%!important}.node:nth-of-type(1){top:20%}.node:nth-of-type(2){top:25%}.node:nth-of-type(3){top:35%}.node:nth-of-type(4){top:40%}.node:nth-of-type(5){top:45%}.node:nth-of-type(6){top:53%}.node:nth-of-type(7){top:58%}.node:nth-of-type(8){top:63%}.node:nth-of-type(9){top:68%}.node:nth-of-type(10){top:73%}.node:nth-of-type(11){top:78%}.node:nth-of-type(12){top:83%}.node:nth-of-type(13){top:88%}.node:nth-of-type(14){top:93%}.node:nth-of-type(15){top:97%}.hero-token{display:none}.choices,.sequence-bank,.sequence-slots{grid-template-columns:1fr}.lesson-card>header{align-items:flex-start}.lesson-card>header>span{font-size:2.6rem}.mission{padding:14px}.dayline{overflow:auto;justify-content:flex-start}.dungeon-grid,.badge-grid{grid-template-columns:1fr}.report-stats{grid-template-columns:1fr}.final-card dl{grid-template-columns:105px 1fr}.tile-grid,.array-grid{grid-template-columns:repeat(4,48px)}.tile-grid button,.array-grid i{width:48px;height:48px}}
+@media print{.top,.no-print{display:none!important}.subpage{padding:0;background:#fff}.final-card{box-shadow:none;break-inside:avoid;margin-bottom:18px}}
+
+  </style>
+</head>
+<body>
+  <script>
+window.MATH_RPG_DATA={
+  title:"數學王國：五大智慧試煉",
+  hero:"數學任務冒險家",
+  npc:"智慧貓頭鷹米米",
+  intro:"問題森林、小數湖、時間塔、乘除礦山和面積花園遭到迷思怪物入侵。找回十五件知識道具，修復數學王國。",
+  regions:[
+    {id:"u5",name:"問題森林",unit:"第5單元",title:"任務拆解偵探",color:"#2f855a"},
+    {id:"u6",name:"小數湖",unit:"第6單元",title:"十分位魔法師",color:"#2589bd"},
+    {id:"u7",name:"時間塔",unit:"第7單元",title:"時間守護者",color:"#7357b8"},
+    {id:"u8",name:"乘除礦山",unit:"第8單元",title:"乘除齒輪工程師",color:"#b56b2f"},
+    {id:"u9",name:"面積花園",unit:"第9單元",title:"方格建築師",color:"#bd4777"}
+  ],
+  lessons:[
+    {id:"s1",region:"u5",title:"任務卡拆解森林",concept:"加減與除兩步驟",reward:"任務放大鏡",icon:"🔍",type:"sequence",
+      objective:"判斷先算與再算，並用兩個算式記錄。",npc:"先看任務問什麼，不要看到數字就急著攻擊。",
+      prompt:"原有96張紙，又放入24張，平均裝入6格。每格幾張？請排出正確順序。",
+      options:["96＋24＝120（先求總張數）","120÷6＝20（再求每格張數）"],answer:[0,1],
+      hints:["先圈出最後問的是「每格幾張」。","第二步要平均分，但需要先知道全部有幾張。","先算96＋24，再用總張數除以6。"],
+      misconception:"第一步要先形成第二步需要的中間結果。",learned:"我會先看題目問什麼，再決定先算與再算。"},
+    {id:"s2",region:"u5",title:"連乘橋梁工坊",concept:"連乘兩步驟",reward:"連乘橋梁徽章",icon:"🌉",type:"layers",
+      objective:"用兩次乘法處理多層情境，不使用併式。",npc:"一層一層算，橋梁才不會少一段。",
+      prompt:"4排椅子，每排6張，每張坐2人，共可坐幾人？",
+      options:["先算4×6＝24張，再算24×2＝48人","先算4＋6＝10，再算10×2＝20人","先算6×2＝12，再算12＋4＝16人"],answer:0,
+      hints:["先找出全部有幾張椅子。","第一層是排數×每排張數。","4×6＝24，再用24×2。"],
+      misconception:"不能漏掉排、椅子、人三層關係。",learned:"我會先算一層，再用第一次結果算全部。"},
+    {id:"s3",region:"u6",title:"十分位寶石湖",concept:"0.1與十分位",reward:"十分位寶石",icon:"💎",type:"tenths",
+      objective:"理解10個0.1合成1，正確表示一位小數。",npc:"10個小碎片會合成1顆大水晶。",
+      prompt:"點亮13個0.1寶石後，它們合起來是多少？",answer:"1.3",
+      hints:["先把10個0.1合成1。","13個裡有10個和剩下3個。","10個0.1是1，3個0.1是0.3。"],
+      misconception:"13個0.1不是13.1，也不是0.13。",learned:"我知道10個0.1是1，13個0.1是1.3。"},
+    {id:"s4",region:"u6",title:"小數比大小競技場",concept:"一位小數比較",reward:"大小比較徽章",icon:"⚖️",type:"compare",
+      objective:"先比較整數部分，再比較十分位。",npc:"數字站的位置不一樣，力量也不一樣。",
+      prompt:"3.8和3.5哪一個比較大？",options:["3.8 ＞ 3.5","3.8 ＜ 3.5","3.8 ＝ 3.5"],answer:0,
+      hints:["先比較個位。","個位都是3，再看十分位。","8個0.1比5個0.1多。"],
+      misconception:"比較小數不能只看數字符號，要看位值。",learned:"我會先比個位，再比十分位。"},
+    {id:"s5",region:"u6",title:"小數修復實驗室",concept:"小數加減",reward:"小數點校準器",icon:"🧪",type:"decimal",
+      objective:"小數點對齊，相同位值相加減。",npc:"小數點要站在同一條線上。",
+      prompt:"5－1.4是多少？先讓5的小數點顯形。",options:["5.0－1.4＝3.6","5.0－1.4＝4.4","5－1.4＝0.9"],answer:0,
+      hints:["整數5也可以寫成一位小數。","讓5變成5.0，再對齊小數點。","5.0－1.4需要向個位借1。"],
+      misconception:"5等於5.0；小數點對齊後才能正確退位。",learned:"我會讓整數補上.0，並把小數點對齊。"},
+    {id:"s6",region:"u7",title:"一日時間塔",concept:"12與24時制",reward:"一日時間齒輪",icon:"🕰️",type:"dayline",
+      objective:"認識12/24時制與1日24小時。",npc:"一天有24小時，下午接在12時之後。",
+      prompt:"下午3時用24時制表示是？",options:["03:00","15:00","13:00"],answer:1,
+      hints:["先判斷是上午還是下午。","下午1時開始是13時。","下午3時要用3＋12。"],
+      misconception:"下午3時不是03:00；24時制要接續上午的12小時。",learned:"我會把下午時刻轉成24時制。"},
+    {id:"s7",region:"u7",title:"分鐘齒輪室",concept:"時分換算",reward:"60分齒輪",icon:"⚙️",type:"convert",
+      objective:"使用1小時＝60分鐘換算。",npc:"轉動一個大齒輪，就是60分鐘。",
+      prompt:"2小時30分是幾分鐘？",options:["90分","120分","150分"],answer:2,
+      hints:["先把2小時換成分鐘。","2×60＝120分鐘。","120分鐘再加30分鐘。"],
+      misconception:"小時和分鐘不能直接把數字接在一起。",learned:"我會把小時換成分鐘，再加上剩餘分鐘。"},
+    {id:"s8",region:"u7",title:"秒針訓練場",concept:"分秒與鐘面",reward:"秒針徽章",icon:"⏱️",type:"clock",
+      objective:"知道1分鐘＝60秒，並理解鐘面每大格5單位。",npc:"長針踩到7，要啟動5倍增幅。",
+      prompt:"分針指向數字7，表示幾分？",options:["7分","35分","60分"],answer:1,
+      hints:["鐘面相鄰兩個數字之間是5分鐘。","用指到的數字乘以5。","7×5＝35。"],
+      misconception:"分針指7不是7分，而是7個5分鐘。",learned:"我會用鐘面數字乘5讀出分鐘。"},
+    {id:"s9",region:"u7",title:"時間任務列車",concept:"時刻與時間量",reward:"時間線羅盤",icon:"🚂",type:"timeline",
+      objective:"分辨時刻是點、時間量是兩點間的距離。",npc:"時刻是點，時間量是兩點中間的路。",
+      prompt:"10:17到10:42經過多久？",options:["25分鐘","35分鐘","59分鐘"],answer:0,
+      hints:["題目問的是「多久」，不是另一個時刻。","在時間線上找10:17和10:42兩點。","42－17＝25分鐘。"],
+      misconception:"兩個時刻之間的時間量要找距離，不是把時刻相加。",learned:"我會用時間線計算經過多久。"},
+    {id:"s10",region:"u8",title:"乘除齒輪礦山",concept:"乘除互逆",reward:"乘除轉換鑰匙",icon:"🔑",type:"inverse",
+      objective:"辨認單位量、單位數、總數，並用乘法驗算除法。",npc:"除法門可以用乘法鑰匙打開。",
+      prompt:"24÷4＝6，可以用哪個算式驗算？",options:["4×6＝24","24×4＝96","24－6＝18"],answer:0,
+      hints:["除法求出每組6個。","驗算要用每組量×組數。","4組×每組6個應回到24。"],
+      misconception:"乘法和除法可以用相同三個數互相檢查。",learned:"我會用乘法驗算除法。"},
+    {id:"s11",region:"u8",title:"遺失數字洞穴",concept:"乘除未知數",reward:"未知數探測器",icon:"📡",type:"unknown",
+      objective:"利用乘除互逆找回未知數。",npc:"缺哪個數，就用反向齒輪找回來。",
+      prompt:"□÷25＝3，□是多少？",options:["75","28","22"],answer:0,
+      hints:["方格是被除數，也就是原來的總數。","除數×商可以找回被除數。","25×3＝75。"],
+      misconception:"未知數的位置不同，使用的回推方法也不同。",learned:"我會看未知數的位置，用乘除互逆找答案。"},
+    {id:"s12",region:"u8",title:"估算商店街",concept:"乘法估算",reward:"估算望遠鏡",icon:"🔭",type:"estimate",
+      objective:"將數量估成整十、整百，判斷答案合理性。",npc:"望遠鏡看到的是大約，不是精確答案。",
+      prompt:"198×4大約是多少？",options:["約80","約200","約800"],answer:2,
+      hints:["198接近哪一個整百數？","把198看成200。","200×4＝800。"],
+      misconception:"估算要選接近且方便計算的數。",learned:"我會用整十或整百估算並檢查合理性。"},
+    {id:"s13",region:"u9",title:"1平方公分地磚村",concept:"1平方公分",reward:"平方公分地磚",icon:"🟨",type:"cover",
+      objective:"用1平方公分方瓦覆蓋並點數面積。",npc:"面積要看蓋住幾格，不是邊走幾步。",
+      prompt:"請點亮6塊地磚。蓋住6格的面積是多少？",answer:6,
+      hints:["每一格代表1平方公分。","面積要數裡面被覆蓋的格子。","6格就是6平方公分。"],
+      misconception:"面積不是周圍邊長，而是覆蓋面的單位格數。",learned:"我會用1平方公分方瓦測量面積。"},
+    {id:"s14",region:"u9",title:"方格花園",concept:"平方公分板",reward:"平方公分板",icon:"▦",type:"array",
+      objective:"使用平方公分板點數，整齊排列時以乘法簡化。",npc:"整齊排列的格子，可以請乘法來幫忙。",
+      prompt:"花園有4排，每排3格，面積是多少？",options:["7平方公分","12平方公分","24平方公分"],answer:1,
+      hints:["可以先一格一格數。","每排3格，共有4排。","4×3＝12格。"],
+      misconception:"本單元用方格點數或乘法簡化點數，不引入長方形面積公式。",learned:"我會用平方公分板和乘法幫忙點數。"},
+    {id:"s15",region:"u9",title:"半格拼圖城",concept:"半格合成",reward:"半格拼圖徽章",icon:"◩",type:"halves",
+      objective:"將兩個半格合成一格，計算非整格圖形。",npc:"兩片半格拼起來，才是一整格。",
+      prompt:"6個整格加2個半格，面積是多少？",options:["7平方公分","8平方公分","6平方公分"],answer:0,
+      hints:["先數6個整格。","把2個半格配成一組。","2個半格合成1格，6＋1＝7。"],
+      misconception:"半格不能直接丟掉，也不能每一個都當成整格。",learned:"我會把兩個半格合成一格再計算面積。"}
+  ],
+  errorDungeons:[
+    {id:"e1",unit:"第6單元",title:"碎片合成爐",monster:"位值幻術",icon:"🧩",trigger:"13.1、0.13或13",concept:"10個0.1合成1",correct:"13個0.1＝1.3",reward:"十分位合成晶章"},
+    {id:"e2",unit:"第6單元",title:"顯形藥水機關",monster:"小數點隱形斗篷",icon:"🧪",trigger:"5－1.4錯誤",concept:"整數可寫成一位小數",correct:"5＝5.0，5.0－1.4＝3.6",reward:"小數點顯形藥水"},
+    {id:"e3",unit:"第6單元",title:"跨界借位橋",monster:"借位斷橋",icon:"🌉",trigger:"小數退位錯誤",concept:"個位借1成為10個0.1",correct:"1.5－0.8＝0.7",reward:"借位能量橋"},
+    {id:"e4",unit:"第7單元",title:"五倍增幅陣",monster:"刻度幻影",icon:"🕔",trigger:"分針數字直接當分鐘",concept:"鐘面大格乘5",correct:"分針指7是35分",reward:"五倍刻度晶章"},
+    {id:"e5",unit:"第7單元",title:"時間軸軌跡",monster:"時刻加法陷阱",icon:"📏",trigger:"兩時刻直接相加",concept:"終點－起點",correct:"10:17到10:42是25分",reward:"時間軸軌跡晶章"},
+    {id:"e6",unit:"第7單元",title:"速度競賽場",monster:"單位迷霧",icon:"🏁",trigger:"未換單位就比較",concept:"先統一時間單位",correct:"1小時7分＝67分，小於70分",reward:"速度換算徽章"},
+    {id:"e7",unit:"第5、8單元",title:"真實之眼",monster:"搗蛋鬼數字",icon:"👁️",trigger:"使用所有數字",concept:"篩選與問題有關的資料",correct:"不是所有數字都必須使用",reward:"真實之眼防具"},
+    {id:"e8",unit:"第5單元",title:"包裹補完任務",monster:"剩餘物隱形",icon:"📦",trigger:"只算8×15",concept:"先乘再加剩餘物",correct:"8×15＝120，120＋3＝123",reward:"包裹補完徽章"},
+    {id:"e9",unit:"第8單元",title:"魔法算式天平",monster:"逆轉障礙",icon:"⚖️",trigger:"未知數回推錯誤",concept:"被除數＝除數×商",correct:"□÷25＝3，所以□＝75",reward:"逆轉算式鑰匙"},
+    {id:"e10",unit:"第9單元",title:"半格修復室",monster:"半格迷霧",icon:"◩",trigger:"半格當整格或丟掉",concept:"兩個半格合成一格",correct:"4個半格＝2格",reward:"半格修復徽章"}
+  ],
+  diagnosisRules:{
+    s3:["e1"],s5:["e2","e3"],s8:["e4"],s9:["e5","e6"],s1:["e7"],s2:["e8"],s11:["e9"],s15:["e10"]
+  },
+  badges:[
+    "任務放大鏡","連乘橋梁徽章","十分位寶石","大小比較徽章","小數點校準器",
+    "一日時間齒輪","60分齒輪","秒針徽章","時間線羅盤","乘除轉換鑰匙",
+    "未知數探測器","估算望遠鏡","平方公分地磚","平方公分板","半格拼圖徽章"
+  ],
+  finalCardFields:["學生姓名","完成關卡","獲得徽章","我學會的概念","代表題","我的解題方法","我最容易錯的地方","我修正後的想法","教師回饋"],
+  misconceptionCardFields:["錯誤怪物","原本錯誤答案","我原本怎麼想","修復副本","我操作了什麼","正確觀念","重新挑戰結果","修復徽章"]
+};
+
+
+(()=>{
+const D=window.MATH_RPG_DATA,KEY="math-kingdom-rpg-v2";
+let state=JSON.parse(localStorage.getItem(KEY)||'{"completed":[],"errors":[],"repaired":[],"answers":{},"notes":{},"introSeen":false}');
+let screen=state.introSeen?"map":"home",current=0,hintLevel=0,selected=null,sequence=[],tenths=0,tiles=0;
+const app=document.getElementById("app")||document.body.appendChild(Object.assign(document.createElement("div"),{id:"app"}));
+const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
+const done=id=>state.completed.includes(id);
+const regionDone=id=>D.lessons.filter(x=>x.region===id).every(x=>done(x.id));
+function title(){let count=D.regions.filter(x=>regionDone(x.id)).length;return count===5?"數學王國守護者":count?D.regions[count-1].title:D.hero}
+function shell(content){app.innerHTML=`<header class="top"><div class="brand"><span>🦉</span><div><b>${D.title}</b><small>${title()}</small></div></div><div class="status">智慧道具 ${state.completed.length}/15</div></header>${content}`}
+function render(){if(screen==="home")home();if(screen==="map")map();if(screen==="lesson")lesson();if(screen==="reward")reward();if(screen==="dungeons")dungeons();if(screen==="collection")collection();if(screen==="report")report();if(screen==="cards")cards()}
+function home(){shell(`<main class="home"><section class="story-card"><div class="owl">🦉</div><p class="eyebrow">智慧貓頭鷹米米的召集令</p><h1>${D.title}</h1><p>${D.intro}</p><div class="world-list">${D.regions.map(r=>`<span style="--c:${r.color}">${r.name}<small>${r.unit}</small></span>`).join("")}</div><button class="primary" id="enter">成為數學任務冒險家</button></section></main>`);document.getElementById("enter").onclick=()=>{state.introSeen=true;save();screen="map";render()}}
+function map(){
+ const positions=[[12,68],[24,49],[35,68],[42,40],[51,57],[58,28],[66,46],[74,22],[80,56],[88,35],[78,76],[62,78],[45,83],[28,84],[12,87]];
+ const nodes=D.lessons.map((l,i)=>{let unlocked=i===0||done(D.lessons[i-1].id),isDone=done(l.id);return `<button class="node ${isDone?"done":unlocked?"active":"locked"}" style="--x:${positions[i][0]}%;--y:${positions[i][1]}%" data-stage="${i}" ${unlocked?"":"disabled"}><i>${isDone?l.icon:unlocked?"✨":"🔒"}</i><b>${i+1}</b><span>${l.title}</span></button>`}).join("");
+ const path=positions.map(p=>p.join(",")).join(" ");
+ shell(`<main class="map-wrap"><section class="map"><div class="map-bg"></div><div class="map-title"><span>RPG 冒險地圖</span><h1>五大智慧試煉</h1><p>沿著發光路線找回十五件知識道具。</p></div><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points="${path}"/></svg>${D.regions.map((r,i)=>`<div class="region r${i+1}" style="--c:${r.color}"><b>${r.name}</b><small>${r.unit}</small></div>`).join("")}${nodes}<div class="hero-token">🧙</div></section><nav class="dock"><button data-go="dungeons">⚔️ 錯題副本 <em>${recommendedDungeons().length}</em></button><button data-go="collection">🎒 徽章收藏</button><button data-go="report">📊 離線診斷</button><button data-go="cards">📜 成果卡</button></nav></main>`);
+ document.querySelectorAll("[data-stage]:not(:disabled)").forEach(b=>b.onclick=()=>{current=+b.dataset.stage;hintLevel=0;selected=null;sequence=[];tenths=0;tiles=0;screen="lesson";render()});
+ document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{screen=b.dataset.go;render()});
+}
+function visual(l){
+ if(l.type==="sequence")return `<div class="sequence-bank">${l.options.map((x,i)=>`<button data-seq="${i}" class="${sequence.includes(i)?"used":""}">${x}</button>`).join("")}</div><div class="sequence-slots">${[0,1].map((_,i)=>`<div>${sequence[i]!==undefined?l.options[sequence[i]]:`第${i+1}步`}</div>`).join("")}</div>`;
+ if(l.type==="tenths")return `<div class="ten-bars">${Array.from({length:20},(_,i)=>`<button data-tenth="${i}" class="${i<tenths?"on":""}"></button>`).join("")}</div><div class="readout">${tenths} 個 0.1 ＝ <strong>${(tenths/10).toFixed(1)}</strong></div>`;
+ if(l.type==="clock")return `<div class="clock"><span class="hand minute seven"></span><span class="hand hour"></span><i></i>${Array.from({length:12},(_,i)=>`<b style="--a:${(i+1)*30}deg">${i+1}</b>`).join("")}</div>`;
+ if(l.type==="timeline")return `<div class="timeline"><span>10:17</span><i style="width:42%"></i><span>10:42</span></div>`;
+ if(l.type==="inverse")return `<div class="gear"><span>24</span><b>÷4</b><span>6</span><strong>↔</strong></div>`;
+ if(l.type==="unknown")return `<div class="balance"><span>□ ÷ 25</span><b>＝</b><span>3</span></div>`;
+ if(l.type==="cover")return `<div class="tile-grid">${Array.from({length:12},(_,i)=>`<button data-tile="${i}" class="${i<tiles?"on":""}"></button>`).join("")}</div><p class="center">已覆蓋 <b>${tiles}</b> 平方公分</p>`;
+ if(l.type==="array")return `<div class="array-grid">${Array.from({length:12},()=>"<i></i>").join("")}</div><p class="center">4排，每排3格</p>`;
+ if(l.type==="halves")return `<div class="halves">${Array.from({length:6},()=>"<i></i>").join("")}<i class="half"></i><i class="half flip"></i></div>`;
+ if(l.type==="decimal")return `<div class="decimal-board"><span>5.0</span><b>－</b><span>1.4</span><hr><strong>？</strong></div>`;
+ if(l.type==="dayline")return `<div class="dayline">${["0時","6時","12時","15時","18時","24時"].map(x=>`<span>${x}</span>`).join("")}</div>`;
+ if(l.type==="convert")return `<div class="cogs"><i>60分</i><b>×2</b><i>＋30分</i></div>`;
+ if(l.type==="layers")return `<div class="layers"><span>4排</span><b>→</b><span>每排6張</span><b>→</b><span>每張2人</span></div>`;
+ if(l.type==="estimate")return `<div class="estimate"><del>198</del><strong>≈ 200</strong><b>× 4</b></div>`;
+ if(l.type==="compare")return `<div class="compare"><span>3.8</span><b>？</b><span>3.5</span></div>`;
+ return "";
+}
+function lesson(){
+ const l=D.lessons[current],h=hintLevel?l.hints[hintLevel-1]:"需要幫忙時，可逐層查看提示。";
+ let choices=l.options&&!Array.isArray(l.answer)?`<div class="choices">${l.options.map((x,i)=>`<button data-answer="${i}" class="${selected===i?"selected":""}">${String.fromCharCode(65+i)}　${x}</button>`).join("")}</div>`:"";
+ shell(`<main class="lesson-page" style="--region:${D.regions.find(r=>r.id===l.region).color}"><button class="back" id="back">← 冒險地圖</button><section class="lesson-card"><header><span>${l.icon}</span><div><small>${l.concept}</small><h1>第${current+1}關：${l.title}</h1><p>${l.objective}</p></div></header><div class="npc"><b>🦉 米米：</b>${l.npc}</div><section class="mission"><h2>${l.prompt}</h2>${visual(l)}${choices}<div class="reason"><label>我的理由（可選填）<textarea id="reason" placeholder="我先觀察到……所以我判斷……">${state.notes[l.id]||""}</textarea></label></div><div class="hint ${hintLevel?"show":""}">💡 ${h}</div><div class="actions"><button id="hint">提示 ${Math.min(hintLevel+1,3)}/3</button><button class="primary" id="check">完成判斷</button></div><p id="feedback"></p></section></section></main>`);
+ document.getElementById("back").onclick=()=>{screen="map";render()};document.getElementById("hint").onclick=()=>{hintLevel=Math.min(3,hintLevel+1);render()};
+ document.querySelectorAll("[data-answer]").forEach(b=>b.onclick=()=>{selected=+b.dataset.answer;render()});
+ document.querySelectorAll("[data-seq]").forEach(b=>b.onclick=()=>{let n=+b.dataset.seq;if(!sequence.includes(n)){sequence.push(n);render()}});
+ document.querySelectorAll("[data-tenth]").forEach(b=>b.onclick=()=>{tenths=+b.dataset.tenth+1;render()});
+ document.querySelectorAll("[data-tile]").forEach(b=>b.onclick=()=>{tiles=+b.dataset.tile+1;render()});
+ document.getElementById("check").onclick=()=>checkLesson(l);
+}
+function checkLesson(l){
+ state.notes[l.id]=document.getElementById("reason").value.trim();let ok=false,answer="";
+ if(l.type==="sequence"){ok=JSON.stringify(sequence)===JSON.stringify(l.answer);answer=sequence.map(i=>l.options[i]).join(" → ")}
+ else if(l.type==="tenths"){ok=tenths===13;answer=(tenths/10).toFixed(1)}
+ else if(l.type==="cover"){ok=tiles===6;answer=tiles}
+ else{ok=selected===l.answer;answer=selected===null?"未作答":l.options[selected]}
+ state.answers[l.id]={answer,ok,time:Date.now()};if(!ok){state.errors.push({lesson:l.id,answer,time:Date.now()});hintLevel=Math.min(3,hintLevel+1);save();document.getElementById("feedback").innerHTML=`<strong>迷思怪物出現：</strong>${l.misconception} 請查看提示後再試一次。`;document.getElementById("feedback").className="bad";return}
+ if(!done(l.id))state.completed.push(l.id);save();screen="reward";render();
+}
+function reward(){let l=D.lessons[current];shell(`<main class="reward-page"><section><div class="reward-icon">${l.icon}</div><p>任務完成，知識道具已收入背包</p><h1>獲得「${l.reward}」</h1><div class="learned"><b>我學會了</b><p>${l.learned}</p></div><div class="fix"><b>迷思修正</b><p>${l.misconception}</p></div><button class="primary" id="map">回到冒險地圖</button></section></main>`);document.getElementById("map").onclick=()=>{screen="map";render()}}
+function recommendedDungeons(){let ids=new Set();state.errors.forEach(e=>(D.diagnosisRules[e.lesson]||[]).forEach(id=>ids.add(id)));return [...ids]}
+function dungeons(){let rec=recommendedDungeons();shell(`<main class="subpage"><header><button class="back" id="back">← 地圖</button><p class="eyebrow">錯題補救區</p><h1>迷思怪物副本</h1><p>系統只依作答紀錄套用離線規則，不連接外部AI。</p></header><div class="dungeon-grid">${D.errorDungeons.map(d=>`<article class="${rec.includes(d.id)?"recommended":""}"><span>${d.icon}</span>${rec.includes(d.id)?"<em>建議挑戰</em>":""}<small>${d.unit}</small><h2>${d.title}</h2><p><b>怪物：</b>${d.monster}</p><p><b>修復操作：</b>${d.concept}</p><details><summary>查看正確觀念</summary>${d.correct}</details><button data-repair="${d.id}">${state.repaired.includes(d.id)?"✓ 已修復":"完成修復"}</button></article>`).join("")}</div></main>`);bindBack();document.querySelectorAll("[data-repair]").forEach(b=>b.onclick=()=>{if(!state.repaired.includes(b.dataset.repair))state.repaired.push(b.dataset.repair);save();render()})}
+function collection(){shell(`<main class="subpage"><header><button class="back" id="back">← 地圖</button><p class="eyebrow">冒險背包</p><h1>知識道具與徽章</h1></header><div class="badge-grid">${D.lessons.map((l,i)=>`<article class="${done(l.id)?"got":""}"><span>${done(l.id)?l.icon:"🔒"}</span><small>第${i+1}關</small><b>${done(l.id)?l.reward:"尚未取得"}</b></article>`).join("")}</div></main>`);bindBack()}
+function report(){let wrong=D.lessons.filter(l=>state.answers[l.id]&&!state.answers[l.id].ok),rec=recommendedDungeons();shell(`<main class="subpage report"><header><button class="back" id="back">← 地圖</button><p class="eyebrow">規則式離線推估</p><h1>錯誤診斷報告</h1><p>依錯題與 diagnosisRules 找出優先修復副本，不宣稱為正式能力鑑定。</p></header><div class="report-stats"><span><b>${state.completed.length}</b>完成關卡</span><span><b>${state.errors.length}</b>錯誤紀錄</span><span><b>${state.repaired.length}</b>已修復副本</span></div><section class="report-list"><h2>優先複習</h2>${rec.length?rec.map(id=>{let d=D.errorDungeons.find(x=>x.id===id);return `<p>${d.icon} <b>${d.title}</b>：${d.concept}</p>`}).join(""):"<p>目前沒有被規則標記的優先副本。</p>"}<h2>最近需要注意的關卡</h2>${wrong.length?wrong.map(l=>`<p>${l.icon} ${l.title}：${l.misconception}</p>`).join(""):"<p>已完成題目目前沒有保留中的錯誤答案。</p>"}</section></main>`);bindBack()}
+function cards(){let learned=D.lessons.filter(l=>done(l.id)).map(l=>l.learned);let recent=state.errors.at(-1),dungeon=recent?(D.diagnosisRules[recent.lesson]||[])[0]:null,d=dungeon&&D.errorDungeons.find(x=>x.id===dungeon);shell(`<main class="subpage cards"><header class="no-print"><button class="back" id="back">← 地圖</button><p class="eyebrow">可列印學習成果</p><h1>五大智慧試煉成果卡</h1></header><section class="final-card"><h1>數學冒險成果卡</h1><label>學生姓名<input placeholder="請填寫姓名"></label><dl><dt>完成關卡</dt><dd>${state.completed.length}/15</dd><dt>獲得徽章</dt><dd>${D.lessons.filter(l=>done(l.id)).map(l=>l.reward).join("、")||"尚未取得"}</dd><dt>我學會的概念</dt><dd>${learned.join("；")||"完成關卡後自動列出"}</dd><dt>代表題</dt><dd>${state.completed.length?D.lessons[state.completed.length-1].prompt:"完成關卡後由系統選取"}</dd></dl>${["我的解題方法","我修正後的想法","教師回饋"].map(x=>`<label>${x}<textarea></textarea></label>`).join("")}</section><section class="final-card"><h1>迷思修復卡</h1><dl><dt>錯誤怪物</dt><dd>${d?.monster||"目前沒有診斷紀錄"}</dd><dt>修復副本</dt><dd>${d?.title||"尚未啟動"}</dd><dt>正確觀念</dt><dd>${d?.correct||"完成錯題副本後帶入"}</dd><dt>修復徽章</dt><dd>${d?.reward||"尚未取得"}</dd></dl>${["我原本怎麼想","我操作了什麼"].map(x=>`<label>${x}<textarea></textarea></label>`).join("")}</section><div class="card-actions no-print"><button class="primary" id="print">列印／另存PDF</button></div></main>`);bindBack();document.getElementById("print").onclick=()=>window.print()}
+function bindBack(){document.getElementById("back").onclick=()=>{screen="map";render()}}
+render();
+})();
+
+  </script>
+</body>
+</html>
