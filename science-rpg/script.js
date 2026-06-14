@@ -287,7 +287,7 @@ const app=document.getElementById("app");
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
 function topbar(){
   const badges=lessons.filter(x=>state.completed.includes(x.id)).map(x=>`<img src="${x.badge}" alt="${x.reward}">`).join("");
-  return `<header class="topbar"><div class="brand"><span class="brand-mark">🔬</span><div><b>森語天候王國</b><small>自然科 RPG 冒險</small></div></div><div class="progress-card"><span>晶章 ${state.completed.length}/${lessons.length}</span><div class="mini-badges">${badges}</div></div></header>`;
+  return `<header class="topbar"><div class="brand"><span class="brand-mark">🔬</span><div><b>森語天候王國</b><small>自然科 RPG 冒險</small><span class="designer-credit">設計者：Gavin Huang</span></div></div><div class="progress-card"><span>晶章 ${state.completed.length}/${lessons.length}</span><div class="mini-badges">${badges}</div></div></header>`;
 }
 function render(){
   clearInterval(typeTimer);
