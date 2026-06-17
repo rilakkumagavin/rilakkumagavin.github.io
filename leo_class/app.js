@@ -64,7 +64,7 @@
 
   const stageTypes = [
     { type: "study", title: "Daily Word Cards", subtitle: "看圖、聽音、每天念", icon: "🖼️", badge: "Visual Reader" },
-    { type: "listen", title: "Listening Quest", subtitle: "聽朗讀，選出正確英文", icon: "🎧", badge: "Sound Picker" },
+    { type: "listen", title: "Listening Flip", subtitle: "聽朗讀，翻牌配對單字與意思", icon: "🎧", badge: "Flip Listener" },
     { type: "speak", title: "Speaking Practice", subtitle: "聽一句，跟著念三次", icon: "🗣️", badge: "Voice Builder" },
     { type: "read", title: "Reading Sentences", subtitle: "讀句子，選出應用單字", icon: "📖", badge: "Sentence Reader" },
     { type: "write", title: "Writing Quest", subtitle: "聽音後拼寫單字", icon: "✍️", badge: "Word Writer" },
@@ -76,6 +76,7 @@
   let currentGrade = Number(localStorage.getItem("leo-current-grade") || "1");
   let quiz = null;
   let spelling = null;
+  let flip = null;
 
   function normalize(words) {
     return words.map(item => {
@@ -100,7 +101,7 @@
     if (grade === 1) {
       return [
         { ...stageTypes[0], id: "g1-study", title: "Letter & Word Cards", subtitle: "A-Z 字母、圖像單字與 US English TTS", icon: "🔤", badge: "Letter Scout", background: "assets/stage_phonics_a.png" },
-        { ...stageTypes[1], id: "g1-listen", title: "Listen & Pick", subtitle: "聽老師念，選出正確字母或單字", background: "assets/stage_phonics_b.png" },
+        { ...stageTypes[1], id: "g1-listen", title: "Listening Flip", subtitle: "聽老師念，翻牌配對自然發音單字", background: "assets/stage_phonics_b.png" },
         { ...stageTypes[2], id: "g1-speak", background: "assets/stage_phonics_a.png" },
         { ...stageTypes[3], id: "g1-read", background: "assets/stage_phonics_b.png" },
         { ...stageTypes[4], id: "g1-write", background: "assets/stage_phonics_c.png" },
@@ -273,7 +274,7 @@
   function startStage(stageId) {
     const stage = stagesFor(currentGrade).find(item => item.id === stageId);
     if (stage.type === "study") renderStudy(stage);
-    if (stage.type === "listen") startQuiz(stage, "listen");
+    if (stage.type === "listen") startFlipListening(stage);
     if (stage.type === "speak") renderSpeaking(stage);
     if (stage.type === "read") startQuiz(stage, "read");
     if (stage.type === "write") startSpelling(stage);
@@ -361,6 +362,99 @@
     const size = type === "story" ? Math.min(8, source.length) : Math.min(10, source.length);
     quiz = { stage, type, pool: shuffle(source).slice(0, size), index: 0, score: 0 };
     renderQuiz();
+  }
+
+  function startFlipListening(stage) {
+    const source = currentGrade === 1 ? vocabFor(1) : vocabFor(currentGrade);
+    const pool = shuffle(source).slice(0, Math.min(8, source.length));
+    flip = {
+      stage,
+      pool,
+      index: 0,
+      score: 0,
+      matched: new Set(),
+      selected: []
+    };
+    renderFlipListening();
+  }
+
+  function renderFlipListening(message = "") {
+    const target = flip.pool[flip.index];
+    const distractors = shuffle(vocabFor(currentGrade).filter(item => item.word !== target.word)).slice(0, 3);
+    const roundWords = shuffle([target, ...distractors]);
+    const cards = shuffle([
+      ...roundWords.map(item => ({ id: item.word, kind: "word", front: item.word, back: item.word })),
+      ...roundWords.map(item => ({ id: item.word, kind: "meaning", front: `${item.icon} ${item.zh}`, back: `${item.icon} ${item.zh}` }))
+    ]);
+    flip.cards = cards;
+    flip.selected = [];
+    flip.matched = new Set();
+    const body = `
+      <div class="objective">先聽目標單字，再翻牌找出「英文單字卡」和「中文圖示卡」。配對成功才算完成聽力任務。</div>
+      <div class="task-box">
+        <p class="eyebrow">第 ${flip.index + 1} 題 / ${flip.pool.length} 題</p>
+        <h2>Listen, Flip, Match</h2>
+        <div class="task-actions">
+          <button class="btn primary" id="repeatFlipWord">再聽一次</button>
+        </div>
+        <div class="flip-board">
+          ${cards.map((card, index) => `
+            <button class="flip-card" data-card-index="${index}" aria-label="翻牌">
+              <span class="card-back">?</span>
+              <span class="card-front">${card.front}</span>
+            </button>`).join("")}
+        </div>
+        <div class="feedback ${message ? "show info" : "info show"}" id="feedback">${message || "聽完後，翻出正確的一組牌。"}</div>
+        <div class="task-actions"><button class="btn secondary" data-view="course">回任務地圖</button></div>
+      </div>`;
+    missionShell(flip.stage, body);
+    document.getElementById("repeatFlipWord").onclick = () => speak(target.word);
+    document.querySelectorAll("[data-card-index]").forEach(button => {
+      button.onclick = () => flipCard(button, target);
+    });
+    setTimeout(() => speak(target.word), 250);
+  }
+
+  function flipCard(button, target) {
+    const index = Number(button.dataset.cardIndex);
+    const card = flip.cards[index];
+    if (button.classList.contains("matched") || button.classList.contains("flipped")) return;
+    button.classList.add("flipped");
+    flip.selected.push({ index, card, button });
+    if (flip.selected.length < 2) return;
+
+    const [a, b] = flip.selected;
+    const feedback = document.getElementById("feedback");
+    const isPair = a.card.id === b.card.id && a.card.kind !== b.card.kind;
+    const isTarget = a.card.id === target.word && b.card.id === target.word;
+
+    if (isPair && isTarget) {
+      a.button.classList.add("matched");
+      b.button.classList.add("matched");
+      flip.score += 1;
+      feedback.className = "feedback show good";
+      feedback.textContent = `配對成功：${target.word}`;
+      setTimeout(() => {
+        flip.index += 1;
+        if (flip.index >= flip.pool.length) completeStage(flip.stage.id, flip.score, flip.pool.length);
+        else renderFlipListening();
+      }, 850);
+      return;
+    }
+
+    if (isPair) {
+      feedback.className = "feedback show info";
+      feedback.textContent = "這是一組配對，但不是剛剛聽到的單字。再聽一次目標音。";
+    } else {
+      feedback.className = "feedback show bad";
+      feedback.textContent = "這兩張牌不是同一個單字。";
+    }
+    speak(target.word);
+    setTimeout(() => {
+      a.button.classList.remove("flipped");
+      b.button.classList.remove("flipped");
+      flip.selected = [];
+    }, 800);
   }
 
   function renderQuiz(message = "") {
