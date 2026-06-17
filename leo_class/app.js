@@ -1,81 +1,103 @@
 (() => {
   "use strict";
 
-  const storageKey = "leo-class-english-exam-v1";
+  const storageKey = "leo-class-english-exam-v2";
   const sourceUrl = "https://sites.google.com/csps.tyc.edu.tw/digitalresource/%E8%8B%B1%E8%AA%9E%E5%B0%88%E5%8D%80/%E5%96%AE%E5%AD%97%E5%A4%A7%E6%9C%83%E8%80%83-%E4%B8%80%E5%B9%B4%E7%B4%9A?authuser=1";
-
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-  const vocab = [
-    { word: "apple", zh: "蘋果", letter: "A", icon: "🍎" },
-    { word: "ball", zh: "球", letter: "B", icon: "⚽" },
-    { word: "cat", zh: "貓", letter: "C", icon: "🐱" },
-    { word: "dog", zh: "狗", letter: "D", icon: "🐶" },
-    { word: "egg", zh: "蛋", letter: "E", icon: "🥚" },
-    { word: "fish", zh: "魚", letter: "F", icon: "🐟" },
-    { word: "goat", zh: "山羊", letter: "G", icon: "🐐" },
-    { word: "hat", zh: "帽子", letter: "H", icon: "🎩" },
-    { word: "ink", zh: "墨水", letter: "I", icon: "🖋️" },
-    { word: "jet", zh: "噴射機", letter: "J", icon: "✈️" },
-    { word: "key", zh: "鑰匙", letter: "K", icon: "🔑" },
-    { word: "lion", zh: "獅子", letter: "L", icon: "🦁" },
-    { word: "map", zh: "地圖", letter: "M", icon: "🗺️" },
-    { word: "net", zh: "網子", letter: "N", icon: "🕸️" },
-    { word: "ox", zh: "牛", letter: "O", icon: "🐂" },
-    { word: "pig", zh: "豬", letter: "P", icon: "🐷" },
-    { word: "queen", zh: "女王", letter: "Q", icon: "👑" },
-    { word: "red", zh: "紅色", letter: "R", icon: "🔴" },
-    { word: "sun", zh: "太陽", letter: "S", icon: "☀️" },
-    { word: "ten", zh: "十", letter: "T", icon: "🔟" },
-    { word: "up", zh: "向上", letter: "U", icon: "⬆️" },
-    { word: "van", zh: "廂型車", letter: "V", icon: "🚐" },
-    { word: "wig", zh: "假髮", letter: "W", icon: "💇" },
-    { word: "fox", zh: "狐狸", letter: "X", icon: "🦊" },
-    { word: "yo-yo", zh: "溜溜球", letter: "Y", icon: "🪀" },
-    { word: "zebra", zh: "斑馬", letter: "Z", icon: "🦓" }
-  ];
+
+  const gradeVocab = {
+    1: [
+      ["apple", "蘋果", "A", "🍎"], ["ball", "球", "B", "⚽"], ["cat", "貓", "C", "🐱"], ["dog", "狗", "D", "🐶"],
+      ["egg", "蛋", "E", "🥚"], ["fish", "魚", "F", "🐟"], ["goat", "山羊", "G", "🐐"], ["hat", "帽子", "H", "🎩"],
+      ["ink", "墨水", "I", "🖋️"], ["jet", "噴射機", "J", "✈️"], ["key", "鑰匙", "K", "🔑"], ["lion", "獅子", "L", "🦁"],
+      ["map", "地圖", "M", "🗺️"], ["net", "網子", "N", "🕸️"], ["ox", "牛", "O", "🐂"], ["pig", "豬", "P", "🐷"],
+      ["queen", "女王", "Q", "👑"], ["red", "紅色", "R", "🔴"], ["sun", "太陽", "S", "☀️"], ["ten", "十", "T", "🔟"],
+      ["up", "向上", "U", "⬆️"], ["van", "廂型車", "V", "🚐"], ["wig", "假髮", "W", "💇"], ["fox", "狐狸", "X", "🦊"],
+      ["yo-yo", "溜溜球", "Y", "🪀"], ["zebra", "斑馬", "Z", "🦓"]
+    ],
+    2: [
+      ["book", "書", "B", "📘"], ["chair", "椅子", "C", "🪑"], ["desk", "書桌", "D", "🧑‍💻"], ["eraser", "橡皮擦", "E", "🧽"],
+      ["pencil", "鉛筆", "P", "✏️"], ["ruler", "尺", "R", "📏"], ["school", "學校", "S", "🏫"], ["teacher", "老師", "T", "👩‍🏫"],
+      ["bag", "書包", "B", "🎒"], ["crayon", "蠟筆", "C", "🖍️"], ["door", "門", "D", "🚪"], ["window", "窗戶", "W", "🪟"],
+      ["table", "桌子", "T", "🪑"], ["paper", "紙", "P", "📄"], ["glue", "膠水", "G", "🧴"], ["box", "盒子", "B", "📦"]
+    ],
+    3: [
+      ["mother", "媽媽", "M", "👩"], ["father", "爸爸", "F", "👨"], ["sister", "姊妹", "S", "👧"], ["brother", "兄弟", "B", "👦"],
+      ["friend", "朋友", "F", "🧑"], ["happy", "開心", "H", "😊"], ["sad", "難過", "S", "😢"], ["angry", "生氣", "A", "😠"],
+      ["hungry", "餓", "H", "🍽️"], ["thirsty", "渴", "T", "🥤"], ["tired", "累", "T", "😴"], ["home", "家", "H", "🏠"],
+      ["park", "公園", "P", "🏞️"], ["zoo", "動物園", "Z", "🦓"], ["library", "圖書館", "L", "📚"], ["store", "商店", "S", "🏪"]
+    ],
+    4: [
+      ["breakfast", "早餐", "B", "🍳"], ["lunch", "午餐", "L", "🍱"], ["dinner", "晚餐", "D", "🍽️"], ["rice", "飯", "R", "🍚"],
+      ["noodles", "麵", "N", "🍜"], ["chicken", "雞肉", "C", "🍗"], ["vegetable", "蔬菜", "V", "🥬"], ["juice", "果汁", "J", "🧃"],
+      ["water", "水", "W", "💧"], ["milk", "牛奶", "M", "🥛"], ["bread", "麵包", "B", "🍞"], ["cake", "蛋糕", "C", "🍰"],
+      ["soup", "湯", "S", "🥣"], ["salad", "沙拉", "S", "🥗"], ["cookie", "餅乾", "C", "🍪"], ["fruit", "水果", "F", "🍇"]
+    ],
+    5: [
+      ["Monday", "星期一", "M", "1️⃣"], ["Tuesday", "星期二", "T", "2️⃣"], ["Wednesday", "星期三", "W", "3️⃣"], ["Thursday", "星期四", "T", "4️⃣"],
+      ["Friday", "星期五", "F", "5️⃣"], ["Saturday", "星期六", "S", "6️⃣"], ["Sunday", "星期日", "S", "7️⃣"], ["morning", "早上", "M", "🌅"],
+      ["afternoon", "下午", "A", "🌤️"], ["evening", "傍晚", "E", "🌆"], ["season", "季節", "S", "🌈"], ["spring", "春天", "S", "🌸"],
+      ["summer", "夏天", "S", "☀️"], ["fall", "秋天", "F", "🍂"], ["winter", "冬天", "W", "❄️"], ["weather", "天氣", "W", "🌦️"]
+    ],
+    6: [
+      ["airport", "機場", "A", "🛫"], ["station", "車站", "S", "🚉"], ["museum", "博物館", "M", "🏛️"], ["restaurant", "餐廳", "R", "🍽️"],
+      ["hospital", "醫院", "H", "🏥"], ["market", "市場", "M", "🛒"], ["mountain", "山", "M", "⛰️"], ["beach", "海灘", "B", "🏖️"],
+      ["vacation", "假期", "V", "🧳"], ["ticket", "票", "T", "🎫"], ["passport", "護照", "P", "🛂"], ["suitcase", "行李箱", "S", "🧳"],
+      ["delicious", "美味的", "D", "😋"], ["beautiful", "美麗的", "B", "🌄"], ["interesting", "有趣的", "I", "✨"], ["favorite", "最喜歡的", "F", "⭐"]
+    ]
+  };
 
   const grades = [
-    { id: 1, title: "單字大會考－一年級", subtitle: "Letter Recognition · US English TTS", status: "已建立第一版", active: true },
-    { id: 2, title: "單字大會考－二年級", subtitle: "Sight Words · Classroom English", status: "預留入口" },
-    { id: 3, title: "單字大會考－三年級", subtitle: "Words · Picture Books · Quest", status: "預留入口" },
-    { id: 4, title: "單字大會考－四年級", subtitle: "三份字表與分段測驗", status: "預留入口" },
-    { id: 5, title: "單字大會考－五年級", subtitle: "Spelling · Meaning · Listening", status: "預留入口" },
-    { id: 6, title: "單字大會考－六年級", subtitle: "Review · Challenge · Portfolio", status: "預留入口" }
-  ];
+    ["單字大會考－一年級", "Letter Recognition · US English TTS", "字母辨識與基礎單字"],
+    ["單字大會考－二年級", "Classroom Words · Listen & Pick", "教室與學用品"],
+    ["單字大會考－三年級", "Family · Feelings · Places", "人物、感受與地點"],
+    ["單字大會考－四年級", "Food · Drinks · Daily Life", "食物與日常生活"],
+    ["單字大會考－五年級", "Days · Time · Seasons", "時間、星期與季節"],
+    ["單字大會考－六年級", "Travel · Places · Review", "地點、旅行與總複習"]
+  ].map((data, index) => ({
+    id: index + 1,
+    title: data[0],
+    subtitle: data[1],
+    focus: data[2],
+    active: true
+  }));
 
-  const stages = [
-    {
-      id: "letters",
-      title: "Letter Recognition",
-      subtitle: "A-Z 字母辨識與朗讀",
-      icon: "🔤",
-      badge: "Letter Scout",
-      objective: "能看見大寫字母並聽見美式英文朗讀。",
-      background: "assets/stage_phonics_a.png"
-    },
-    {
-      id: "listen",
-      title: "Listen & Pick",
-      subtitle: "聽老師念，選出正確字母",
-      icon: "🎧",
-      badge: "Sound Picker",
-      objective: "能聽見字母名稱並從選項中選出正確字母。",
-      background: "assets/stage_phonics_b.png"
-    },
-    {
-      id: "words",
-      title: "Word Exam",
-      subtitle: "單字大會考闖關",
-      icon: "🏆",
-      badge: "Word Champion",
-      objective: "能辨認一年級 A-Z 代表單字，並聽見正確發音。",
-      background: "assets/stage_phonics_c.png"
-    }
+  const stageTypes = [
+    { type: "study", title: "Word Bank", subtitle: "單字暖身與 TTS 朗讀", icon: "📚", badge: "Word Explorer" },
+    { type: "listen", title: "Listen & Pick", subtitle: "聽朗讀，選出正確英文", icon: "🎧", badge: "Sound Picker" },
+    { type: "meaning", title: "Meaning Match", subtitle: "看中文或圖示，選出英文", icon: "🧩", badge: "Meaning Matcher" },
+    { type: "spelling", title: "Spelling Quest", subtitle: "聽音後拼出單字", icon: "✍️", badge: "Spelling Builder" },
+    { type: "final", title: "Word Exam", subtitle: "綜合單字大會考", icon: "🏆", badge: "Word Champion" }
   ];
 
   const app = document.getElementById("app");
   let state = loadState();
+  let currentGrade = Number(localStorage.getItem("leo-current-grade") || "1");
   let quiz = null;
+  let spelling = null;
+
+  function normalize(words) {
+    return words.map(([word, zh, letter, icon]) => ({ word, zh, letter, icon }));
+  }
+
+  function vocabFor(grade) {
+    return normalize(gradeVocab[grade] || gradeVocab[1]);
+  }
+
+  function stagesFor(grade) {
+    if (grade === 1) {
+      return [
+        { ...stageTypes[0], id: "g1-study", title: "Letter Recognition", subtitle: "A-Z 字母辨識與 US English TTS", icon: "🔤", badge: "Letter Scout", background: "assets/stage_phonics_a.png" },
+        { ...stageTypes[1], id: "g1-listen", title: "Listen & Pick", subtitle: "聽老師念，選出正確字母", background: "assets/stage_phonics_b.png" },
+        { ...stageTypes[4], id: "g1-final", title: "Word Exam", subtitle: "一年級單字大會考", background: "assets/stage_phonics_c.png" }
+      ];
+    }
+    return stageTypes.map((stage, index) => ({
+      ...stage,
+      id: `g${grade}-${stage.type}`,
+      background: `assets/stage_phonics_${["a", "b", "c", "a", "b"][index]}.png`
+    }));
+  }
 
   function loadState() {
     try {
@@ -92,6 +114,7 @@
 
   function saveState() {
     localStorage.setItem(storageKey, JSON.stringify(state));
+    localStorage.setItem("leo-current-grade", String(currentGrade));
   }
 
   function topbar() {
@@ -105,15 +128,16 @@
           </div>
         </div>
         <nav class="nav-actions">
-          <button class="btn secondary" data-view="home">年級入口</button>
-          <button class="btn secondary" data-view="course">一年級</button>
+          <button class="btn secondary" data-view="home">首頁</button>
+          <button class="btn secondary" data-view="grades">年級入口</button>
+          <button class="btn secondary" data-view="course">目前年級</button>
           <button class="btn primary" data-view="report">成果卡</button>
         </nav>
       </header>`;
   }
 
   function footer() {
-    return `<footer class="footer">參考來源：青溪國小數位資源網「英語專區／單字大會考－一年級」 · 本頁為離線重製原型</footer>`;
+    return `<footer class="footer">參考來源：青溪國小數位資源網「英語專區／單字大會考」 · 本頁為離線重製原型，正式字表可直接替換資料區</footer>`;
   }
 
   function renderHome() {
@@ -123,17 +147,15 @@
         <section class="hero-copy">
           <span class="eyebrow">English Word Exam</span>
           <h1>英語大會考離線入口</h1>
-          <p class="lead">學生先選年級，再進入字母辨識、聽音選字母與單字大會考。資料直接內嵌在網頁中，不使用 Google 試算表，也能放到 GitHub Pages 或協作平台。</p>
+          <p class="lead">學生先選年級，再進入單字暖身、聽力選字、中文配對、拼字挑戰與綜合大會考。資料直接內嵌在網頁中，不使用 Google 試算表。</p>
           <div class="hero-stats">
             <div class="stat"><strong>6</strong><span>年級入口</span></div>
-            <div class="stat"><strong>26</strong><span>A-Z 字母</span></div>
             <div class="stat"><strong>TTS</strong><span>美式英文朗讀</span></div>
+            <div class="stat"><strong>Offline</strong><span>本機保存進度</span></div>
           </div>
           <button class="btn primary" data-view="grades">選擇年級</button>
         </section>
-        <section class="hero-art" aria-hidden="true">
-          <img src="assets/hero_student.png" alt="">
-        </section>
+        <section class="hero-art" aria-hidden="true"><img src="assets/hero_student.png" alt=""></section>
       </main>
       ${footer()}`;
     bindNav();
@@ -153,13 +175,14 @@
           </div>
           <div class="grade-grid">
             ${grades.map(grade => `
-              <button class="grade-card ${grade.active ? "active" : "locked"}" data-grade="${grade.id}" ${grade.active ? "" : "disabled"}>
+              <button class="grade-card active" data-grade="${grade.id}">
                 <span class="grade-level">${grade.id}</span>
                 <div>
                   <h3>${grade.title}</h3>
                   <p>${grade.subtitle}</p>
+                  <p>${grade.focus}</p>
                 </div>
-                <span class="grade-status">${grade.status}</span>
+                <span class="grade-status">${progressForGrade(grade.id)}</span>
               </button>`).join("")}
           </div>
         </section>
@@ -167,12 +190,25 @@
       ${footer()}`;
     bindNav();
     document.querySelectorAll("[data-grade]").forEach(button => {
-      button.onclick = () => renderCourse();
+      button.onclick = () => {
+        currentGrade = Number(button.dataset.grade);
+        saveState();
+        renderCourse();
+      };
     });
   }
 
+  function progressForGrade(grade) {
+    const stages = stagesFor(grade);
+    const done = stages.filter(stage => state.completed.includes(stage.id)).length;
+    return done ? `${done}/${stages.length} 已完成` : "開始挑戰";
+  }
+
   function renderCourse() {
-    const percent = Math.round(state.completed.length / stages.length * 100);
+    const grade = grades[currentGrade - 1];
+    const stages = stagesFor(currentGrade);
+    const done = stages.filter(stage => state.completed.includes(stage.id)).length;
+    const percent = Math.round(done / stages.length * 100);
     app.innerHTML = `
       ${topbar()}
       <main class="screen">
@@ -181,11 +217,11 @@
             <div class="character">
               <img src="assets/npc_teacher.png" alt="英語導師">
               <div>
-                <span class="eyebrow">Grade 1</span>
-                <h2>單字大會考－一年級</h2>
-                <p>Letter Recognition · US English TTS</p>
+                <span class="eyebrow">Grade ${currentGrade}</span>
+                <h2>${grade.title}</h2>
+                <p>${grade.subtitle}</p>
                 <div class="progress" aria-label="完成進度"><span style="width:${percent}%"></span></div>
-                <p>${state.completed.length} / ${stages.length} 個任務完成</p>
+                <p>${done} / ${stages.length} 個任務完成</p>
               </div>
             </div>
           </aside>
@@ -193,21 +229,21 @@
             <div class="section-title">
               <div>
                 <span class="eyebrow">Exam Map</span>
-                <h2>一年級任務地圖</h2>
+                <h2>${grade.title}</h2>
               </div>
             </div>
             <div class="stage-map">
               ${stages.map((stage, index) => {
-                const done = state.completed.includes(stage.id);
-                const unlocked = index === 0 || state.completed.includes(stages[index - 1].id) || done;
+                const isDone = state.completed.includes(stage.id);
+                const unlocked = index === 0 || state.completed.includes(stages[index - 1].id) || isDone;
                 return `
-                  <button class="stage-card ${done ? "done" : ""} ${unlocked ? "" : "locked"}" data-stage="${stage.id}" ${unlocked ? "" : "disabled"}>
-                    <span class="stage-icon">${done ? "✅" : stage.icon}</span>
+                  <button class="stage-card ${isDone ? "done" : ""} ${unlocked ? "" : "locked"}" data-stage="${stage.id}" ${unlocked ? "" : "disabled"}>
+                    <span class="stage-icon">${isDone ? "✅" : stage.icon}</span>
                     <div>
                       <h3>${stage.title}</h3>
                       <p>${stage.subtitle}</p>
                     </div>
-                    <span class="badge-chip">${done ? stage.badge : "挑戰"}</span>
+                    <span class="badge-chip">${isDone ? stage.badge : "挑戰"}</span>
                   </button>`;
               }).join("")}
             </div>
@@ -216,16 +252,16 @@
       </main>
       ${footer()}`;
     bindNav();
-    document.querySelectorAll("[data-stage]").forEach(button => {
-      button.onclick = () => startStage(button.dataset.stage);
-    });
+    document.querySelectorAll("[data-stage]").forEach(button => button.onclick = () => startStage(button.dataset.stage));
   }
 
   function startStage(stageId) {
-    const stage = stages.find(item => item.id === stageId);
-    if (stageId === "letters") renderLetters(stage);
-    if (stageId === "listen") startLetterQuiz(stage);
-    if (stageId === "words") startWordQuiz(stage);
+    const stage = stagesFor(currentGrade).find(item => item.id === stageId);
+    if (stage.type === "study") renderStudy(stage);
+    if (stage.type === "listen") startQuiz(stage, "listen");
+    if (stage.type === "meaning") startQuiz(stage, "meaning");
+    if (stage.type === "final") startQuiz(stage, "final");
+    if (stage.type === "spelling") startSpelling(stage);
   }
 
   function missionShell(stage, body) {
@@ -235,7 +271,7 @@
         <section class="mission-wrap">
           <header class="mission-head">
             <div>
-              <span class="eyebrow">Grade 1 English Word Exam</span>
+              <span class="eyebrow">Grade ${currentGrade} English Word Exam</span>
               <h1>${stage.title}</h1>
               <p>${stage.subtitle}</p>
             </div>
@@ -243,7 +279,7 @@
           </header>
           <div class="npc-line">
             <img src="assets/npc_teacher.png" alt="英語導師">
-            <div><strong>English Guide：</strong>${stage.objective}</div>
+            <div><strong>English Guide：</strong>${stage.subtitle}。先聽、再看、再判斷；答錯可以重聽。</div>
           </div>
           <section class="task">${body}</section>
         </section>
@@ -252,19 +288,20 @@
     bindNav();
   }
 
-  function renderLetters(stage) {
+  function renderStudy(stage) {
+    const words = currentGrade === 1 ? letters.map(letter => ({ word: letter, zh: "letter", icon: letter })) : vocabFor(currentGrade);
     const body = `
-      <div class="objective">點選字母可聽美式英文朗讀。這一關是大會考前的字母暖身。</div>
+      <div class="objective">${currentGrade === 1 ? "點選 A-Z 字母，聽美式英文朗讀。" : "點選每張單字卡，聽美式英文 TTS 並熟悉中文意思。"}</div>
       <div class="task-box">
-        <h2>A-Z Letter Recognition</h2>
+        <h2>${currentGrade === 1 ? "A-Z Letter Recognition" : "Word Bank Warm-up"}</h2>
         <div class="letter-bank">
-          ${letters.map(letter => `<button class="letter-btn" data-say="${letter}">${letter}</button>`).join("")}
+          ${words.map(item => `<button class="letter-btn" data-say="${item.word}"><strong>${item.icon}</strong><br>${item.word}<br><small>${item.zh}</small></button>`).join("")}
         </div>
         <div class="task-actions">
-          <button class="btn primary" id="finishLetters">完成字母暖身</button>
+          <button class="btn primary" id="finishStudy">完成暖身</button>
           <button class="btn secondary" data-view="course">回任務地圖</button>
         </div>
-        <div class="feedback info show">請點 A、B、C 試聽；若裝置沒有英文語音，系統仍可作為字母辨識練習。</div>
+        <div class="feedback info show">若裝置沒有英文語音，仍可作為字母與單字視覺練習。</div>
       </div>`;
     missionShell(stage, body);
     document.querySelectorAll("[data-say]").forEach(button => {
@@ -273,48 +310,36 @@
         button.classList.add("done");
       };
     });
-    document.getElementById("finishLetters").onclick = () => completeStage(stage.id, 26, 26);
+    document.getElementById("finishStudy").onclick = () => completeStage(stage.id, words.length, words.length);
   }
 
-  function startLetterQuiz(stage) {
-    const pool = shuffle(letters).slice(0, 10);
-    quiz = { stageId: stage.id, stage, type: "letter", pool, index: 0, score: 0, selected: null };
-    renderQuiz();
-  }
-
-  function startWordQuiz(stage) {
-    const pool = shuffle(vocab).slice(0, 12);
-    quiz = { stageId: stage.id, stage, type: "word", pool, index: 0, score: 0, selected: null };
+  function startQuiz(stage, type) {
+    const source = currentGrade === 1 && type === "listen" ? letters : vocabFor(currentGrade);
+    const size = type === "final" ? Math.min(12, source.length) : Math.min(10, source.length);
+    quiz = { stage, type, pool: shuffle(source).slice(0, size), index: 0, score: 0 };
     renderQuiz();
   }
 
   function renderQuiz(message = "") {
     const item = quiz.pool[quiz.index];
-    const isWord = quiz.type === "word";
-    const correct = isWord ? item.word : item;
-    const options = makeOptions(correct, isWord);
+    const isLetter = typeof item === "string";
+    const correct = isLetter ? item : item.word;
+    const prompt = quiz.type === "meaning" ? `${item.icon} ${item.zh}` : isLetter ? "Listen and pick the letter." : `${item.icon} ${item.zh}`;
+    const options = makeOptions(correct, isLetter);
     const body = `
-      <div class="objective">${isWord ? "看圖、聽單字，再選出正確英文。" : "按下朗讀，聽見字母後選出正確答案。"}</div>
+      <div class="objective">${quiz.type === "meaning" ? "看中文或圖示，選出正確英文。" : "按下朗讀，聽見英文後選出正確答案。"}</div>
       <div class="task-box">
         <p class="eyebrow">第 ${quiz.index + 1} 題 / ${quiz.pool.length} 題</p>
-        <h2>${isWord ? `${item.icon}  ${item.zh}` : "Listen and pick the letter."}</h2>
-        <div class="task-actions">
-          <button class="btn primary" id="speakQuestion">${isWord ? "朗讀單字" : "朗讀字母"}</button>
-        </div>
-        <div class="option-grid">
-          ${options.map(option => `<button class="option" data-answer="${option}">${option}</button>`).join("")}
-        </div>
+        <h2>${prompt}</h2>
+        <div class="task-actions"><button class="btn primary" id="speakQuestion">朗讀</button></div>
+        <div class="option-grid">${options.map(option => `<button class="option" data-answer="${option}">${option}</button>`).join("")}</div>
         <div class="feedback ${message ? "show info" : ""}" id="feedback">${message}</div>
-        <div class="task-actions">
-          <button class="btn secondary" data-view="course">回任務地圖</button>
-        </div>
+        <div class="task-actions"><button class="btn secondary" data-view="course">回任務地圖</button></div>
       </div>`;
     missionShell(quiz.stage, body);
     document.getElementById("speakQuestion").onclick = () => speak(correct);
-    document.querySelectorAll("[data-answer]").forEach(button => {
-      button.onclick = () => chooseAnswer(button, correct);
-    });
-    setTimeout(() => speak(correct), 250);
+    document.querySelectorAll("[data-answer]").forEach(button => button.onclick = () => chooseAnswer(button, correct));
+    if (quiz.type !== "meaning") setTimeout(() => speak(correct), 250);
   }
 
   function chooseAnswer(button, correct) {
@@ -324,36 +349,90 @@
       quiz.score += 1;
       button.classList.add("correct");
       feedback.className = "feedback show good";
-      feedback.textContent = "答對了！聽音、看字、做判斷，這就是大會考的核心。";
-      setTimeout(nextQuestion, 650);
+      feedback.textContent = "答對了！";
+      setTimeout(nextQuestion, 600);
     } else {
       button.classList.add("wrong");
       feedback.className = "feedback show bad";
-      feedback.textContent = `再聽一次。正確答案的聲音是 ${correct}.`;
+      feedback.textContent = `再聽一次。正確答案是 ${correct}.`;
       speak(correct);
     }
   }
 
   function nextQuestion() {
     quiz.index += 1;
-    if (quiz.index >= quiz.pool.length) {
-      completeStage(quiz.stageId, quiz.score, quiz.pool.length);
+    if (quiz.index >= quiz.pool.length) completeStage(quiz.stage.id, quiz.score, quiz.pool.length);
+    else renderQuiz();
+  }
+
+  function startSpelling(stage) {
+    const pool = shuffle(vocabFor(currentGrade)).slice(0, 8);
+    spelling = { stage, pool, index: 0, score: 0, typed: "" };
+    renderSpelling();
+  }
+
+  function renderSpelling() {
+    const item = spelling.pool[spelling.index];
+    const lettersForWord = shuffle(item.word.replace("-", "").split(""));
+    const body = `
+      <div class="objective">聽單字並看中文提示，依序點字母拼出英文。</div>
+      <div class="task-box">
+        <p class="eyebrow">第 ${spelling.index + 1} 題 / ${spelling.pool.length} 題</p>
+        <h2>${item.icon} ${item.zh}</h2>
+        <div class="slots"><div class="slot" id="spellingSlot">${spelling.typed || " "}</div></div>
+        <div class="task-actions"><button class="btn primary" id="speakWord">朗讀單字</button><button class="btn secondary" id="clearSpelling">清除</button></div>
+        <div class="letter-bank">${lettersForWord.map((letter, index) => `<button class="letter-btn" data-letter="${letter}" data-letter-index="${index}">${letter}</button>`).join("")}</div>
+        <div class="feedback" id="feedback"></div>
+        <div class="task-actions"><button class="btn primary" id="checkSpelling">檢查拼字</button><button class="btn secondary" data-view="course">回任務地圖</button></div>
+      </div>`;
+    missionShell(spelling.stage, body);
+    document.getElementById("speakWord").onclick = () => speak(item.word);
+    document.getElementById("clearSpelling").onclick = () => {
+      spelling.typed = "";
+      renderSpelling();
+    };
+    document.querySelectorAll("[data-letter]").forEach(button => {
+      button.onclick = () => {
+        spelling.typed += button.dataset.letter;
+        button.disabled = true;
+        button.classList.add("done");
+        document.getElementById("spellingSlot").textContent = spelling.typed;
+      };
+    });
+    document.getElementById("checkSpelling").onclick = () => checkSpelling(item);
+    setTimeout(() => speak(item.word), 250);
+  }
+
+  function checkSpelling(item) {
+    const feedback = document.getElementById("feedback");
+    const target = item.word.replace("-", "");
+    if (spelling.typed.toLowerCase() === target.toLowerCase()) {
+      spelling.score += 1;
+      feedback.className = "feedback show good";
+      feedback.textContent = "拼對了！";
+      setTimeout(() => {
+        spelling.index += 1;
+        spelling.typed = "";
+        if (spelling.index >= spelling.pool.length) completeStage(spelling.stage.id, spelling.score, spelling.pool.length);
+        else renderSpelling();
+      }, 650);
     } else {
-      renderQuiz();
+      feedback.className = "feedback show bad";
+      feedback.textContent = `再試一次。目標單字是 ${item.word}.`;
+      speak(item.word);
     }
   }
 
-  function makeOptions(correct, isWord) {
-    const source = isWord ? vocab.map(item => item.word) : letters;
-    const wrong = shuffle(source.filter(item => item !== correct)).slice(0, 3);
-    return shuffle([correct, ...wrong]);
+  function makeOptions(correct, isLetter) {
+    const source = isLetter ? letters : vocabFor(currentGrade).map(item => item.word);
+    return shuffle([correct, ...shuffle(source.filter(item => item !== correct)).slice(0, 3)]);
   }
 
   function completeStage(stageId, score, total) {
     if (!state.completed.includes(stageId)) state.completed.push(stageId);
-    state.scores[stageId] = { score, total, completedAt: new Date().toISOString() };
+    state.scores[stageId] = { score, total, grade: currentGrade, completedAt: new Date().toISOString() };
     saveState();
-    const stage = stages.find(item => item.id === stageId);
+    const stage = stagesFor(currentGrade).find(item => item.id === stageId);
     const body = `
       <div class="reward">
         <div class="reward-icon">🏅</div>
@@ -369,35 +448,31 @@
   }
 
   function renderReport() {
-    const totalScore = Object.values(state.scores).reduce((sum, item) => sum + item.score, 0);
-    const totalItems = Object.values(state.scores).reduce((sum, item) => sum + item.total, 0);
+    const stages = stagesFor(currentGrade);
+    const totalScore = stages.reduce((sum, stage) => sum + (state.scores[stage.id]?.score || 0), 0);
+    const totalItems = stages.reduce((sum, stage) => sum + (state.scores[stage.id]?.total || 0), 0);
     app.innerHTML = `
       ${topbar()}
       <main class="screen">
         <section class="panel">
           <span class="eyebrow">Portfolio</span>
-          <h1>一年級英語大會考成果卡</h1>
+          <h1>${currentGrade}年級英語大會考成果卡</h1>
           <p class="lead">這張卡記錄學生在同一台裝置上的離線練習成果。</p>
           <p>學生姓名：<input id="studentName" value="${escapeHtml(state.studentName)}" placeholder="請輸入姓名"></p>
           <div class="portfolio-grid">
             ${stages.map(stage => {
               const score = state.scores[stage.id];
-              return `
-                <article class="portfolio-card">
-                  <h3>${stage.icon} ${stage.title}</h3>
-                  <p>${stage.subtitle}</p>
-                  <strong>${score ? `${score.score} / ${score.total}` : "尚未完成"}</strong>
-                </article>`;
+              return `<article class="portfolio-card"><h3>${stage.icon} ${stage.title}</h3><p>${stage.subtitle}</p><strong>${score ? `${score.score} / ${score.total}` : "尚未完成"}</strong></article>`;
             }).join("")}
           </div>
           <div class="reward" style="margin-top:18px">
             <h2>總成績 ${totalItems ? `${totalScore} / ${totalItems}` : "尚未開始"}</h2>
-            <p>${state.completed.length === stages.length ? "已完成一年級大會考第一版任務。" : "請回任務地圖繼續挑戰。"}</p>
+            <p>${stages.every(stage => state.completed.includes(stage.id)) ? "已完成本年級大會考任務。" : "請回任務地圖繼續挑戰。"}</p>
           </div>
           <div class="task-actions">
             <button class="btn primary" onclick="window.print()">列印／另存 PDF</button>
             <button class="btn secondary" data-view="course">回任務地圖</button>
-            <button class="btn danger" id="resetProgress">清除進度</button>
+            <button class="btn danger" id="resetProgress">清除全部進度</button>
           </div>
         </section>
       </main>
