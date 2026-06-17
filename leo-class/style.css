@@ -337,6 +337,46 @@ h1 {
   font-weight: 900;
   line-height: 1.6;
 }
+.week-plan {
+  display: grid;
+  gap: 18px;
+}
+.day-section {
+  padding: 14px;
+  border: 2px solid #d7e6e2;
+  border-radius: 20px;
+  background: #f8fcfb;
+}
+.day-section.today {
+  border-color: var(--gold);
+  background: #fff8d9;
+  box-shadow: 0 0 0 4px rgba(243, 200, 92, .22);
+}
+.day-section header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.day-section header strong {
+  display: inline-grid;
+  place-items: center;
+  min-width: 78px;
+  min-height: 38px;
+  border-radius: 999px;
+  color: white;
+  background: var(--teal);
+  font-weight: 950;
+}
+.day-section.today header strong {
+  color: var(--deep);
+  background: var(--gold);
+}
+.day-section header span {
+  color: var(--muted);
+  font-weight: 900;
+}
 .option-grid, .match-grid, .class-grid, .letter-bank {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -306,19 +306,30 @@
 
   function renderStudy(stage) {
     const words = currentGrade === 1 ? [...letters.map(letter => ({ word: letter, zh: "letter", icon: letter })), ...vocabFor(1)] : vocabFor(currentGrade);
+    const weeklyGroups = splitIntoWeek(words);
+    const today = suggestedDay();
     const body = `
-      <div class="objective">${currentGrade === 1 ? "點選 A-Z 字母與單字圖卡，聽美式英文朗讀。" : "每天點選單字圖卡，先看圖、再聽音、再跟著念。"}</div>
+      <div class="objective">${currentGrade === 1 ? "點選 A-Z 字母與單字圖卡，聽美式英文朗讀。" : "全部單字都會出現，並分成七天。每天念一組，週末可以複習全部。"}</div>
       <div class="task-box">
         <h2>${currentGrade === 1 ? "A-Z Letter & Word Cards" : "Daily Visual Word Cards"}</h2>
-        <p class="daily-note">每日流程：看圖 3 秒 → 按朗讀 → 跟念 3 次 → 說出中文意思。</p>
-        <div class="letter-bank">
-          ${words.map(item => `<button class="letter-btn visual-word-card" data-say="${item.word}"><strong>${item.icon}</strong><br><span>${item.word}</span><br><small>${item.zh}</small></button>`).join("")}
+        <p class="daily-note">每日流程：看圖 3 秒 → 按朗讀 → 跟念 3 次 → 說出中文意思。今天建議：Day ${today}。</p>
+        <div class="week-plan">
+          ${weeklyGroups.map((group, index) => `
+            <section class="day-section ${index + 1 === today ? "today" : ""}">
+              <header>
+                <strong>Day ${index + 1}</strong>
+                <span>${dayName(index + 1)} · ${group.length} 個</span>
+              </header>
+              <div class="letter-bank">
+                ${group.map(item => `<button class="letter-btn visual-word-card" data-say="${item.word}"><strong>${item.icon}</strong><br><span>${item.word}</span><br><small>${item.zh}</small></button>`).join("")}
+              </div>
+            </section>`).join("")}
         </div>
         <div class="task-actions">
-          <button class="btn primary" id="finishStudy">完成暖身</button>
+          <button class="btn primary" id="finishStudy">完成今日跟讀</button>
           <button class="btn secondary" data-view="course">回任務地圖</button>
         </div>
-        <div class="feedback info show">若裝置沒有英文語音，仍可作為字母與單字視覺練習。</div>
+        <div class="feedback info show">這一頁會列出本年級全部單字；每日只需完成一組，七天剛好跑完一輪。</div>
       </div>`;
     missionShell(stage, body);
     document.querySelectorAll("[data-say]").forEach(button => {
@@ -328,6 +339,21 @@
       };
     });
     document.getElementById("finishStudy").onclick = () => completeStage(stage.id, words.length, words.length);
+  }
+
+  function splitIntoWeek(words) {
+    const groups = Array.from({ length: 7 }, () => []);
+    words.forEach((word, index) => groups[index % 7].push(word));
+    return groups;
+  }
+
+  function suggestedDay() {
+    const day = new Date().getDay();
+    return day === 0 ? 7 : day;
+  }
+
+  function dayName(day) {
+    return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][day - 1];
   }
 
   function startQuiz(stage, type) {
