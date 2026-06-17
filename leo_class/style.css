@@ -329,6 +329,14 @@ h1 {
   background: white;
 }
 .task-box h2 { margin-top: 0; }
+.daily-note {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #e8f4ff;
+  color: #24517a;
+  font-weight: 900;
+  line-height: 1.6;
+}
 .option-grid, .match-grid, .class-grid, .letter-bank {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -343,6 +351,24 @@ h1 {
   background: white;
   font-weight: 900;
   text-align: left;
+}
+.visual-word-card strong {
+  display: block;
+  font-size: 2.5rem;
+  line-height: 1.1;
+  text-align: center;
+}
+.visual-word-card span {
+  display: block;
+  margin-top: 6px;
+  font-size: 1.25rem;
+  color: var(--deep);
+}
+.visual-word-card small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  line-height: 1.35;
 }
 .option.selected, .match-btn.selected, .class-target.active, .letter-btn.selected {
   border-color: var(--gold);
@@ -399,6 +425,16 @@ h1 {
   border-radius: 16px;
   line-height: 1.7;
 }
+.story-card {
+  margin: 12px 0 18px;
+  padding: 20px;
+  border: 3px solid #f0d27c;
+  border-radius: 20px;
+  background: #fff8d9;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  line-height: 1.8;
+}
+.story-card p { margin: 0; }
 .feedback.show { display: block; }
 .feedback.good { color: #286c3c; background: #e1f5e6; }
 .feedback.info { color: #24517a; background: #e8f1ff; }
