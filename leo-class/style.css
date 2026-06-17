@@ -410,6 +410,16 @@ h1 {
   color: var(--muted);
   line-height: 1.35;
 }
+.visual-word-card em {
+  display: block;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #d9e5e2;
+  color: var(--teal);
+  font-size: .95rem;
+  font-style: normal;
+  line-height: 1.45;
+}
 .option.selected, .match-btn.selected, .class-target.active, .letter-btn.selected {
   border-color: var(--gold);
   background: #fff4c3;

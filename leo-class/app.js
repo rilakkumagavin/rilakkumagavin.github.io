@@ -249,17 +249,16 @@
               </div>
             </div>
             <div class="stage-map">
-              ${stages.map((stage, index) => {
+              ${stages.map(stage => {
                 const isDone = state.completed.includes(stage.id);
-                const unlocked = index === 0 || state.completed.includes(stages[index - 1].id) || isDone;
                 return `
-                  <button class="stage-card ${isDone ? "done" : ""} ${unlocked ? "" : "locked"}" data-stage="${stage.id}" ${unlocked ? "" : "disabled"}>
+                  <button class="stage-card ${isDone ? "done" : ""}" data-stage="${stage.id}">
                     <span class="stage-icon">${isDone ? "✅" : stage.icon}</span>
                     <div>
                       <h3>${stage.title}</h3>
                       <p>${stage.subtitle}</p>
                     </div>
-                    <span class="badge-chip">${isDone ? stage.badge : "挑戰"}</span>
+                    <span class="badge-chip">${isDone ? stage.badge : "開放測試"}</span>
                   </button>`;
               }).join("")}
             </div>
@@ -322,7 +321,13 @@
                 <span>${dayName(index + 1)} · ${group.length} 個</span>
               </header>
               <div class="letter-bank">
-                ${group.map(item => `<button class="letter-btn visual-word-card" data-say="${item.word}"><strong>${item.icon}</strong><br><span>${item.word}</span><br><small>${item.zh}</small></button>`).join("")}
+                ${group.map(item => `
+                  <button class="letter-btn visual-word-card" data-say="${item.word}" data-sentence="${sentenceFor(item, item.word)}">
+                    <strong>${item.icon}</strong>
+                    <span>${item.word}</span>
+                    <small>${item.zh}</small>
+                    <em>${sentenceFor(item, item.word)}</em>
+                  </button>`).join("")}
               </div>
             </section>`).join("")}
         </div>
@@ -336,6 +341,7 @@
     document.querySelectorAll("[data-say]").forEach(button => {
       button.onclick = () => {
         speak(button.dataset.say);
+        setTimeout(() => speak(button.dataset.sentence), 700);
         button.classList.add("done");
       };
     });
