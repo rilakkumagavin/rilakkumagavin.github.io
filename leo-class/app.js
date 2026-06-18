@@ -81,58 +81,186 @@
 
   const exactWordVisuals = {
     ant: "🐜",
+    ankle: "🦶",
     apple: "🍎",
+    arm: "💪",
+    aunt: "👩",
     ax: "🪓",
+    back: "🧍",
     bag: "🎒",
+    banana: "🍌",
+    bean: "🫘",
+    beard: "🧔",
+    beef: "🥩",
     bed: "🛏️",
     bird: "🐦",
+    black: "⚫",
+    blue: "🔵",
+    body: "🧍",
+    bone: "🦴",
     box: "📦",
+    bread: "🍞",
+    brother: "👦",
+    brown: "🟤",
+    bun: "🥯",
+    burger: "🍔",
     cab: "🚕",
+    cabbage: "🥬",
     cap: "🧢",
+    carrot: "🥕",
     cat: "🐱",
+    cereal: "🥣",
+    chicken: "🍗",
+    chin: "🙂",
+    color: "🎨",
+    corn: "🌽",
+    cousin: "🧑",
     dad: "👨",
+    daughter: "👧",
     desk: "🪑",
+    dumpling: "🥟",
+    ear: "👂",
     egg: "🥚",
     elf: "🧝",
+    eight: "8️⃣",
+    eighteen: "🔢",
+    eleven: "🔢",
+    eye: "👁️",
+    face: "🙂",
+    family: "👪",
+    father: "👨",
     fan: "🌀",
+    fifteen: "🔢",
+    finger: "☝️",
+    fish: "🐟",
+    five: "5️⃣",
     fix: "🛠️",
+    food: "🍽️",
+    foot: "🦶",
+    forty: "🔢",
+    four: "4️⃣",
+    fourteen: "🔢",
     fox: "🦊",
+    frenchfries: "🍟",
+    fruit: "🍎",
     gift: "🎁",
     girl: "👧",
+    golden: "🟡",
+    grandfather: "👴",
+    grandmother: "👵",
+    granddaughter: "👧",
+    grandson: "👦",
+    grape: "🍇",
+    gray: "⚪",
+    green: "🟢",
+    guava: "🍐",
+    hair: "💇",
+    hand: "✋",
     hat: "🎩",
+    head: "🙂",
+    heart: "❤️",
+    hip: "🧍",
     hippo: "🦛",
+    hundred: "💯",
+    husband: "👨",
     insect: "🐞",
     ink: "🖋️",
     jam: "🍓",
     jet: "✈️",
     kid: "🧒",
+    knee: "🦵",
     kit: "🧰",
     lap: "🧎",
+    leg: "🦵",
+    lemon: "🍋",
+    lettuce: "🥬",
+    lip: "👄",
     log: "🪵",
+    mango: "🥭",
     mat: "▭",
+    meat: "🥩",
     mitt: "🧤",
+    mother: "👩",
+    mouth: "👄",
+    nail: "💅",
     nap: "😴",
+    neck: "🧣",
+    nephew: "👦",
+    niece: "👧",
+    nine: "9️⃣",
+    nineteen: "🔢",
+    ninety: "🔢",
+    nose: "👃",
     nest: "🪺",
+    nut: "🥜",
+    one: "1️⃣",
+    onion: "🧅",
+    orange: "🟠",
     ox: "🐂",
     pad: "📝",
+    papaya: "🍈",
+    parents: "👪",
+    parent: "👪",
+    peach: "🍑",
+    pear: "🍐",
     pet: "🐶",
+    pineapple: "🍍",
+    pink: "🌸",
+    potato: "🥔",
+    pumpkin: "🎃",
+    purple: "🟣",
     queen: "👑",
     quilt: "🛏️",
     rat: "🐀",
+    red: "🔴",
+    relatives: "👪",
+    relative: "👪",
     rock: "🪨",
     sack: "🛍️",
+    seven: "7️⃣",
+    seventeen: "🔢",
+    seventy: "🔢",
+    shoulder: "🤷",
+    sister: "👧",
+    six: "6️⃣",
+    sixteen: "🔢",
+    sixty: "🔢",
+    skin: "✋",
     sit: "🪑",
+    son: "👦",
+    stomach: "🤰",
+    strawberry: "🍓",
     tag: "🏷️",
+    tangerine: "🍊",
+    ten: "🔟",
+    thirteen: "🔢",
+    thirty: "🔢",
+    thousand: "🔢",
+    three: "3️⃣",
+    throat: "🗣️",
+    thumb: "👍",
     top: "⬆️",
+    tomato: "🍅",
+    tongue: "👅",
+    tooth: "🦷",
+    toe: "🦶",
+    twelve: "🔢",
+    twenty: "🔢",
+    two: "2️⃣",
     umbrella: "☂️",
     uncle: "👨",
     van: "🚐",
+    vegetable: "🥬",
     vet: "🩺",
+    watermelon: "🍉",
     wet: "💧",
+    white: "⚪",
+    wife: "👩",
     wig: "💇",
     yam: "🍠",
     yellow: "🟨",
     zebra: "🦓",
+    zero: "0️⃣",
     zip: "🤐"
   };
 
@@ -185,6 +313,15 @@
     "The elf has an egg.": "小精靈有一顆蛋。",
     "A jet is by the jam.": "一架噴射機在果醬旁邊。"
   };
+
+  const grade3FamilyPlural = new Set(["parent(s)", "relative(s)"]);
+  const grade3Numbers = new Set(["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety", "hundred", "thousand"]);
+  const grade3Colors = new Set(["black", "blue", "brown", "color", "golden", "gray", "green", "orange", "pink", "purple", "red", "white", "yellow"]);
+  const grade3Feelings = new Set(["angry", "bad", "brave", "crazy", "evil", "funny", "good", "happy", "kind", "lazy", "lonely", "mad", "nervous", "proud", "rude", "sad", "smart"]);
+  const grade3FaceParts = new Set(["beard", "chin", "ear", "eye", "face", "hair", "lip", "mouth", "nose", "tongue", "tooth"]);
+  const grade3BodyParts = new Set(["ankle", "arm", "back", "body", "bone", "finger", "foot", "hand", "head", "hip", "knee", "leg", "nail", "neck", "shoulder", "skin", "throat", "thumb", "toe", "heart", "stomach"]);
+  const grade3Produce = new Set(["fruit", "apple", "banana", "grape", "guava", "lemon", "mango", "orange", "papaya", "peach", "pear", "pineapple", "strawberry", "tangerine", "tomato", "watermelon", "vegetable", "bean", "cabbage", "carrot", "corn", "lettuce", "nut", "onion", "potato", "pumpkin"]);
+  const grade3Foods = new Set(["meat", "beef", "bread", "bun", "burger", "cereal", "chicken", "dumpling", "egg", "fish", "food", "French fries"]);
 
   function normalize(words) {
     return words.map(item => {
@@ -846,6 +983,7 @@
     if (item.sentence) {
       return item.sentence.replace(new RegExp(`\\b${escapeRegex(item.word)}\\b`, "i"), word);
     }
+    if (currentGrade === 3) return grade3SentenceFor(item, word);
     const gradeTemplates = {
       1: `I see a ${word}.`,
       2: `This is my ${word}.`,
@@ -859,6 +997,35 @@
     if (["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].includes(item.word)) return `Today is ${word}.`;
     if (["spring", "summer", "fall", "winter"].includes(item.word)) return `I like ${word}.`;
     return gradeTemplates[currentGrade] || `I see a ${word}.`;
+  }
+
+  function grade3SentenceFor(item, word = "____") {
+    const key = String(item.word || "");
+    const sentenceWord = grade3SentenceWord(key, word);
+    if (key === "family") return `My ${sentenceWord} is here.`;
+    if (grade3FamilyPlural.has(key)) return `My ${sentenceWord} are here.`;
+    if (isGrade3FamilyWord(key)) return `My ${sentenceWord} is here.`;
+    if (grade3Numbers.has(key)) return `I can count to ${sentenceWord}.`;
+    if (key === "color") return `What ${sentenceWord} is it?`;
+    if (grade3Colors.has(key)) return `The ball is ${sentenceWord}.`;
+    if (grade3Feelings.has(key)) return `I feel ${sentenceWord}.`;
+    if (grade3FaceParts.has(key) || grade3BodyParts.has(key)) return `This is my ${sentenceWord}.`;
+    if (grade3Produce.has(key)) return `I like the ${sentenceWord}.`;
+    if (grade3Foods.has(key)) return `I eat ${sentenceWord}.`;
+    return `I know the word ${sentenceWord}.`;
+  }
+
+  function grade3SentenceWord(key, word) {
+    if (word === "____") return word;
+    if (key === "hundred") return "one hundred";
+    if (key === "thousand") return "one thousand";
+    if (key === "parent(s)") return "parents";
+    if (key === "relative(s)") return "relatives";
+    return word;
+  }
+
+  function isGrade3FamilyWord(key) {
+    return ["aunt", "brother", "cousin", "daughter", "father", "granddaughter", "grandfather", "grandmother", "grandson", "husband", "mother", "nephew", "niece", "sister", "son", "uncle", "wife"].includes(key);
   }
 
   function sentenceMarkup(item) {
@@ -884,6 +1051,7 @@
   function sentenceZhFor(item, sentence = sentenceFor(item, item.word)) {
     if (item.sentenceZh) return item.sentenceZh;
     if (exactSentenceZh[sentence]) return exactSentenceZh[sentence];
+    if (currentGrade === 3) return grade3SentenceZhFor(item);
 
     const zh = item.zh || item.word;
     if (/^I see a /i.test(sentence)) return `我看到一個${zh}。`;
@@ -895,6 +1063,30 @@
     if (/^I am /i.test(sentence)) return `我覺得${zh}。`;
     if (/^Today is /i.test(sentence)) return `今天是${zh}。`;
     return `${zh}的例句。`;
+  }
+
+  function grade3SentenceZhFor(item) {
+    const key = String(item.word || "");
+    const zh = cleanZhMeaning(item.zh || item.word);
+    if (key === "parent(s)") return "我的父母在這裡。";
+    if (key === "relative(s)") return "我的親戚在這裡。";
+    if (key === "family") return `我的${zh}在這裡。`;
+    if (grade3FamilyPlural.has(key)) return `我的${zh}在這裡。`;
+    if (isGrade3FamilyWord(key)) return `我的${zh}在這裡。`;
+    if (key === "hundred") return "我可以數到一百。";
+    if (key === "thousand") return "我可以數到一千。";
+    if (grade3Numbers.has(key)) return `我可以數到${zh}。`;
+    if (key === "color") return `它是什麼${zh}？`;
+    if (grade3Colors.has(key)) return `球是${zh}。`;
+    if (grade3Feelings.has(key)) return `我覺得${zh}。`;
+    if (grade3FaceParts.has(key) || grade3BodyParts.has(key)) return `這是我的${zh}。`;
+    if (grade3Produce.has(key)) return `我喜歡${zh}。`;
+    if (grade3Foods.has(key)) return `我吃${zh}。`;
+    return `我認識${zh}這個字。`;
+  }
+
+  function cleanZhMeaning(value = "") {
+    return String(value).replace(/[()（）]/g, "");
   }
 
   function storyFor(grade, words) {
