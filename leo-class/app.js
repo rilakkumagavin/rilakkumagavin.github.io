@@ -323,6 +323,52 @@
   const grade3Produce = new Set(["fruit", "apple", "banana", "grape", "guava", "lemon", "mango", "orange", "papaya", "peach", "pear", "pineapple", "strawberry", "tangerine", "tomato", "watermelon", "vegetable", "bean", "cabbage", "carrot", "corn", "lettuce", "nut", "onion", "potato", "pumpkin"]);
   const grade3Foods = new Set(["meat", "beef", "bread", "bun", "burger", "cereal", "chicken", "dumpling", "egg", "fish", "food", "French fries"]);
 
+  const grade4Meals = new Set(["breakfast", "brunch", "dinner", "lunch", "meal", "snack"]);
+  const grade4Foods = new Set(["ham", "hamburger", "pizza", "pork", "rice", "salad", "sandwich", "seafood", "shrimp", "soup", "steak", "tofu"]);
+  const grade4Drinks = new Set(["beer", "coffee", "cola", "drink", "juice", "milk", "milk shake", "soda", "tea", "water"]);
+  const grade4Desserts = new Set(["cake", "candy", "cheese", "chocolate", "cookie", "dessert", "doughnut", "ice cream", "pie", "popcorn"]);
+  const grade4Seasonings = new Set(["butter", "cream", "jam", "oil", "pepper", "soy-sauce", "salt", "sugar", "vinegar"]);
+  const grade4FoodFeelings = new Set(["hungry", "full", "thirsty"]);
+  const grade4Tastes = new Set(["bitter", "hot", "sour", "sweet", "yummy"]);
+  const grade4FoodActions = new Set(["cook", "eat", "order"]);
+  const grade4Times = new Set(["morning", "noon", "afternoon", "evening", "night"]);
+  const grade4Days = new Set(["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "week", "weekday", "weekend"]);
+  const grade4Months = new Set(["month", "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]);
+  const grade4Seasons = new Set(["season", "spring", "summer", "autumn (fall)", "winter"]);
+  const grade4Clothes = new Set(["coat", "dress", "jacket", "jeans", "pants", "raincoat", "shirt", "t-shirt", "shorts", "skirt", "sweater", "swimsuit", "uniform", "underwear", "vest"]);
+  const grade4Accessories = new Set(["bag", "belt", "cap", "comb", "glove", "hat", "mask", "ring", "scarf", "shoe(s)", "slippers", "sneakers", "socks", "tie", "umbrella"]);
+  const grade4Sports = new Set(["badminton", "baseball", "basketball", "dodge ball", "football", "frisbee", "golf", "race", "soccer", "softball", "table tennis", "tennis", "volleyball"]);
+  const grade4Activities = new Set(["barbecue", "bowling", "camp", "dance", "draw", "hike", "jog", "picnic", "roller skate", "run", "sing"]);
+  const grade4HouseRooms = new Set(["house", "basement", "bathroom", "bedroom", "dining room", "garden", "hall", "kitchen", "living room", "room"]);
+
+  const grade5HouseParts = new Set(["study", "yard", "balcony", "door", "floor", "gate", "roof", "stairs", "wall", "window"]);
+  const grade5Furniture = new Set(["bed", "chair", "desk", "drawer", "lamp", "light", "mirror", "shelf", "sink", "sofa", "table", "tub"]);
+  const grade5HomeItems = new Set(["blanket", "carpet", "hanger", "pillow", "sheet", "toothbrush", "soap", "towel"]);
+  const grade5Appliances = new Set(["air conditioner", "camera", "cassette", "computer", "dresser", "dryer", "fan", "flashlight", "freezer", "heater", "machine", "microwave", "oven", "radio", "refrigerator", "speaker", "stove", "tape", "telephone", "phone", "television (tv)", "video", "printer"]);
+  const grade5Tools = new Set(["basket", "brick", "bucket", "candle", "hammer", "housework", "key", "mat", "needle", "pan", "pot", "teapot", "umbrella", "toilet", "trash can", "wok", "tube"]);
+  const grade5HomeActions = new Set(["build", "clean", "design", "fix", "repair", "sweep", "wash"]);
+  const grade5Places = new Set(["address", "road", "street", "classroom", "gym", "playground", "library", "class", "seesaw", "slide", "blackboard"]);
+  const grade5SchoolItems = new Set(["book", "chalk", "crayon", "diary", "eraser", "glasses", "glue", "ink", "letter", "map", "marker", "notebook", "page", "paper", "pen", "pencil", "ruler"]);
+  const grade5Subjects = new Set(["art", "chinese", "english", "math", "music", "pe", "science", "social science"]);
+  const grade5People = new Set(["class leader", "classmate", "friend", "student", "teacher"]);
+  const grade5Learning = new Set(["learn", "listen"]);
+  const grade5Animals = new Set(["bear", "cat", "chicken", "cow", "deer", "dinosaur", "dog", "donkey", "duck", "eagle", "elephant", "fox", "frog", "goat", "goose", "hen", "hippo", "horse", "kangaroo", "kitten", "koala", "lamb", "lion", "monkey", "monster", "mouse", "ox", "panda", "parrot", "pet", "pig", "puppy", "rabbit", "rat", "sheep", "swan", "tiger", "turkey", "wolf", "zebra"]);
+
+  const grade6Insects = new Set(["ant", "bat", "bee", "bird", "bug", "butterfly", "cockroach", "dragon", "mosquito", "snail", "snake", "spider", "worm"]);
+  const grade6SeaAnimals = new Set(["crab", "dolphin", "fish", "shark", "shrimp", "turtle", "whale"]);
+  const grade6AnimalActions = new Set(["bark", "bite", "swallow"]);
+  const grade6AnimalParts = new Set(["tail", "wing"]);
+  const grade6Pronouns = new Set(["i", "my", "me", "he", "his", "him", "she", "her", "we", "our", "us", "they", "their", "them", "it", "its", "you", "your"]);
+  const grade6Demonstratives = new Set(["this", "that", "these", "those"]);
+  const grade6Questions = new Set(["how", "what", "which", "who", "whose", "when", "where", "why"]);
+  const grade6Countries = new Set(["australia", "canada", "egypt", "france", "germany", "greece", "italy", "japan", "mexico", "russia", "south korea", "thailand", "the uk", "the usa"]);
+  const grade6HealthAdjectives = new Set(["comfortable", "dizzy", "healthy", "ill", "painful", "pale", "sick", "strong", "tired", "weak", "well"]);
+  const grade6Illnesses = new Set(["cold", "flu", "headache", "stomachache", "toothache", "cough", "fever", "pain", "sore throat"]);
+  const grade6HealthNouns = new Set(["cure", "death", "health", "life", "medicine"]);
+  const grade6Tableware = new Set(["bowl", "chopsticks", "cup", "dish", "fork", "glass", "knife", "napkin", "plate", "saucer", "spoon", "straw"]);
+  const grade6Vehicles = new Set(["airplane (plane)", "ambulance", "bicycle (bike)", "boat", "bus", "car", "helicopter", "jeep", "mrt", "railway", "scooter", "ship", "subway", "tank", "taxi", "train", "truck"]);
+  const grade6TrafficPlaces = new Set(["bus stop", "train station", "bridge", "highway"]);
+
   function normalize(words) {
     return words.map(item => {
       if (Array.isArray(item)) {
@@ -984,6 +1030,9 @@
       return item.sentence.replace(new RegExp(`\\b${escapeRegex(item.word)}\\b`, "i"), word);
     }
     if (currentGrade === 3) return grade3SentenceFor(item, word);
+    if (currentGrade === 4) return grade4SentenceFor(item, word);
+    if (currentGrade === 5) return grade5SentenceFor(item, word);
+    if (currentGrade === 6) return grade6SentenceFor(item, word);
     const gradeTemplates = {
       1: `I see a ${word}.`,
       2: `This is my ${word}.`,
@@ -997,6 +1046,14 @@
     if (["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].includes(item.word)) return `Today is ${word}.`;
     if (["spring", "summer", "fall", "winter"].includes(item.word)) return `I like ${word}.`;
     return gradeTemplates[currentGrade] || `I see a ${word}.`;
+  }
+
+  function itemKey(item) {
+    return String(item.word || "").toLowerCase();
+  }
+
+  function hasWord(set, item) {
+    return set.has(itemKey(item));
   }
 
   function grade3SentenceFor(item, word = "____") {
@@ -1028,6 +1085,93 @@
     return ["aunt", "brother", "cousin", "daughter", "father", "granddaughter", "grandfather", "grandmother", "grandson", "husband", "mother", "nephew", "niece", "sister", "son", "uncle", "wife"].includes(key);
   }
 
+  function grade4SentenceFor(item, word = "____") {
+    const key = itemKey(item);
+    if (key === "beer") return `${capitalizeWord(word)} is a drink for adults.`;
+    if (key === "pants" || key === "jeans" || key === "shorts" || key === "underwear") return `I wear ${word}.`;
+    if (key === "race") return `I run in a ${word}.`;
+    if (key === "barbecue") return `We have a ${word}.`;
+    if (key === "bowling") return `I go ${word}.`;
+    if (key === "picnic") return `We have a ${word}.`;
+    if (hasWord(grade4Meals, item)) return `I have ${word} at school.`;
+    if (hasWord(grade4Foods, item)) return `I eat ${word} for lunch.`;
+    if (hasWord(grade4Drinks, item)) return `I drink ${word}.`;
+    if (hasWord(grade4Desserts, item)) return `I want some ${word}.`;
+    if (hasWord(grade4Seasonings, item)) return `Please pass the ${word}.`;
+    if (hasWord(grade4FoodFeelings, item)) return `I am ${word}.`;
+    if (hasWord(grade4Tastes, item)) return `The food is ${word}.`;
+    if (hasWord(grade4FoodActions, item)) return `I ${word} with my family.`;
+    if (itemKey(item) === "menu") return `I read the ${word}.`;
+    if (hasWord(grade4Times, item)) return `I read in the ${word}.`;
+    if (hasWord(grade4Days, item)) return `I play on ${word}.`;
+    if (hasWord(grade4Months, item)) return `My birthday is in ${word}.`;
+    if (hasWord(grade4Seasons, item)) return `I like ${word}.`;
+    if (itemKey(item) === "clock" || itemKey(item) === "watch") return `I look at the ${word}.`;
+    if (hasWord(grade4Clothes, item)) return `I wear a ${word}.`;
+    if (hasWord(grade4Accessories, item)) return `I have a ${word}.`;
+    if (hasWord(grade4Sports, item)) return `I play ${word}.`;
+    if (hasWord(grade4Activities, item)) return `I like to ${word}.`;
+    if (hasWord(grade4HouseRooms, item)) return `I am in the ${word}.`;
+    return `I can use the word ${word}.`;
+  }
+
+  function grade5SentenceFor(item, word = "____") {
+    const key = itemKey(item);
+    if (key === "glasses") return `I wear ${word}.`;
+    if (hasWord(grade5HouseParts, item)) return `The ${word} is in my house.`;
+    if (hasWord(grade5Furniture, item)) return `The ${word} is in my room.`;
+    if (hasWord(grade5HomeItems, item)) return `I use the ${word} at home.`;
+    if (hasWord(grade5Appliances, item)) return `I turn on the ${word}.`;
+    if (hasWord(grade5Tools, item)) return `I need the ${word}.`;
+    if (hasWord(grade5HomeActions, item)) return `I can ${word} at home.`;
+    if (hasWord(grade5Places, item)) return `I go to the ${word}.`;
+    if (hasWord(grade5SchoolItems, item)) return `I use a ${word} in class.`;
+    if (hasWord(grade5Subjects, item)) return `I study ${word}.`;
+    if (hasWord(grade5People, item)) return `My ${word} is kind.`;
+    if (hasWord(grade5Learning, item)) return `I ${word} in class.`;
+    if (hasWord(grade5Animals, item)) return `I see a ${word}.`;
+    return `I can use the word ${word}.`;
+  }
+
+  function grade6SentenceFor(item, word = "____") {
+    const key = itemKey(item);
+    if (key === "cure") return `Doctors can ${word} illness.`;
+    if (key === "death") return `${capitalizeWord(word)} means life ends.`;
+    if (key === "health") return `Good ${word} is important.`;
+    if (key === "life") return `${capitalizeWord(word)} is precious.`;
+    if (key === "medicine") return `Take ${word} when you are sick.`;
+    if (key === "airplane (plane)") return `I travel by airplane.`;
+    if (key === "ambulance") return `An ${word} helps sick people.`;
+    if (key === "bicycle (bike)") return `I ride a bicycle.`;
+    if (key === "mrt") return `I take the MRT.`;
+    if (key === "railway") return `The train runs on the ${word}.`;
+    if (key === "subway") return `I take the ${word}.`;
+    if (key === "bridge") return `Cars go across the ${word}.`;
+    if (key === "highway") return `Cars drive on the ${word}.`;
+    if (hasWord(grade6Insects, item)) return `I see a ${word} outside.`;
+    if (hasWord(grade6SeaAnimals, item)) return `A ${word} lives in water.`;
+    if (itemKey(item) === "bark") return `Dogs ${word} loudly.`;
+    if (itemKey(item) === "bite") return `Dogs may ${word}.`;
+    if (itemKey(item) === "swallow") return `Please ${word} the medicine.`;
+    if (hasWord(grade6AnimalParts, item)) return `The bird has a ${word}.`;
+    if (hasWord(grade6Pronouns, item)) return `${word} is a pronoun.`;
+    if (hasWord(grade6Demonstratives, item)) return `Look at ${word}.`;
+    if (hasWord(grade6Questions, item)) return `${capitalizeWord(word)} do you ask?`;
+    if (hasWord(grade6Countries, item)) return `I want to visit ${word}.`;
+    if (hasWord(grade6HealthAdjectives, item)) return `I feel ${word}.`;
+    if (hasWord(grade6Illnesses, item)) return `I have a ${word}.`;
+    if (hasWord(grade6HealthNouns, item)) return `Health is about ${word}.`;
+    if (hasWord(grade6Tableware, item)) return `I use a ${word} at dinner.`;
+    if (hasWord(grade6Vehicles, item)) return `I ride a ${word}.`;
+    if (hasWord(grade6TrafficPlaces, item)) return `I wait at the ${word}.`;
+    return `I can use the word ${word}.`;
+  }
+
+  function capitalizeWord(word) {
+    const text = String(word || "");
+    return text ? text.charAt(0).toUpperCase() + text.slice(1) : text;
+  }
+
   function sentenceMarkup(item) {
     const sentence = sentenceFor(item, item.word);
     const translation = sentenceZhFor(item, sentence);
@@ -1052,6 +1196,9 @@
     if (item.sentenceZh) return item.sentenceZh;
     if (exactSentenceZh[sentence]) return exactSentenceZh[sentence];
     if (currentGrade === 3) return grade3SentenceZhFor(item);
+    if (currentGrade === 4) return grade4SentenceZhFor(item);
+    if (currentGrade === 5) return grade5SentenceZhFor(item);
+    if (currentGrade === 6) return grade6SentenceZhFor(item);
 
     const zh = item.zh || item.word;
     if (/^I see a /i.test(sentence)) return `我看到一個${zh}。`;
@@ -1083,6 +1230,91 @@
     if (grade3Produce.has(key)) return `我喜歡${zh}。`;
     if (grade3Foods.has(key)) return `我吃${zh}。`;
     return `我認識${zh}這個字。`;
+  }
+
+  function grade4SentenceZhFor(item) {
+    const key = itemKey(item);
+    const zh = cleanZhMeaning(item.zh || item.word);
+    if (key === "beer") return `${zh}是大人的飲料。`;
+    if (key === "pants" || key === "jeans" || key === "shorts" || key === "underwear") return `我穿${zh}。`;
+    if (key === "race") return `我參加${zh}。`;
+    if (key === "barbecue") return `我們烤肉。`;
+    if (key === "bowling") return `我去打${zh}。`;
+    if (key === "picnic") return `我們去${zh}。`;
+    if (hasWord(grade4Meals, item)) return `我在學校吃${zh}。`;
+    if (hasWord(grade4Foods, item)) return `我午餐吃${zh}。`;
+    if (hasWord(grade4Drinks, item)) return `我喝${zh}。`;
+    if (hasWord(grade4Desserts, item)) return `我想要一些${zh}。`;
+    if (hasWord(grade4Seasonings, item)) return `請把${zh}遞給我。`;
+    if (hasWord(grade4FoodFeelings, item)) return `我覺得${zh}。`;
+    if (hasWord(grade4Tastes, item)) return `食物是${zh}。`;
+    if (hasWord(grade4FoodActions, item)) return `我和家人一起${zh}。`;
+    if (itemKey(item) === "menu") return `我看${zh}。`;
+    if (hasWord(grade4Times, item)) return `我在${zh}閱讀。`;
+    if (hasWord(grade4Days, item)) return `我在${zh}玩。`;
+    if (hasWord(grade4Months, item)) return `我的生日在${zh}。`;
+    if (hasWord(grade4Seasons, item)) return `我喜歡${zh}。`;
+    if (itemKey(item) === "clock" || itemKey(item) === "watch") return `我看${zh}。`;
+    if (hasWord(grade4Clothes, item)) return `我穿${zh}。`;
+    if (hasWord(grade4Accessories, item)) return `我有一個${zh}。`;
+    if (hasWord(grade4Sports, item)) return `我打${zh}。`;
+    if (hasWord(grade4Activities, item)) return `我喜歡${zh}。`;
+    if (hasWord(grade4HouseRooms, item)) return `我在${zh}裡。`;
+    return `我會使用${zh}這個字。`;
+  }
+
+  function grade5SentenceZhFor(item) {
+    const key = itemKey(item);
+    const zh = cleanZhMeaning(item.zh || item.word);
+    if (key === "glasses") return `我戴${zh}。`;
+    if (hasWord(grade5HouseParts, item)) return `${zh}在我的家裡。`;
+    if (hasWord(grade5Furniture, item)) return `${zh}在我的房間裡。`;
+    if (hasWord(grade5HomeItems, item)) return `我在家使用${zh}。`;
+    if (hasWord(grade5Appliances, item)) return `我打開${zh}。`;
+    if (hasWord(grade5Tools, item)) return `我需要${zh}。`;
+    if (hasWord(grade5HomeActions, item)) return `我可以在家${zh}。`;
+    if (hasWord(grade5Places, item)) return `我去${zh}。`;
+    if (hasWord(grade5SchoolItems, item)) return `我在課堂上使用${zh}。`;
+    if (hasWord(grade5Subjects, item)) return `我學${zh}。`;
+    if (hasWord(grade5People, item)) return `我的${zh}很親切。`;
+    if (hasWord(grade5Learning, item)) return `我在課堂上${zh}。`;
+    if (hasWord(grade5Animals, item)) return `我看到一隻${zh}。`;
+    return `我會使用${zh}這個字。`;
+  }
+
+  function grade6SentenceZhFor(item) {
+    const key = itemKey(item);
+    const zh = cleanZhMeaning(item.zh || item.word);
+    if (key === "cure") return `醫生可以治療疾病。`;
+    if (key === "death") return `死亡表示生命結束。`;
+    if (key === "health") return `健康很重要。`;
+    if (key === "life") return `生命很珍貴。`;
+    if (key === "medicine") return `生病時要吃藥。`;
+    if (key === "airplane (plane)") return `我搭飛機旅行。`;
+    if (key === "ambulance") return `救護車幫助生病的人。`;
+    if (key === "bicycle (bike)") return `我騎腳踏車。`;
+    if (key === "mrt") return `我搭捷運。`;
+    if (key === "railway") return `火車在鐵路上行駛。`;
+    if (key === "subway") return `我搭地下鐵。`;
+    if (key === "bridge") return `車子過橋。`;
+    if (key === "highway") return `車子在高速公路上行駛。`;
+    if (hasWord(grade6Insects, item)) return `我在外面看到一隻${zh}。`;
+    if (hasWord(grade6SeaAnimals, item)) return `${zh}住在水裡。`;
+    if (itemKey(item) === "bark") return `狗會大聲${zh}。`;
+    if (itemKey(item) === "bite") return `狗可能會${zh}。`;
+    if (itemKey(item) === "swallow") return `請${zh}藥。`;
+    if (hasWord(grade6AnimalParts, item)) return `鳥有${zh}。`;
+    if (hasWord(grade6Pronouns, item)) return `${zh}是代名詞。`;
+    if (hasWord(grade6Demonstratives, item)) return `看${zh}。`;
+    if (hasWord(grade6Questions, item)) return `你用${zh}來問問題。`;
+    if (hasWord(grade6Countries, item)) return `我想參觀${zh}。`;
+    if (hasWord(grade6HealthAdjectives, item)) return `我覺得${zh}。`;
+    if (hasWord(grade6Illnesses, item)) return `我有${zh}。`;
+    if (hasWord(grade6HealthNouns, item)) return `健康和${zh}有關。`;
+    if (hasWord(grade6Tableware, item)) return `我晚餐時使用${zh}。`;
+    if (hasWord(grade6Vehicles, item)) return `我搭乘${zh}。`;
+    if (hasWord(grade6TrafficPlaces, item)) return `我在${zh}等待。`;
+    return `我會使用${zh}這個字。`;
   }
 
   function cleanZhMeaning(value = "") {
@@ -1323,6 +1555,24 @@
       if (currentView === "home") renderHome();
     };
   }
+
+  window.LEO_DEBUG = {
+    sentenceFor: (grade, item, word = item.word) => {
+      const previousGrade = currentGrade;
+      currentGrade = Number(grade);
+      const sentence = sentenceFor(item, word);
+      currentGrade = previousGrade;
+      return sentence;
+    },
+    sentenceZhFor: (grade, item) => {
+      const previousGrade = currentGrade;
+      currentGrade = Number(grade);
+      const sentence = sentenceFor(item, item.word);
+      const translation = sentenceZhFor(item, sentence);
+      currentGrade = previousGrade;
+      return translation;
+    }
+  };
 
   renderHome();
 })();
