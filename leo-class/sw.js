@@ -1,4 +1,4 @@
-const CACHE_NAME = "leo-class-20260618050213";
+const CACHE_NAME = "leo-class-20260618051802";
 const ASSETS = [
   "./",
   "index.html",
@@ -8,7 +8,7 @@ const ASSETS = [
   "manifest.webmanifest",
   "assets/hero_student.jpg",
   "assets/map_main.jpg",
-  "assets/npc_teacher.jpg",
+  "assets/npc_teacher.png",
   "assets/stage_phonics_a.jpg",
   "assets/stage_phonics_b.jpg",
   "assets/stage_phonics_c.jpg"

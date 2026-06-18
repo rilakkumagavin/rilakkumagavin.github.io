@@ -793,7 +793,7 @@
         <section class="panel course-layout">
           <aside class="course-side">
             <div class="character">
-              <img src="assets/npc_teacher.jpg" alt="英語導師">
+              <img src="assets/npc_teacher.png" alt="英語導師">
               <div>
                 <span class="eyebrow">Grade ${currentGrade}</span>
                 <h2>${grade.title}</h2>
@@ -857,7 +857,7 @@
             <span class="stage-icon">${stage.icon}</span>
           </header>
           <div class="npc-line">
-            <img src="assets/npc_teacher.jpg" alt="英語導師">
+            <img src="assets/npc_teacher.png" alt="英語導師">
             <div><strong>English Guide：</strong>${stage.subtitle}。先看圖，再聽音，接著說、讀、寫，最後用生字組成完整句子。</div>
           </div>
           <section class="task">${body}</section>
