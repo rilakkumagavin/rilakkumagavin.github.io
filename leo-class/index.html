@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#246b6f">
   <title>Leo Class 離線遊戲課程</title>
-  <link rel="stylesheet" href="style.css?v=20260618051802">
+  <link rel="stylesheet" href="style.css?v=20260618052457">
   <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
   <div id="app"></div>
-  <script src="word-data.js?v=20260618051802"></script>
-  <script src="app.js?v=20260618051802"></script>
+  <script src="word-data.js?v=20260618052457"></script>
+  <script src="app.js?v=20260618052457"></script>
   <script>
     function setOfflineCacheStatus(message, kind) {
       const target = document.getElementById("offlineCacheStatus");
@@ -21,7 +21,7 @@
     }
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js?v=20260618051802")
+        navigator.serviceWorker.register("./sw.js?v=20260618052457")
           .then(() => setOfflineCacheStatus("離線快取狀態：課程檔案已建立快取；同一載具之後可離線開啟已載入內容。", "good"))
           .catch(() => setOfflineCacheStatus("離線快取狀態：快取建立失敗；仍可在線上使用。", "warn"));
       });

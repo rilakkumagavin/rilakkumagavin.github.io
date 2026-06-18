@@ -969,9 +969,7 @@
       stage,
       pool,
       index: 0,
-      score: 0,
-      matched: new Set(),
-      selected: []
+      score: 0
     };
     renderFlipListening();
   }
@@ -979,59 +977,50 @@
   function renderFlipListening(message = "") {
     const target = flip.pool[flip.index];
     const distractors = shuffle(vocabFor(currentGrade).filter(item => item.word !== target.word)).slice(0, 3);
-    const roundWords = shuffle([target, ...distractors]);
-    const cards = shuffle([
-      ...roundWords.map(item => ({ id: item.word, kind: "word", front: item.word, back: item.word })),
-      ...roundWords.map(item => ({ id: item.word, kind: "meaning", front: `${item.icon} ${item.zh}`, back: `${item.icon} ${item.zh}` }))
-    ]);
-    flip.cards = cards;
-    flip.selected = [];
-    flip.matched = new Set();
+    const choices = shuffle([target, ...distractors]);
     const body = `
-      <div class="objective">先聽目標單字，再翻牌找出「英文單字卡」和「中文圖示卡」。配對成功才算完成聽力任務。</div>
+      <div class="objective">聽英文單字，直接點選相同的圖卡。每題只要選一次，適合學生自學反覆練聽力。</div>
       <div class="task-box">
         <p class="eyebrow">第 ${flip.index + 1} 題 / ${flip.pool.length} 題</p>
-        <h2>Listen, Flip, Match</h2>
+        <h2>Listen and Tap</h2>
         <div class="task-actions">
           <button class="btn primary" id="repeatFlipWord">再聽一次</button>
+          <button class="btn secondary" id="showListenHint">看提示</button>
         </div>
-        <div class="flip-board">
-          ${cards.map((card, index) => `
-            <button class="flip-card" data-card-index="${index}" aria-label="翻牌">
-              <span class="card-back">?</span>
-              <span class="card-front">${card.front}</span>
+        <div class="listen-target" id="listenTarget">
+          <strong>?</strong>
+          <span>先聽聲音，再點圖卡</span>
+        </div>
+        <div class="listen-choice-grid">
+          ${choices.map(item => `
+            <button class="listen-choice-card" data-listen-choice="${escapeHtml(item.word)}">
+              ${visualMarkup(item)}
+              <span>${escapeHtml(item.word)}</span>
+              <small>${escapeHtml(item.zh)}</small>
             </button>`).join("")}
         </div>
-        <div class="feedback ${message ? "show info" : "info show"}" id="feedback">${message || "聽完後，翻出正確的一組牌。"}</div>
+        <div class="feedback ${message ? "show info" : "info show"}" id="feedback">${message || "聽完後，點選你聽到的那張圖卡。"}</div>
         <div class="task-actions"><button class="btn secondary" data-view="course">回任務地圖</button></div>
       </div>`;
     missionShell(flip.stage, body);
     document.getElementById("repeatFlipWord").onclick = () => speak(target.word);
-    document.querySelectorAll("[data-card-index]").forEach(button => {
-      button.onclick = () => flipCard(button, target);
+    document.getElementById("showListenHint").onclick = () => {
+      document.getElementById("listenTarget").innerHTML = `${visualMarkup(target)}<span>${escapeHtml(target.word)} · ${escapeHtml(target.zh)}</span>`;
+    };
+    document.querySelectorAll("[data-listen-choice]").forEach(button => {
+      button.onclick = () => chooseListeningCard(button, target);
     });
     setTimeout(() => speak(target.word), 250);
   }
 
-  function flipCard(button, target) {
-    const index = Number(button.dataset.cardIndex);
-    const card = flip.cards[index];
-    if (button.classList.contains("matched") || button.classList.contains("flipped")) return;
-    button.classList.add("flipped");
-    flip.selected.push({ index, card, button });
-    if (flip.selected.length < 2) return;
-
-    const [a, b] = flip.selected;
+  function chooseListeningCard(button, target) {
     const feedback = document.getElementById("feedback");
-    const isPair = a.card.id === b.card.id && a.card.kind !== b.card.kind;
-    const isTarget = a.card.id === target.word && b.card.id === target.word;
-
-    if (isPair && isTarget) {
-      a.button.classList.add("matched");
-      b.button.classList.add("matched");
+    if (button.dataset.listenChoice === target.word) {
+      button.classList.add("correct");
       flip.score += 1;
       feedback.className = "feedback show good";
-      feedback.textContent = `配對成功：${target.word}`;
+      feedback.textContent = `聽對了！${target.word}：${target.zh}`;
+      speak(target.word);
       setTimeout(() => {
         flip.index += 1;
         if (flip.index >= flip.pool.length) completeStage(flip.stage.id, flip.score, flip.pool.length);
@@ -1040,19 +1029,13 @@
       return;
     }
 
-    if (isPair) {
-      feedback.className = "feedback show info";
-      feedback.textContent = "這是一組配對，但不是剛剛聽到的單字。再聽一次目標音。";
-    } else {
-      feedback.className = "feedback show bad";
-      feedback.textContent = "這兩張牌不是同一個單字。";
-    }
+    button.classList.add("wrong");
+    feedback.className = "feedback show bad";
+    feedback.textContent = `再聽一次，找出 ${target.zh} 的英文。`;
     speak(target.word);
     setTimeout(() => {
-      a.button.classList.remove("flipped");
-      b.button.classList.remove("flipped");
-      flip.selected = [];
-    }, 800);
+      button.classList.remove("wrong");
+    }, 500);
   }
 
   function renderQuiz(message = "") {
