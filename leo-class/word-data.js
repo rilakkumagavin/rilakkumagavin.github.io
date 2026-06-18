@@ -1,374 +1,374 @@
-window.LEO_WORD_DATA = {
+﻿window.LEO_WORD_DATA = {
   "gradeVocab": {
     "2": [
       {
         "num": 1,
         "word": "cat",
-        "zh": "?",
+        "zh": "貓",
         "letter": "C",
         "sentence": "A cat takes a nap by the nest."
       },
       {
         "num": 2,
         "word": "nap",
-        "zh": "??",
+        "zh": "小睡",
         "letter": "N",
         "sentence": "A cat takes a nap by the nest."
       },
       {
         "num": 3,
         "word": "nest",
-        "zh": "?",
+        "zh": "巢",
         "letter": "N",
         "sentence": "A cat takes a nap by the nest."
       },
       {
         "num": 4,
         "word": "ant",
-        "zh": "??",
+        "zh": "螞蟻",
         "letter": "A",
         "sentence": "An ant is on the ax."
       },
       {
         "num": 5,
         "word": "ax",
-        "zh": "??",
+        "zh": "斧頭",
         "letter": "A",
         "sentence": "An ant is on the ax."
       },
       {
         "num": 6,
         "word": "fix",
-        "zh": "??",
+        "zh": "修理",
         "letter": "F",
         "sentence": "I can fix the fan."
       },
       {
         "num": 7,
         "word": "fan",
-        "zh": "??",
+        "zh": "電扇",
         "letter": "F",
         "sentence": "I can fix the fan."
       },
       {
         "num": 8,
         "word": "kid",
-        "zh": "??",
+        "zh": "小孩",
         "letter": "K",
         "sentence": "The kid has a kit."
       },
       {
         "num": 9,
         "word": "kit",
-        "zh": "???",
+        "zh": "工具包",
         "letter": "K",
         "sentence": "The kid has a kit."
       },
       {
         "num": 10,
         "word": "sit",
-        "zh": "?",
+        "zh": "坐",
         "letter": "S",
         "sentence": "I sit on the sack."
       },
       {
         "num": 11,
         "word": "sack",
-        "zh": "??",
+        "zh": "袋子",
         "letter": "S",
         "sentence": "I sit on the sack."
       },
       {
         "num": 12,
         "word": "fox",
-        "zh": "??",
+        "zh": "狐狸",
         "letter": "F",
         "sentence": "A fox is on the box."
       },
       {
         "num": 13,
         "word": "box",
-        "zh": "??",
+        "zh": "盒子",
         "letter": "B",
         "sentence": "A fox is on the box."
       },
       {
         "num": 14,
         "word": "bag",
-        "zh": "??",
+        "zh": "書包",
         "letter": "B",
         "sentence": "A bag is on the bed."
       },
       {
         "num": 15,
         "word": "bed",
-        "zh": "?",
+        "zh": "床",
         "letter": "B",
         "sentence": "A bag is on the bed."
       },
       {
         "num": 16,
         "word": "girl",
-        "zh": "??",
+        "zh": "女孩",
         "letter": "G",
         "sentence": "The girl has a gift."
       },
       {
         "num": 17,
         "word": "gift",
-        "zh": "??",
+        "zh": "禮物",
         "letter": "G",
         "sentence": "The girl has a gift."
       },
       {
         "num": 18,
         "word": "log",
-        "zh": "??",
+        "zh": "木頭",
         "letter": "L",
         "sentence": "A log is on my lap."
       },
       {
         "num": 19,
         "word": "lap",
-        "zh": "??",
+        "zh": "大腿",
         "letter": "L",
         "sentence": "A log is on my lap."
       },
       {
         "num": 20,
         "word": "bird",
-        "zh": "?",
+        "zh": "鳥",
         "letter": "B",
         "sentence": "A bird is on the ox."
       },
       {
         "num": 21,
         "word": "ox",
-        "zh": "?",
+        "zh": "牛",
         "letter": "O",
         "sentence": "A bird is on the ox."
       },
       {
         "num": 22,
         "word": "tag",
-        "zh": "??",
+        "zh": "標籤",
         "letter": "T",
         "sentence": "A tag is on the top."
       },
       {
         "num": 23,
         "word": "top",
-        "zh": "??",
+        "zh": "上方",
         "letter": "T",
         "sentence": "A tag is on the top."
       },
       {
         "num": 24,
         "word": "yellow",
-        "zh": "??",
+        "zh": "黃色",
         "letter": "Y",
         "sentence": "I like the yellow yam."
       },
       {
         "num": 25,
         "word": "yam",
-        "zh": "??",
+        "zh": "山藥",
         "letter": "Y",
         "sentence": "I like the yellow yam."
       },
       {
         "num": 26,
         "word": "uncle",
-        "zh": "??",
+        "zh": "叔叔",
         "letter": "U",
         "sentence": "My uncle has an umbrella."
       },
       {
         "num": 27,
         "word": "umbrella",
-        "zh": "??",
+        "zh": "雨傘",
         "letter": "U",
         "sentence": "My uncle has an umbrella."
       },
       {
         "num": 28,
         "word": "cap",
-        "zh": "??",
+        "zh": "帽子",
         "letter": "C",
         "sentence": "A cap is on the cab."
       },
       {
         "num": 29,
         "word": "cab",
-        "zh": "???",
+        "zh": "計程車",
         "letter": "C",
         "sentence": "A cap is on the cab."
       },
       {
         "num": 30,
         "word": "hat",
-        "zh": "??",
+        "zh": "帽子",
         "letter": "H",
         "sentence": "A hat is on the hippo."
       },
       {
         "num": 31,
         "word": "hippo",
-        "zh": "??",
+        "zh": "河馬",
         "letter": "H",
         "sentence": "A hat is on the hippo."
       },
       {
         "num": 32,
         "word": "mitt",
-        "zh": "??",
+        "zh": "手套",
         "letter": "M",
         "sentence": "A mitt is on the mat."
       },
       {
         "num": 33,
         "word": "mat",
-        "zh": "??",
+        "zh": "墊子",
         "letter": "M",
         "sentence": "A mitt is on the mat."
       },
       {
         "num": 34,
         "word": "pet",
-        "zh": "??",
+        "zh": "寵物",
         "letter": "P",
         "sentence": "My pet is on the pad."
       },
       {
         "num": 35,
         "word": "pad",
-        "zh": "??",
+        "zh": "便條本",
         "letter": "P",
         "sentence": "My pet is on the pad."
       },
       {
         "num": 36,
         "word": "zip",
-        "zh": "????",
+        "zh": "拉上拉鍊",
         "letter": "Z",
         "sentence": "Zip up your zebra bag."
       },
       {
         "num": 37,
         "word": "zebra",
-        "zh": "??",
+        "zh": "斑馬",
         "letter": "Z",
         "sentence": "Zip up your zebra bag."
       },
       {
         "num": 38,
         "word": "dad",
-        "zh": "??",
+        "zh": "爸爸",
         "letter": "D",
         "sentence": "Dad is by the desk."
       },
       {
         "num": 39,
         "word": "desk",
-        "zh": "??",
+        "zh": "書桌",
         "letter": "D",
         "sentence": "Dad is by the desk."
       },
       {
         "num": 40,
         "word": "insect",
-        "zh": "??",
+        "zh": "昆蟲",
         "letter": "I",
         "sentence": "An insect is on the ink."
       },
       {
         "num": 41,
         "word": "ink",
-        "zh": "??",
+        "zh": "墨水",
         "letter": "I",
         "sentence": "An insect is on the ink."
       },
       {
         "num": 42,
         "word": "queen",
-        "zh": "??",
+        "zh": "女王",
         "letter": "Q",
         "sentence": "The queen has a quilt."
       },
       {
         "num": 43,
         "word": "quilt",
-        "zh": "??",
+        "zh": "被子",
         "letter": "Q",
         "sentence": "The queen has a quilt."
       },
       {
         "num": 44,
         "word": "vet",
-        "zh": "??",
+        "zh": "獸醫",
         "letter": "V",
         "sentence": "The vet is in the van."
       },
       {
         "num": 45,
         "word": "van",
-        "zh": "???",
+        "zh": "廂型車",
         "letter": "V",
         "sentence": "The vet is in the van."
       },
       {
         "num": 46,
         "word": "rat",
-        "zh": "??",
+        "zh": "老鼠",
         "letter": "R",
         "sentence": "A rat is on the rock."
       },
       {
         "num": 47,
         "word": "rock",
-        "zh": "??",
+        "zh": "岩石",
         "letter": "R",
         "sentence": "A rat is on the rock."
       },
       {
         "num": 48,
         "word": "wig",
-        "zh": "??",
+        "zh": "假髮",
         "letter": "W",
         "sentence": "My wig is wet."
       },
       {
         "num": 49,
         "word": "wet",
-        "zh": "??",
+        "zh": "濕的",
         "letter": "W",
         "sentence": "My wig is wet."
       },
       {
         "num": 50,
         "word": "elf",
-        "zh": "???",
+        "zh": "小精靈",
         "letter": "E",
         "sentence": "The elf has an egg."
       },
       {
         "num": 51,
         "word": "egg",
-        "zh": "?",
+        "zh": "蛋",
         "letter": "E",
         "sentence": "The elf has an egg."
       },
       {
         "num": 52,
         "word": "jet",
-        "zh": "???",
+        "zh": "噴射機",
         "letter": "J",
         "sentence": "A jet is by the jam."
       },
       {
         "num": 53,
         "word": "jam",
-        "zh": "??",
+        "zh": "果醬",
         "letter": "J",
         "sentence": "A jet is by the jam."
       }
@@ -3983,3 +3983,4 @@ window.LEO_WORD_DATA = {
     ]
   }
 };
+

@@ -1,0 +1,10 @@
+{
+  "name": "Leo Class 英語大會考",
+  "short_name": "Leo Class",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#e7f3ef",
+  "theme_color": "#246b6f",
+  "lang": "zh-Hant"
+}

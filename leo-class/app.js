@@ -68,7 +68,7 @@
     { type: "speak", title: "Speaking Practice", subtitle: "聽一句，跟著念三次", icon: "🗣️", badge: "Voice Builder" },
     { type: "read", title: "Reading Sentences", subtitle: "讀句子，選出應用單字", icon: "📖", badge: "Sentence Reader" },
     { type: "write", title: "Writing Quest", subtitle: "聽音後拼寫單字", icon: "✍️", badge: "Word Writer" },
-    { type: "story", title: "Story Mission", subtitle: "把單字放進簡單故事", icon: "🎭", badge: "Story User" }
+    { type: "story", title: "Sentence Builder", subtitle: "用生字組成有意義的句子", icon: "🎭", badge: "Sentence Builder" }
   ];
 
   const app = document.getElementById("app");
@@ -77,17 +77,96 @@
   let quiz = null;
   let spelling = null;
   let flip = null;
+  let currentView = "home";
+
+  const exactWordVisuals = {
+    ant: "🐜",
+    apple: "🍎",
+    ax: "🪓",
+    bag: "🎒",
+    bed: "🛏️",
+    bird: "🐦",
+    box: "📦",
+    cab: "🚕",
+    cap: "🧢",
+    cat: "🐱",
+    dad: "👨",
+    desk: "🪑",
+    egg: "🥚",
+    elf: "🧝",
+    fan: "🌀",
+    fix: "🛠️",
+    fox: "🦊",
+    gift: "🎁",
+    girl: "👧",
+    hat: "🎩",
+    hippo: "🦛",
+    insect: "🐞",
+    ink: "🖋️",
+    jam: "🍓",
+    jet: "✈️",
+    kid: "🧒",
+    kit: "🧰",
+    lap: "🧎",
+    log: "🪵",
+    mat: "▭",
+    mitt: "🧤",
+    nap: "😴",
+    nest: "🪺",
+    ox: "🐂",
+    pad: "📝",
+    pet: "🐶",
+    queen: "👑",
+    quilt: "🛏️",
+    rat: "🐀",
+    rock: "🪨",
+    sack: "🛍️",
+    sit: "🪑",
+    tag: "🏷️",
+    top: "⬆️",
+    umbrella: "☂️",
+    uncle: "👨",
+    van: "🚐",
+    vet: "🩺",
+    wet: "💧",
+    wig: "💇",
+    yam: "🍠",
+    yellow: "🟨",
+    zebra: "🦓",
+    zip: "🤐"
+  };
+
+  const grammarVisuals = {
+    a: "①",
+    an: "①",
+    am: "=",
+    are: "=",
+    by: "↔",
+    can: "✓",
+    has: "+",
+    have: "+",
+    i: "👤",
+    in: "📍",
+    is: "=",
+    my: "👤",
+    on: "⬆️",
+    the: "🔗",
+    this: "👉",
+    to: "➡️",
+    up: "⬆️",
+    your: "👤"
+  };
 
   function normalize(words) {
     return words.map(item => {
       if (Array.isArray(item)) {
         const [word, zh, letter, icon] = item;
-        return { word, zh, letter, icon: icon || iconFor(word, zh) };
+        return { word, zh, letter, icon: visualForWord(word, zh, icon) };
       }
       return {
         ...item,
         letter: item.letter || String(item.word || "").replace(/[^A-Za-z]/g, "").slice(0, 1).toUpperCase(),
-        icon: item.icon || iconFor(item.word, item.zh)
+        icon: visualForWord(item.word, item.zh, item.icon)
       };
     });
   }
@@ -100,18 +179,18 @@
   function stagesFor(grade) {
     if (grade === 1) {
       return [
-        { ...stageTypes[0], id: "g1-study", title: "Letter & Word Cards", subtitle: "A-Z 字母、圖像單字與 US English TTS", icon: "🔤", badge: "Letter Scout", background: "assets/stage_phonics_a.png" },
-        { ...stageTypes[1], id: "g1-listen", title: "Listening Flip", subtitle: "聽老師念，翻牌配對自然發音單字", background: "assets/stage_phonics_b.png" },
-        { ...stageTypes[2], id: "g1-speak", background: "assets/stage_phonics_a.png" },
-        { ...stageTypes[3], id: "g1-read", background: "assets/stage_phonics_b.png" },
-        { ...stageTypes[4], id: "g1-write", background: "assets/stage_phonics_c.png" },
-        { ...stageTypes[5], id: "g1-story", title: "Story Mission", subtitle: "一年級故事句與單字應用", background: "assets/stage_phonics_c.png" }
+        { ...stageTypes[0], id: "g1-study", title: "Letter & Word Cards", subtitle: "A-Z 字母、圖像單字與 US English TTS", icon: "🔤", badge: "Letter Scout", background: "assets/stage_phonics_a.jpg" },
+        { ...stageTypes[1], id: "g1-listen", title: "Listening Flip", subtitle: "聽老師念，翻牌配對自然發音單字", background: "assets/stage_phonics_b.jpg" },
+        { ...stageTypes[2], id: "g1-speak", background: "assets/stage_phonics_a.jpg" },
+        { ...stageTypes[3], id: "g1-read", background: "assets/stage_phonics_b.jpg" },
+        { ...stageTypes[4], id: "g1-write", background: "assets/stage_phonics_c.jpg" },
+        { ...stageTypes[5], id: "g1-story", title: "Sentence Builder", subtitle: "一年級生字組句練習", background: "assets/stage_phonics_c.jpg" }
       ];
     }
     return stageTypes.map((stage, index) => ({
       ...stage,
       id: `g${grade}-${stage.type}`,
-      background: `assets/stage_phonics_${["a", "b", "c", "a", "b", "c"][index]}.png`
+      background: `assets/stage_phonics_${["a", "b", "c", "a", "b", "c"][index]}.jpg`
     }));
   }
 
@@ -157,27 +236,43 @@
   }
 
   function renderHome() {
+    currentView = "home";
     app.innerHTML = `
       ${topbar()}
       <main class="home">
         <section class="hero-copy">
           <span class="eyebrow">English Word Exam</span>
           <h1>英語大會考離線入口</h1>
-          <p class="lead">學生先選年級，再進入視覺單字卡、聽力、跟讀、閱讀句、拼寫與故事應用。資料直接內嵌在網頁中，不使用 Google 試算表。</p>
+          <p class="lead">給沒有補習資源的孩子也能自學：先聽得到、看得懂，再跟著說、讀句子，最後用生字組成有意義的英文句。</p>
           <div class="hero-stats">
             <div class="stat"><strong>6</strong><span>年級入口</span></div>
-            <div class="stat"><strong>4 Skills</strong><span>聽說讀寫</span></div>
-            <div class="stat"><strong>Daily</strong><span>每日跟讀</span></div>
+            <div class="stat"><strong>Listen</strong><span>聽音看圖</span></div>
+            <div class="stat"><strong>Speak</strong><span>跟讀自學</span></div>
+            <div class="stat"><strong>Read</strong><span>讀句組句</span></div>
           </div>
-          <button class="btn primary" data-view="grades">選擇年級</button>
+          <div class="speech-status ${speechStatusClass()}">${speechStatusText()}</div>
+          <div class="offline-status info" id="offlineCacheStatus">${offlineStatusText()}</div>
+          <div class="task-actions home-actions">
+            <button class="btn primary" data-view="grades">選擇年級</button>
+            <button class="btn secondary" id="testSpeech">測試發音</button>
+          </div>
         </section>
-        <section class="hero-art" aria-hidden="true"><img src="assets/hero_student.png" alt=""></section>
+        <section class="hero-art" aria-hidden="true"><img src="assets/hero_student.jpg" alt=""></section>
       </main>
       ${footer()}`;
     bindNav();
+    document.getElementById("testSpeech").onclick = () => {
+      const ok = speak("Hello. I can practice English offline.");
+      const status = document.querySelector(".speech-status");
+      if (!ok && status) {
+        status.className = "speech-status warn";
+        status.textContent = "此瀏覽器不支援語音朗讀，或目前沒有可用語音。請改用支援 Web Speech API 的瀏覽器，並安裝 English / en-US 語音包。";
+      }
+    };
   }
 
   function renderGrades() {
+    currentView = "grades";
     app.innerHTML = `
       ${topbar()}
       <main class="screen">
@@ -221,6 +316,7 @@
   }
 
   function renderCourse() {
+    currentView = "course";
     const grade = grades[currentGrade - 1];
     const stages = stagesFor(currentGrade);
     const done = stages.filter(stage => state.completed.includes(stage.id)).length;
@@ -231,7 +327,7 @@
         <section class="panel course-layout">
           <aside class="course-side">
             <div class="character">
-              <img src="assets/npc_teacher.png" alt="英語導師">
+              <img src="assets/npc_teacher.jpg" alt="英語導師">
               <div>
                 <span class="eyebrow">Grade ${currentGrade}</span>
                 <h2>${grade.title}</h2>
@@ -271,6 +367,7 @@
   }
 
   function startStage(stageId) {
+    currentView = "stage";
     const stage = stagesFor(currentGrade).find(item => item.id === stageId);
     if (stage.type === "study") renderStudy(stage);
     if (stage.type === "listen") startFlipListening(stage);
@@ -294,8 +391,8 @@
             <span class="stage-icon">${stage.icon}</span>
           </header>
           <div class="npc-line">
-            <img src="assets/npc_teacher.png" alt="英語導師">
-            <div><strong>English Guide：</strong>${stage.subtitle}。先看圖，再聽音，接著說、讀、寫，最後把單字放進故事。</div>
+            <img src="assets/npc_teacher.jpg" alt="英語導師">
+            <div><strong>English Guide：</strong>${stage.subtitle}。先看圖，再聽音，接著說、讀、寫，最後用生字組成完整句子。</div>
           </div>
           <section class="task">${body}</section>
         </section>
@@ -305,37 +402,56 @@
   }
 
   function renderStudy(stage) {
-    const words = currentGrade === 1 ? [...letters.map(letter => ({ word: letter, zh: "letter", icon: letter })), ...vocabFor(1)] : vocabFor(currentGrade);
-    const weeklyGroups = splitIntoWeek(words);
+    const letterCards = letters.map(letter => ({ word: letter, zh: "letter", icon: letter, kind: "letter" }));
+    const wordCards = vocabFor(currentGrade);
+    const words = currentGrade === 1 ? [...letterCards, ...wordCards] : wordCards;
+    const weeklyGroups = splitIntoWeek(wordCards);
     const today = suggestedDay();
     const body = `
-      <div class="objective">${currentGrade === 1 ? "點選 A-Z 字母與單字圖卡，聽美式英文朗讀。" : "全部單字都會出現，並分成七天。每天念一組，週末可以複習全部。"}</div>
+      <div class="objective">${currentGrade === 1 ? "一年級先單獨練 A-Z 字母，再進入圖片單字卡。不要把字母和單字混在同一組。" : "全部單字都會出現，並分成七天。每天念一組，週末可以複習全部。"}</div>
       <div class="task-box">
         <h2>${currentGrade === 1 ? "A-Z Letter & Word Cards" : "Daily Visual Word Cards"}</h2>
-        <p class="daily-note">每日流程：看圖 3 秒 → 按朗讀 → 跟念 3 次 → 說出中文意思。今天建議：Day ${today}。</p>
-        <div class="week-plan">
-          ${weeklyGroups.map((group, index) => `
-            <section class="day-section ${index + 1 === today ? "today" : ""}">
+        <p class="daily-note">${currentGrade === 1 ? "建議流程：先聽 A-Z 字母音 → 跟念 → 再看圖練單字。" : `每日流程：看圖 3 秒 → 按朗讀 → 跟念 3 次 → 說出中文意思。今天建議：Day ${today}。`}</p>
+        ${currentGrade === 1 ? `
+          <div class="study-sections">
+            <section class="day-section letter-section">
               <header>
-                <strong>Day ${index + 1}</strong>
-                <span>${dayName(index + 1)} · ${group.length} 個</span>
+                <strong>A-Z</strong>
+                <span>Letter Practice · ${letterCards.length} 個</span>
+              </header>
+              <div class="letter-bank compact-letter-bank">
+                ${letterCards.map(studyCard).join("")}
+              </div>
+            </section>
+            <section class="day-section word-section">
+              <header>
+                <strong>Words</strong>
+                <span>Picture Word Cards · ${wordCards.length} 個</span>
               </header>
               <div class="letter-bank">
-                ${group.map(item => `
-                  <button class="letter-btn visual-word-card" data-say="${item.word}" data-sentence="${sentenceFor(item, item.word)}">
-                    <strong>${item.icon}</strong>
-                    <span>${item.word}</span>
-                    <small>${item.zh}</small>
-                    <em>${sentenceFor(item, item.word)}</em>
-                  </button>`).join("")}
+                ${wordCards.map(studyCard).join("")}
               </div>
-            </section>`).join("")}
-        </div>
+            </section>
+          </div>
+        ` : `
+          <div class="week-plan">
+            ${weeklyGroups.map((group, index) => `
+              <section class="day-section ${index + 1 === today ? "today" : ""}">
+                <header>
+                  <strong>Day ${index + 1}</strong>
+                  <span>${dayName(index + 1)} · ${group.length} 個</span>
+                </header>
+                <div class="letter-bank">
+                  ${group.map(studyCard).join("")}
+                </div>
+              </section>`).join("")}
+          </div>
+        `}
         <div class="task-actions">
           <button class="btn primary" id="finishStudy">完成今日跟讀</button>
           <button class="btn secondary" data-view="course">回任務地圖</button>
         </div>
-        <div class="feedback info show">這一頁會列出本年級全部單字；每日只需完成一組，七天剛好跑完一輪。</div>
+        <div class="feedback info show">${currentGrade === 1 ? "一年級頁面已分開：上方只練字母，下方才是圖片單字。" : "這一頁會列出本年級全部單字；每日只需完成一組，七天剛好跑完一輪。"}</div>
       </div>`;
     missionShell(stage, body);
     document.querySelectorAll("[data-say]").forEach(button => {
@@ -346,6 +462,16 @@
       };
     });
     document.getElementById("finishStudy").onclick = () => completeStage(stage.id, words.length, words.length);
+  }
+
+  function studyCard(item) {
+    return `
+      <button class="letter-btn visual-word-card ${item.kind === "letter" ? "letter-only-card" : ""}" data-say="${escapeHtml(item.word)}" data-sentence="${escapeHtml(sentenceFor(item, item.word))}">
+        ${visualMarkup(item)}
+        <span>${escapeHtml(item.word)}</span>
+        <small>${escapeHtml(item.zh)}</small>
+        <em>${escapeHtml(sentenceFor(item, item.word))}</em>
+      </button>`;
   }
 
   function splitIntoWeek(words) {
@@ -523,7 +649,7 @@
         <div class="letter-bank">
           ${words.map((item, index) => `
             <button class="letter-btn visual-word-card" data-speak-word="${item.word}" data-speak-index="${index}">
-              <strong>${item.icon}</strong><br><span>${item.word}</span><br><small>${sentenceFor(item, item.word)}</small>
+              ${visualMarkup(item)}<span>${item.word}</span><small>${sentenceFor(item, item.word)}</small>
             </button>`).join("")}
         </div>
         <div class="feedback info show">每張卡：按一下聽句子，跟著念三次，再按「我念完了」。</div>
@@ -546,39 +672,87 @@
   }
 
   function renderStory(stage) {
-    const words = shuffle(vocabFor(currentGrade)).slice(0, currentGrade === 1 ? 4 : 5);
-    const story = storyFor(currentGrade, words);
+    const words = shuffle(vocabFor(currentGrade)).slice(0, currentGrade === 1 ? 4 : 5).map(item => ({
+      ...item,
+      sentence: sentenceFor(item, item.word)
+    }));
     const body = `
-      <div class="objective">完成聽、說、讀、寫後，把單字放進簡單故事。先聽故事，再完成單字應用。</div>
+      <div class="objective">完成聽、說、讀、寫後，請把生字放進有意義的英文句子。依序點選詞塊，組成完整句。</div>
       <div class="task-box">
-        <h2>Simple Story</h2>
-        <article class="story-card">
-          <p>${story}</p>
-        </article>
+        <p class="eyebrow">Sentence Builder</p>
+        <h2>用生字組成句子</h2>
         <div class="task-actions">
-          <button class="btn primary" id="readStory">朗讀故事</button>
+          <button class="btn primary" id="speakSentence">朗讀目標句</button>
+          <button class="btn secondary" id="clearSentence">重新排列</button>
         </div>
-        <h2>Word Application</h2>
-        <div class="class-grid">
-          ${words.map(item => `<button class="class-btn" data-story-word="${item.word}">${item.icon} ${item.word}<br><small>${item.zh}</small></button>`).join("")}
+        <div class="sentence-builder">
+          <div class="story-card sentence-target" id="sentencePrompt"></div>
+          <div class="sentence-slots" id="sentenceSlots"></div>
+          <div class="letter-bank" id="sentenceBank"></div>
         </div>
-        <div class="feedback info show">請學生讀故事後，點選故事中出現的單字並說出中文意思。</div>
+        <div class="feedback info show" id="feedback">請依照英文句子的意思，點選詞塊排出一個完整、有意義的句子。</div>
         <div class="task-actions">
-          <button class="btn primary" id="finishStory">完成故事應用</button>
+          <button class="btn primary" id="checkSentence">檢查句子</button>
           <button class="btn secondary" data-view="course">回任務地圖</button>
         </div>
       </div>`;
     missionShell(stage, body);
-    const used = new Set();
-    document.getElementById("readStory").onclick = () => speak(story);
-    document.querySelectorAll("[data-story-word]").forEach(button => {
-      button.onclick = () => {
-        used.add(button.dataset.storyWord);
-        button.classList.add("done");
-        speak(button.dataset.storyWord);
-      };
-    });
-    document.getElementById("finishStory").onclick = () => completeStage(stage.id, used.size, words.length);
+    let index = 0;
+    let selected = [];
+
+    function renderSentenceRound() {
+      const item = words[index];
+      const tokens = sentenceTokens(item.sentence);
+      selected = [];
+      document.getElementById("sentencePrompt").innerHTML = `
+        <p class="sentence-focus">${visualMarkup(item)} <span><strong>${item.word}</strong>：${item.zh}</span></p>
+        <small>第 ${index + 1} 題 / ${words.length} 題</small>
+      `;
+      document.getElementById("sentenceSlots").textContent = "點選下方詞塊來組句";
+      document.getElementById("sentenceBank").innerHTML = shuffle(tokens).map((token, tokenIndex) => `
+        <button class="letter-btn sentence-token" data-token="${escapeHtml(token)}" data-token-index="${tokenIndex}">
+          <span class="token-visual">${tokenVisual(token, item)}</span>
+          <span class="token-text">${escapeHtml(token)}</span>
+        </button>
+      `).join("");
+      const feedback = document.getElementById("feedback");
+      feedback.className = "feedback info show";
+      feedback.textContent = "請把詞塊排成完整句子。句子裡一定要用到這個生字。";
+      document.querySelectorAll("[data-token]").forEach(button => {
+        button.onclick = () => {
+          selected.push(button.dataset.token);
+          button.disabled = true;
+          button.classList.add("done");
+          document.getElementById("sentenceSlots").innerHTML = selected.map(token => `
+            <span class="selected-token"><span class="token-visual">${tokenVisual(token, item)}</span><span>${escapeHtml(token)}</span></span>
+          `).join("");
+        };
+      });
+      setTimeout(() => speak(item.word), 250);
+    }
+
+    document.getElementById("speakSentence").onclick = () => speak(words[index].sentence);
+    document.getElementById("clearSentence").onclick = renderSentenceRound;
+    document.getElementById("checkSentence").onclick = () => {
+      const item = words[index];
+      const answer = normalizeSentence(selected.join(" "));
+      const target = normalizeSentence(item.sentence);
+      const feedback = document.getElementById("feedback");
+      if (answer === target) {
+        feedback.className = "feedback good show";
+        feedback.textContent = `很好！${item.sentence}`;
+        speak(item.sentence);
+        setTimeout(() => {
+          index += 1;
+          if (index >= words.length) completeStage(stage.id, words.length, words.length);
+          else renderSentenceRound();
+        }, 900);
+      } else {
+        feedback.className = "feedback bad show";
+        feedback.textContent = `再調整一次。提示：句子要包含 ${item.word}，而且順序要能讀得通。`;
+      }
+    };
+    renderSentenceRound();
   }
 
   function renderSpelling() {
@@ -668,8 +842,42 @@
     return `On vacation, I go to the ${wordList[0]}. I take a ${wordList[1]} and my ${wordList[2]}. The trip is ${wordList[3]}.`;
   }
 
+  function sentenceTokens(sentence) {
+    return String(sentence).replace(/[.?!。！？]+$/g, "").split(/\s+/).filter(Boolean);
+  }
+
+  function normalizeSentence(sentence) {
+    return String(sentence).replace(/[.?!。！？]+$/g, "").replace(/\s+/g, " ").trim().toLowerCase();
+  }
+
   function spellingKey(word) {
     return String(word).replace(/[^A-Za-z]/g, "");
+  }
+
+  function visualKey(value = "") {
+    return spellingKey(value).toLowerCase();
+  }
+
+  function visualForWord(word = "", zh = "", fallback = "") {
+    const key = visualKey(word);
+    return exactWordVisuals[key] || fallback || iconFor(word, zh);
+  }
+
+  function visualMarkup(item) {
+    if (item.image) {
+      return `<strong class="word-visual has-image"><img class="word-picture" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.word)}"></strong>`;
+    }
+    return `<strong class="word-visual">${escapeHtml(item.icon || visualForWord(item.word, item.zh))}</strong>`;
+  }
+
+  function tokenVisual(token, focusItem) {
+    const key = visualKey(token);
+    if (!key) return "";
+    if (key === visualKey(focusItem.word)) {
+      if (focusItem.image) return visualMarkup(focusItem);
+      return escapeHtml(focusItem.icon || visualForWord(focusItem.word, focusItem.zh));
+    }
+    return escapeHtml(exactWordVisuals[key] || grammarVisuals[key] || "");
   }
 
   function escapeRegex(value) {
@@ -677,6 +885,8 @@
   }
 
   function iconFor(word = "", zh = "") {
+    const exact = exactWordVisuals[visualKey(word)];
+    if (exact) return exact;
     const text = `${word} ${zh}`.toLowerCase();
     if (/apple|banana|grape|fruit|orange|mango|peach|pear|papaya|guava|lemon/.test(text)) return "🍎";
     if (/rice|noodle|bread|hamburger|pizza|cake|cookie|food|lunch|dinner|breakfast|soup|salad|meat|beef|pork|chicken|fish|shrimp|ham|steak|candy|cheese|chocolate|ice cream|popcorn|薯條|食物|餐/.test(text)) return "🍽️";
@@ -718,6 +928,7 @@
   }
 
   function renderReport() {
+    currentView = "report";
     const stages = stagesFor(currentGrade);
     const totalScore = stages.reduce((sum, stage) => sum + (state.scores[stage.id]?.score || 0), 0);
     const totalItems = stages.reduce((sum, stage) => sum + (state.scores[stage.id]?.total || 0), 0);
@@ -761,15 +972,68 @@
   }
 
   function speak(text) {
-    if (!("speechSynthesis" in window)) return;
+    if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
+      showSpeechNotice("這台瀏覽器目前不能朗讀。請改用 Chrome 或 Edge，並安裝 English / en-US 語音。");
+      return false;
+    }
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "en-US";
     utterance.rate = text.length === 1 ? .75 : .82;
-    const voices = window.speechSynthesis.getVoices();
-    const usVoice = voices.find(voice => /en-US/i.test(voice.lang)) || voices.find(voice => /^en/i.test(voice.lang));
+    const usVoice = englishVoice();
     if (usVoice) utterance.voice = usVoice;
+    utterance.onerror = () => showSpeechNotice("朗讀沒有成功。請檢查電腦音量，或到 Windows 語音設定安裝 English / en-US 語音包。");
     window.speechSynthesis.speak(utterance);
+    return true;
+  }
+
+  function showSpeechNotice(message) {
+    const feedback = document.getElementById("feedback");
+    if (feedback) {
+      feedback.className = "feedback bad show";
+      feedback.textContent = message;
+    }
+    const status = document.getElementById("speechStatus");
+    if (status) {
+      status.className = "speech-status warn";
+      status.textContent = message;
+    }
+  }
+
+  function englishVoice() {
+    if (!("speechSynthesis" in window)) return null;
+    const voices = window.speechSynthesis.getVoices();
+    return voices.find(voice => voice.localService && /en-US/i.test(voice.lang))
+      || voices.find(voice => voice.localService && /^en/i.test(voice.lang))
+      || voices.find(voice => /en-US/i.test(voice.lang))
+      || voices.find(voice => /^en/i.test(voice.lang))
+      || null;
+  }
+
+  function speechStatusText() {
+    if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
+      return "發音狀態：此瀏覽器不支援語音朗讀，仍可離線練習看字、讀句、拼寫與組句。";
+    }
+    const voices = window.speechSynthesis.getVoices();
+    const voice = englishVoice();
+    if (!voices.length) return "發音狀態：支援語音朗讀，英文語音正在載入。若沒有聲音，請重新整理或安裝英文語音包。";
+    if (voice?.localService) return `發音狀態：本機英文語音可用，可離線朗讀。使用語音：${voice.name}`;
+    if (voice) return `發音狀態：英文語音可用。若要完全離線，請在裝置上安裝英文語音包。使用語音：${voice.name}`;
+    return "發音狀態：未找到英文語音。請在 Windows、iPad、Chromebook 或手機系統中安裝 English / en-US 語音包。";
+  }
+
+  function speechStatusClass() {
+    const voice = englishVoice();
+    if (voice?.localService) return "good";
+    if (voice) return "info";
+    return "warn";
+  }
+
+  function offlineStatusText() {
+    if (!("serviceWorker" in navigator) || !("caches" in window)) {
+      return "離線快取狀態：此瀏覽器不支援離線快取。可在線上使用，或改用 Chrome、Edge、Safari 等支援瀏覽器。";
+    }
+    return "離線快取狀態：支援離線快取。GitHub Pages 版首次載入後，會保存課程檔案供同一載具離線開啟。";
   }
 
   function shuffle(items) {
@@ -795,6 +1059,12 @@
         if (view === "report") renderReport();
       };
     });
+  }
+
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.onvoiceschanged = () => {
+      if (currentView === "home") renderHome();
+    };
   }
 
   renderHome();
