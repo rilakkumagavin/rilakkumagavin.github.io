@@ -1,4 +1,4 @@
-# Leo Class 英語大會考
+# Leo Class 單字大會考練習遊戲版
 
 這是 Google 協作平台嵌入用的純靜態 GitHub Pages 版本。
 

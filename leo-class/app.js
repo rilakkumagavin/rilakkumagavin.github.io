@@ -707,8 +707,8 @@
       ${topbar()}
       <main class="home">
         <section class="hero-copy">
-          <span class="eyebrow">English Word Exam</span>
-          <h1>英語大會考離線入口</h1>
+          <span class="eyebrow">Vocabulary Practice Game</span>
+          <h1>單字大會考練習遊戲版</h1>
           <p class="lead">給沒有補習資源的孩子也能自學：先聽得到、看得懂，再跟著說、讀句子，最後用生字組成有意義的英文句。</p>
           <div class="hero-stats">
             <div class="stat"><strong>6</strong><span>年級入口</span></div>
@@ -850,7 +850,7 @@
         <section class="mission-wrap">
           <header class="mission-head">
             <div>
-              <span class="eyebrow">Grade ${currentGrade} English Word Exam</span>
+              <span class="eyebrow">Grade ${currentGrade} Vocabulary Practice Game</span>
               <h1>${stage.title}</h1>
               <p>${stage.subtitle}</p>
             </div>
@@ -1667,7 +1667,7 @@
       <main class="screen">
         <section class="panel">
           <span class="eyebrow">Portfolio</span>
-          <h1>${currentGrade}年級英語大會考成果卡</h1>
+          <h1>${currentGrade}年級單字大會考成果卡</h1>
           <p class="lead">這張卡記錄學生在同一台裝置上的離線練習成果。</p>
           <p>學生姓名：<input id="studentName" value="${escapeHtml(state.studentName)}" placeholder="請輸入姓名"></p>
           <div class="portfolio-grid">
@@ -1678,7 +1678,7 @@
           </div>
           <div class="reward" style="margin-top:18px">
             <h2>總成績 ${totalItems ? `${totalScore} / ${totalItems}` : "尚未開始"}</h2>
-            <p>${stages.every(stage => state.completed.includes(stage.id)) ? "已完成本年級大會考任務。" : "請回任務地圖繼續挑戰。"}</p>
+            <p>${stages.every(stage => state.completed.includes(stage.id)) ? "已完成本年級單字大會考練習任務。" : "請回任務地圖繼續挑戰。"}</p>
           </div>
           <div class="task-actions">
             <button class="btn primary" onclick="window.print()">列印／另存 PDF</button>
@@ -1694,7 +1694,7 @@
       saveState();
     };
     document.getElementById("resetProgress").onclick = () => {
-      if (!confirm("確定清除這台裝置上的英語大會考進度嗎？")) return;
+      if (!confirm("確定清除這台裝置上的單字大會考練習進度嗎？")) return;
       localStorage.removeItem(storageKey);
       state = loadState();
       renderHome();

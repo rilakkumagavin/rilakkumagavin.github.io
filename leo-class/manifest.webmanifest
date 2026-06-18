@@ -1,6 +1,6 @@
 {
-  "name": "Leo Class 英語大會考",
-  "short_name": "Leo Class",
+  "name": "Leo Class 單字大會考練習遊戲版",
+  "short_name": "單字大會考",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
