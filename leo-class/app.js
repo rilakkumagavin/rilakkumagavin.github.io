@@ -866,9 +866,19 @@
     const translation = sentenceZhFor(item, sentence);
     return `
       <em>
+        ${sentenceVisualMarkup(sentence, item)}
         <span class="sentence-en">${escapeHtml(sentence)}</span>
         <span class="sentence-zh">${escapeHtml(translation)}</span>
       </em>`;
+  }
+
+  function sentenceVisualMarkup(sentence, focusItem) {
+    const chips = sentenceTokens(sentence).map(token => {
+      const visual = tokenVisual(token, focusItem);
+      const text = escapeHtml(token);
+      return `<span class="sentence-picture-chip">${visual ? `<span class="token-visual">${visual}</span>` : ""}<span>${text}</span></span>`;
+    }).join("");
+    return `<span class="sentence-picture-line" aria-label="圖像化句子">${chips}</span>`;
   }
 
   function sentenceZhFor(item, sentence = sentenceFor(item, item.word)) {

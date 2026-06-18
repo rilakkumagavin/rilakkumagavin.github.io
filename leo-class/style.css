@@ -473,6 +473,34 @@ h1 {
 .sentence-zh {
   display: block;
 }
+.sentence-picture-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.sentence-picture-chip {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 4px;
+  min-height: 30px;
+  padding: 4px 7px;
+  border: 1px solid #cfe0dc;
+  border-radius: 10px;
+  background: #f7fbfa;
+  color: var(--deep);
+  font-size: .82rem;
+  line-height: 1.15;
+}
+.sentence-picture-chip .token-visual {
+  min-width: 22px;
+  min-height: 22px;
+  font-size: 1.15rem;
+}
+.sentence-picture-chip .token-visual:empty {
+  display: none;
+}
 .sentence-zh {
   margin-top: 4px;
   color: #49666c;
