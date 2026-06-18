@@ -157,6 +157,35 @@
     your: "👤"
   };
 
+  const exactSentenceZh = {
+    "A cat takes a nap by the nest.": "一隻貓在巢旁小睡。",
+    "An ant is on the ax.": "一隻螞蟻在斧頭上。",
+    "I can fix the fan.": "我可以修理電扇。",
+    "The kid has a kit.": "這個小孩有一個工具包。",
+    "I sit on the sack.": "我坐在袋子上。",
+    "A fox is on the box.": "一隻狐狸在盒子上。",
+    "A bag is on the bed.": "一個袋子在床上。",
+    "The girl has a gift.": "這個女孩有一份禮物。",
+    "A log is on my lap.": "一根原木在我的大腿上。",
+    "A bird is on the ox.": "一隻鳥在公牛上。",
+    "A tag is on the top.": "一個標籤在上方。",
+    "I like the yellow yam.": "我喜歡黃色的山藥。",
+    "My uncle has an umbrella.": "我的叔叔有一把雨傘。",
+    "A cap is on the cab.": "一頂鴨舌帽在計程車上。",
+    "A hat is on the hippo.": "一頂帽子在河馬上。",
+    "A mitt is on the mat.": "一隻手套在墊子上。",
+    "My pet is on the pad.": "我的寵物在便條本上。",
+    "Zip up your zebra bag.": "把你的斑馬袋拉上拉鍊。",
+    "Dad is by the desk.": "爸爸在書桌旁邊。",
+    "An insect is on the ink.": "一隻昆蟲在墨水上。",
+    "The queen has a quilt.": "皇后有一條棉被。",
+    "The vet is in the van.": "獸醫在廂型車裡。",
+    "A rat is on the rock.": "一隻老鼠在石頭上。",
+    "My wig is wet.": "我的假髮濕了。",
+    "The elf has an egg.": "小精靈有一顆蛋。",
+    "A jet is by the jam.": "一架噴射機在果醬旁邊。"
+  };
+
   function normalize(words) {
     return words.map(item => {
       if (Array.isArray(item)) {
@@ -470,7 +499,7 @@
         ${visualMarkup(item)}
         <span>${escapeHtml(item.word)}</span>
         <small>${escapeHtml(item.zh)}</small>
-        <em>${escapeHtml(sentenceFor(item, item.word))}</em>
+        ${sentenceMarkup(item)}
       </button>`;
   }
 
@@ -649,7 +678,7 @@
         <div class="letter-bank">
           ${words.map((item, index) => `
             <button class="letter-btn visual-word-card" data-speak-word="${item.word}" data-speak-index="${index}">
-              ${visualMarkup(item)}<span>${item.word}</span><small>${sentenceFor(item, item.word)}</small>
+              ${visualMarkup(item)}<span>${item.word}</span>${sentenceMarkup(item)}
             </button>`).join("")}
         </div>
         <div class="feedback info show">每張卡：按一下聽句子，跟著念三次，再按「我念完了」。</div>
@@ -830,6 +859,32 @@
     if (["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].includes(item.word)) return `Today is ${word}.`;
     if (["spring", "summer", "fall", "winter"].includes(item.word)) return `I like ${word}.`;
     return gradeTemplates[currentGrade] || `I see a ${word}.`;
+  }
+
+  function sentenceMarkup(item) {
+    const sentence = sentenceFor(item, item.word);
+    const translation = sentenceZhFor(item, sentence);
+    return `
+      <em>
+        <span class="sentence-en">${escapeHtml(sentence)}</span>
+        <span class="sentence-zh">${escapeHtml(translation)}</span>
+      </em>`;
+  }
+
+  function sentenceZhFor(item, sentence = sentenceFor(item, item.word)) {
+    if (item.sentenceZh) return item.sentenceZh;
+    if (exactSentenceZh[sentence]) return exactSentenceZh[sentence];
+
+    const zh = item.zh || item.word;
+    if (/^I see a /i.test(sentence)) return `我看到一個${zh}。`;
+    if (/^This is my /i.test(sentence)) return `這是我的${zh}。`;
+    if (/^My .+ is here\.$/i.test(sentence)) return `我的${zh}在這裡。`;
+    if (/^I like /i.test(sentence)) return `我喜歡${zh}。`;
+    if (/^I study English on /i.test(sentence)) return `我在${zh}學英文。`;
+    if (/^I want to visit the /i.test(sentence)) return `我想參觀${zh}。`;
+    if (/^I am /i.test(sentence)) return `我覺得${zh}。`;
+    if (/^Today is /i.test(sentence)) return `今天是${zh}。`;
+    return `${zh}的例句。`;
   }
 
   function storyFor(grade, words) {

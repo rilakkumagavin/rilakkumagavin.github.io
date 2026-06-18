@@ -469,6 +469,16 @@ h1 {
   font-style: normal;
   line-height: 1.45;
 }
+.sentence-en,
+.sentence-zh {
+  display: block;
+}
+.sentence-zh {
+  margin-top: 4px;
+  color: #49666c;
+  font-size: .9rem;
+  font-weight: 800;
+}
 .option.selected, .match-btn.selected, .class-target.active, .letter-btn.selected {
   border-color: var(--gold);
   background: #fff4c3;
