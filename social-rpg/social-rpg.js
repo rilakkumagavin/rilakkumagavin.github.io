@@ -202,9 +202,6 @@
       body = `<div class="option-grid">${stage.options.map((option, index) =>
         `<button class="option" data-option="${index}"><strong>${String.fromCharCode(65 + index)}</strong>　${option}</button>`
       ).join("")}</div>`;
-      if (stage.type === "reason") {
-        body += `<div class="reason-box"><label><strong>${stage.reasonPrompt}</strong><textarea id="reasonInput" placeholder="我認為……，因為……"></textarea></label></div>`;
-      }
     }
     if (stage.type === "sequence") {
       body = `<div class="sequence-list" id="sequenceList">${stage.items.map((item, index) =>
@@ -358,12 +355,6 @@
       const expected = [...stage.answers].sort((a, b) => a - b);
       correct = selected.length === expected.length && selected.every((value, index) => value === expected[index]);
       answerLog = selected;
-      if (stage.type === "reason") {
-        reason = document.getElementById("reasonInput").value.trim();
-        const hasReason = reason.length >= 8 && stage.keywords.some(keyword => reason.includes(keyword));
-        correct = correct && hasReason;
-        if (!hasReason) showFeedback("bad", "選項可能已經找對，但還要寫出至少一句有證據的理由。");
-      }
     }
     if (stage.type === "sequence") {
       correct = draft.order.every((value, index) => value === stage.order[index]);
@@ -380,7 +371,7 @@
 
     recordAttempt(stage, correct, answerLog, reason);
     if (correct) completeStage(stage);
-    else if (!(stage.type === "reason" && reason.length < 8)) {
+    else {
       showFeedback("bad", hintLevel ? "還有線索沒有整理正確。請依照提示再檢查一次。" : stage.feedback.wrong);
     }
   }
