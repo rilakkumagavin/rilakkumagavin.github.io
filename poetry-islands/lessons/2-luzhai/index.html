@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>鹿柴｜公版聯絡簿二年級</title>
+
+
+<style>
+/* Layout: one 16:9 picture-book stage, ink-and-celadon chrome around it, seal-red accent. */
+:root{
+  --bg:#e9efed; --panel:#f7faf9; --fg:#1d2a2d; --muted:#56686b; --line:#c9d5d2;
+  --accent:#b8402c; --jade:#3f7f70; --chip:#dfe8e5;
+  --f-show:"LXGW WenKai TC","Kaiti TC","KaiTi","STKaiti","DFKai-SB","Noto Sans CJK TC",serif;
+  --f-poem:"Noto Serif TC","Noto Serif CJK TC","Source Han Serif TC","PMingLiU","Songti TC","Noto Sans CJK TC",serif;
+  --f-ui:system-ui,-apple-system,"PingFang TC","Microsoft JhengHei","Noto Sans CJK TC",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121a1c; --panel:#1a2427; --fg:#e4ecea; --muted:#94a6a6; --line:#2b3a3d;
+  --accent:#e0644d; --jade:#79bfad; --chip:#233033; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121a1c; --panel:#1a2427; --fg:#e4ecea; --muted:#94a6a6; --line:#2b3a3d;
+  --accent:#e0644d; --jade:#79bfad; --chip:#233033; color-scheme:dark}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:15px}
+[hidden]{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:18px 28px;display:grid;gap:14px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px}
+header h1{font-family:var(--f-show);font-size:clamp(22px,3.2vw,30px);margin:0;text-wrap:balance}
+header p{margin:0;color:var(--muted)}
+header a{color:var(--jade);font-weight:600}
+.seal{display:inline-grid;place-items:center;width:1.6em;height:1.6em;background:var(--accent);color:#fff;border-radius:4px;font-family:var(--f-poem);font-size:15px;margin-right:6px;vertical-align:.15em}
+
+.stage{position:relative;width:100%;aspect-ratio:16/9;max-width:100%;border-radius:10px;overflow:hidden;background:#f4f1e8;container-type:inline-size;box-shadow:0 1px 0 var(--line),0 10px 30px -18px #0007;user-select:none}
+.stage:fullscreen{border-radius:0;width:100vw;height:auto;max-height:100vh;margin:auto}
+.stage svg.world{position:absolute;inset:0;width:100%;height:100%;display:block}
+.scene{opacity:0;transition:opacity .6s}
+.scene.on{opacity:1}
+.ch{transition:transform 1.3s cubic-bezier(.4,.1,.3,1),opacity .6s;opacity:0}
+.ch.on{opacity:1}
+.steam{animation:steam 1s infinite ease-out;transform-box:fill-box;transform-origin:center}
+.steam:nth-child(2){animation-delay:-.5s}
+@keyframes steam{from{opacity:.9;transform:translateY(0) scale(.6)}to{opacity:0;transform:translateY(-50px) scale(1.4)}}
+.tear{animation:tear 1.1s infinite ease-in}
+@keyframes tear{from{transform:translateY(0);opacity:1}to{transform:translateY(46px);opacity:0}}
+.prop{opacity:0;transition:opacity .5s}
+.prop.on{opacity:1}
+.fly{animation:fly 16s linear infinite}
+.fly2{animation:fly 21s linear infinite;animation-delay:-8s}
+@keyframes fly{from{transform:translate(1800px,0)}to{transform:translate(-500px,-60px)}}
+.wing{transform-box:fill-box;transform-origin:center bottom;animation:flap .5s infinite alternate}
+@keyframes flap{to{transform:scaleY(-.6)}}
+.drop{stroke:#d7e8f2;stroke-width:4;stroke-linecap:round;animation:drop .6s linear infinite}
+@keyframes drop{to{transform:translate(-40px,120px)}}
+/* picture-book reveal: elements with class "grow" + data-step="N" fade in once fx-sN is on the stage */
+.grow{opacity:0;transition:opacity 1.2s,transform 1.2s;transform-box:fill-box;transform-origin:center bottom}
+
+.ov{position:absolute;pointer-events:none}
+.tracker{top:2.2cqw;left:2.2cqw;right:31cqw;display:flex;flex-wrap:wrap;gap:.5cqw;font-family:var(--f-show);transition:opacity .4s}
+.tracker span{font-size:1.45cqw;padding:.3cqw .8cqw;white-space:nowrap;border-radius:2cqw;background:#ffffffb0;color:#5a6b6b;border:.12cqw solid #0000;transition:.4s}
+.tracker span.cur{background:#b8402c;color:#fff;transform:scale(1.12)}
+.tracker span.done{color:#2f6f61;border-color:#2f6f6155}
+.verse{top:2cqw;right:2cqw;background:#fffdf6e8;border:.15cqw solid #b8402c55;border-radius:.8cqw;padding:1.3cqw 1.1cqw;writing-mode:vertical-rl;font-family:var(--f-poem);font-weight:600;font-size:var(--vs,2.5cqw);line-height:1.5;color:#3a3a35;transition:opacity .5s}
+.verse .ln{margin-left:.3em;transition:color .4s;white-space:nowrap}
+.verse .ln.hl{color:#b8402c}
+.verse small{display:block;font-family:var(--f-show);font-size:1.4cqw;color:#7b7464;margin-left:.6cqw}
+ruby rt{font-size:.36em;font-family:var(--f-ui);font-weight:400;color:#2f6f61}
+.pop{top:6cqw;left:50%;transform:translateX(-50%) scale(.85);min-width:22cqw;max-width:46cqw;background:#fffdf7;border:.25cqw solid #2c2c2a;border-radius:1.4cqw;padding:1.2cqw 1.6cqw;box-shadow:0 1.2cqw 2.4cqw -1cqw #0006;opacity:0;transition:.45s;font-size:1.7cqw;color:#222;display:grid;gap:.6cqw;text-align:center;font-family:var(--f-show)}
+.pop.on{opacity:1;transform:translateX(-50%) scale(1)}
+.pop .hd{justify-self:center;font-family:var(--f-ui);font-weight:700;font-size:1.25cqw;color:#fff;background:#b8402c;border-radius:.6cqw;padding:.25cqw .9cqw}
+.pop .big{font-family:var(--f-poem);font-weight:900;font-size:3.6cqw;line-height:1.2}
+.pop .sm{font-size:1.4cqw;color:#5d6466}
+.pop .row{display:flex;gap:1cqw;justify-content:center;align-items:center;flex-wrap:wrap}
+.pop .tag{background:#eef3f1;border-radius:.6cqw;padding:.3cqw .8cqw}
+.emote{transform:translate(-50%,-100%);background:#fff;border:.2cqw solid #222;border-radius:1.5cqw;padding:.3cqw 1.1cqw;font-family:var(--f-show);font-weight:700;font-size:2.4cqw;color:#222;opacity:0;transition:opacity .3s;white-space:nowrap}
+.emote.on{opacity:1;animation:pop .35s}
+@keyframes pop{from{transform:translate(-50%,-80%) scale(.4)}}
+.sub{left:6%;right:6%;bottom:2.2cqw;display:flex;justify-content:center}
+.sub div{background:#141c1ee0;color:#fff;font-family:var(--f-show);font-size:2.35cqw;line-height:1.5;padding:.9cqw 1.8cqw;border-radius:1cqw;max-width:100%;text-wrap:balance;text-align:center}
+.sub b{display:inline-block;background:var(--who,#b8402c);color:#fff;font-size:1.7cqw;padding:.1cqw .9cqw;border-radius:.6cqw;margin-right:.9cqw;vertical-align:.2cqw}
+.sub:empty{display:none}
+.burst{inset:0;display:grid;place-items:center;font-family:var(--f-show);font-weight:700;font-size:8cqw;color:#b8402c;text-shadow:.3cqw .3cqw 0 #fff,-.3cqw -.3cqw 0 #fff,.3cqw -.3cqw 0 #fff,-.3cqw .3cqw 0 #fff;opacity:0;transition:.4s;transform:scale(.6)}
+.burst.on{opacity:1;transform:scale(1)}
+.ticker{top:40%;left:50%;transform:translate(-50%,-50%);font-family:var(--f-poem);font-weight:900;font-size:11cqw;color:#b8402c;text-shadow:.4cqw .4cqw 0 #fff;opacity:0}
+.ticker.on{opacity:1}
+.ticker.tk{animation:tk .5s}
+@keyframes tk{from{transform:translate(-50%,-50%) scale(1.6)}}
+.titlecard{inset:0;display:grid;place-content:center;justify-items:center;gap:1.2cqw;text-align:center;opacity:0;transition:opacity .6s}
+.titlecard.on{opacity:1}
+.titlecard .big{font-family:var(--f-poem);font-weight:900;font-size:var(--ts,13cqw);line-height:1.05;color:#222;letter-spacing:.6cqw;text-shadow:.3cqw .3cqw 0 #fff}
+.titlecard .tag{font-family:var(--f-show);font-size:3cqw;color:#b8402c;background:#fff9;padding:.2cqw 1.2cqw;border-radius:1cqw}
+.titlecard .by{font-family:var(--f-show);font-size:2cqw;color:#4d4a42;background:#fff9;padding:.2cqw 1.2cqw;border-radius:1cqw}
+.scroll{left:50%;top:5%;transform:translateX(-50%);background:#fffdf5;border:.25cqw solid #8a6d3b;border-radius:.6cqw;padding:1.8cqw 2.2cqw;writing-mode:vertical-rl;font-family:var(--f-poem);font-weight:600;font-size:var(--ss,3cqw);line-height:1.3;color:#2b2b28;box-shadow:inset 0 0 0 .6cqw #f3e9cf;opacity:0;transition:opacity .6s}
+.scroll.on{opacity:1}
+.scroll .tt{margin-left:.6em;font-weight:900;font-size:1.2em;color:#b8402c}
+.scroll .au{font-family:var(--f-show);font-size:.6em;color:#7b6c4e;text-align:end}
+.scroll .ln{transition:color .35s;margin-left:.4em;white-space:nowrap}
+.scroll .ln.hl{color:#b8402c}
+.scroll .c{transition:.35s;border-radius:50%}
+.scroll .c.hide{color:transparent;background:radial-gradient(circle,#0000 52%,#b8402c 54%,#b8402c 60%,#0000 62%)}
+.scroll .c.hide rt{visibility:hidden}
+.count{right:3cqw;bottom:9cqw;font-family:var(--f-poem);font-weight:900;font-size:6cqw;color:#b8402c;opacity:0}
+.count.on{opacity:1}
+.fader{inset:0;background:#111;opacity:0;transition:opacity .45s}
+.fader.on{opacity:1}
+
+.start{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:1.4cqw;background:#10181acc;color:#fff;text-align:center;padding:4cqw}
+.start h2{margin:0;font-family:var(--f-show);font-size:4.2cqw;text-wrap:balance}
+.start p{margin:0;font-size:max(12px,1.6cqw);max-width:60cqw;line-height:1.6;color:#d8e2df}
+.start[hidden]{display:none}
+.start button{font:700 max(15px,2.2cqw) var(--f-show);background:#b8402c;color:#fff;border:0;border-radius:99px;padding:1.1cqw 3.4cqw;cursor:pointer}
+.start button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+button.b,select.b{font:600 14px var(--f-ui);color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;cursor:pointer}
+button.b:hover{border-color:var(--jade)}
+button.b:focus-visible,select.b:focus-visible,.chap button:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
+button.b.main{background:var(--accent);border-color:var(--accent);color:#fff;min-width:84px}
+button.b[aria-pressed="false"]{color:var(--muted)}
+.chap{display:flex;flex-wrap:wrap;gap:6px}
+.chap button{font:600 14px var(--f-show);background:var(--chip);color:var(--fg);border:1px solid transparent;border-radius:99px;padding:6px 13px;cursor:pointer}
+.chap button.cur{background:var(--jade);color:#fff}
+.prog{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--jade);transition:width .4s}
+.note{color:var(--muted);font-size:13px;line-height:1.6;margin:0}
+.note kbd{font:12px var(--f-ui);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--panel)}
+
+/* render mode: the stage alone, filling a 1920x1080 window, for MP4 recording */
+html.render body{background:#000;margin:0;padding:0}
+html.render .wrap{max-width:none;padding:0;display:block}
+html.render header,html.render .prog,html.render .bar,html.render .note,html.render .start{display:none!important}
+html.render .stage{width:100vw;height:100vh;aspect-ratio:auto;border-radius:0;box-shadow:none}
+html.render :root,html.render{padding:0!important}
+@media (prefers-reduced-motion: reduce){.fly,.fly2,.wing,.ch.talk .bob,.steam,.tear{animation:none}.ch{transition-duration:.01s}}
+
+/* ---- v2 人物 ---- */
+.ch .bod{transform-box:view-box}
+.ch .mth{opacity:0}.ch .m0{opacity:1}
+.ch.talk .m0{animation:mA .5s steps(1) infinite}.ch.talk .m1{animation:mB .5s steps(1) infinite}.ch.talk .m2{animation:mC .5s steps(1) infinite}
+@keyframes mA{0%{opacity:1}25%{opacity:0}}
+@keyframes mB{0%{opacity:0}25%{opacity:1}50%{opacity:0}75%{opacity:1}}
+@keyframes mC{0%{opacity:0}50%{opacity:1}75%{opacity:0}}
+.ch.talk .hd{animation:nod .6s infinite ease-in-out}
+@keyframes nod{0%,100%{transform:none}50%{transform:translateY(-2px) rotate(1.2deg)}}
+.ch .eyes{transform-box:fill-box;transform-origin:center;animation:blink 4.2s infinite}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
+.ch .e-happy,.ch .e-shock,.ch .e-proud,.ch .e-shy,.ch .e-think,.ch .b-sad,.ch .b-angry,.ch .b-think,.ch .mo,.ch .xt{display:none}
+.mood-happy .e-norm,.mood-shock .e-norm,.mood-proud .e-norm,.mood-shy .e-norm,.mood-think .e-norm{display:none}
+.mood-happy .e-happy,.mood-shock .e-shock,.mood-proud .e-proud,.mood-shy .e-shy,.mood-think .e-think{display:inline}
+.mood-sad .b-norm,.mood-angry .b-norm,.mood-think .b-norm,.mood-shock .b-norm{display:none}
+.mood-sad .b-sad,.mood-angry .b-angry,.mood-think .b-think,.mood-shock .b-think{display:inline}
+.mood-happy .mo-happy,.mood-sad .mo-sad,.mood-shock .mo-shock,.mood-angry .mo-angry,.mood-proud .mo-proud,.mood-shy .mo-sad{display:inline}
+.mood-happy .m0,.mood-sad .m0,.mood-shock .m0,.mood-angry .m0,.mood-proud .m0,.mood-shy .m0{opacity:0}
+.ch.talk .mo{display:none!important}
+.mood-sad .x-tear,.mood-angry .x-steam,.mood-shock .x-sweat,.mood-proud .x-spark,.mood-think .x-q,.mood-shy .x-blush{display:inline}
+.tear2{animation:tear 1.1s infinite ease-in}
+.steam2{animation:steam 1s infinite ease-out;transform-box:fill-box;transform-origin:center}
+/* 手勢：轉動上臂 uL/uR、前臂 fL/fR（旋轉中心就是肩膀、手肘） */
+.ch .uL,.ch .uR,.ch .fL,.ch .fR{transition:transform .7s cubic-bezier(.45,0,.2,1)}
+.ch .bod{animation:breathe 3.4s infinite ease-in-out}
+@keyframes breathe{50%{transform:translateY(-2.5px)}}
+.ch .uL{transform:rotate(8deg)}.ch .uR{transform:rotate(-8deg)}
+.g-wave .uR{transform:rotate(-150deg)}.g-wave .fR{animation:wv .5s infinite alternate ease-in-out}
+@keyframes wv{from{transform:rotate(-25deg)}to{transform:rotate(20deg)}}
+.g-point .uR{transform:rotate(-78deg)}.g-point .fR{transform:rotate(-8deg)}
+.g-bow .uL{transform:rotate(25deg)}.g-bow .fL{transform:rotate(-129deg)}.g-bow .uR{transform:rotate(-25deg)}.g-bow .fR{transform:rotate(129deg)}
+.g-open .uL{transform:rotate(48deg)}.g-open .fL{transform:rotate(-34deg)}.g-open .uR{transform:rotate(-48deg)}.g-open .fR{transform:rotate(34deg)}
+.g-hold .uL{transform:rotate(10deg)}.g-hold .fL{transform:rotate(-74deg)}.g-hold .uR{transform:rotate(-10deg)}.g-hold .fR{transform:rotate(74deg)}
+.g-chin .uR{transform:rotate(45deg)}.g-chin .fR{transform:rotate(150deg)}
+.g-up .uL{transform:rotate(155deg)}.g-up .uR{transform:rotate(-155deg)}
+.g-look .uR{transform:rotate(-10deg)}.g-look .fR{transform:rotate(100deg)}
+/* 走路：腿交替擺動、身體上下 */
+.ch .lgL,.ch .lgR{transition:transform .3s}
+.walking .lgL{animation:stepA .42s infinite alternate ease-in-out}.walking .lgR{animation:stepB .42s infinite alternate ease-in-out}
+.walking .bod{animation:wbob .21s infinite alternate ease-in-out}
+.walking:not([class*="g-"]) .uL{animation:stepB .42s infinite alternate}.walking:not([class*="g-"]) .uR{animation:stepA .42s infinite alternate}
+@keyframes stepA{from{transform:rotate(-16deg)}to{transform:rotate(16deg)}}
+@keyframes stepB{from{transform:rotate(16deg)}to{transform:rotate(-16deg)}}
+@keyframes wbob{to{transform:translateY(-5px)}}
+.dog .tail{transform-box:fill-box;transform-origin:right bottom;animation:wag .35s infinite alternate}
+@keyframes wag{to{transform:rotate(-24deg)}}
+.ffly{animation:glow 1.6s infinite alternate ease-in-out;filter:drop-shadow(0 0 10px #eaff7a)}
+@keyframes glow{from{opacity:.25;transform:translate(0,0)}to{opacity:1;transform:translate(10px,-14px)}}
+/* 回憶時光：水墨濾鏡＋卷軸框 */
+.stage.fx-flash svg.world{filter:sepia(.55) grayscale(.45) contrast(.95) brightness(1.04)}
+.inkframe{inset:0;border:1.6cqw solid #6b5a3e;border-radius:.6cqw;box-shadow:inset 0 0 4cqw #3b2f1f88;opacity:0;transition:opacity .6s}
+.inkframe::before,.inkframe::after{content:"";position:absolute;left:-2.4cqw;right:-2.4cqw;height:1.6cqw;background:#8a6d3b;border-radius:1cqw}
+.inkframe::before{top:-2.2cqw}.inkframe::after{bottom:-2.2cqw}
+.stage.fx-flash .inkframe{opacity:1}
+.flashtag{top:3cqw;left:3cqw;font-family:var(--f-show);font-size:2.4cqw;background:#3b2f1fcc;color:#f7ecd2;padding:.4cqw 1.4cqw;border-radius:.6cqw;opacity:0;transition:opacity .5s}
+.flashtag.on{opacity:1}
+/* 原句字卡 */
+.orig{top:4.5cqw;left:50%;transform:translateX(-50%) scale(.6);background:#fffdf5;border:.3cqw solid #b8402c;border-radius:1.2cqw;padding:.8cqw 2.4cqw .6cqw;font-family:var(--f-poem);font-weight:900;font-size:4.6cqw;color:#b8402c;letter-spacing:.3cqw;white-space:nowrap;box-shadow:0 1.2cqw 2.4cqw -1cqw #0007;opacity:0;transition:opacity .4s,transform .5s cubic-bezier(.3,1.4,.5,1)}
+.orig.on{opacity:1;transform:translateX(-50%) scale(1)}
+.orig rt{font-size:.3em;color:#2f6f61;font-weight:600;letter-spacing:0}
+.orig small{display:block;text-align:center;font-family:var(--f-show);font-size:1.3cqw;color:#7b6c4e;font-weight:400;letter-spacing:0}
+/* 手機畫面、聊天室、特寫卡 */
+.phone{top:7cqw;left:4cqw;width:22cqw;background:#1d1d1f;border-radius:2.4cqw;padding:2.6cqw 1cqw 2.2cqw;opacity:0;transform:translateY(3cqw);transition:.45s}
+.phone.on{opacity:1;transform:none}
+.phone div{background:#f3f7f9;border-radius:1cqw;padding:1.2cqw;display:grid;gap:.8cqw;font-family:var(--f-show);font-size:1.7cqw;line-height:1.45;color:#1d2a2d}
+.phone p{margin:0;background:#9fe08a;border-radius:1cqw;padding:.6cqw .9cqw}
+.phone p:nth-child(even){background:#fff;border:.12cqw solid #ccd}
+.phone .app{font:700 1.2cqw var(--f-ui);color:#3f7f70;background:none;border:0;padding:0}
+.chat{right:2.4cqw;top:31cqw;width:24cqw;display:grid;gap:.5cqw;opacity:0;transition:opacity .4s}
+.chat.on{opacity:1}
+.chat p{margin:0;background:#141c1ed0;color:#fff;font-family:var(--f-show);font-size:1.5cqw;padding:.4cqw .9cqw;border-radius:.8cqw}
+.chat p b{color:#f6c14b;margin-right:.5cqw}
+.zoomcard{top:8cqw;left:50%;transform:translateX(-50%) rotate(-2deg) scale(.7);background:#fffdf5;border:.3cqw solid #2b2626;border-radius:1cqw;padding:1.6cqw 3cqw;font-family:var(--f-show);font-size:3cqw;font-weight:700;color:#b8402c;text-align:center;box-shadow:0 1.4cqw 2.4cqw -1cqw #0007;opacity:0;transition:.45s;max-width:60cqw}
+.zoomcard.on{opacity:1;transform:translateX(-50%) rotate(-2deg) scale(1)}
+.zoomcard small{display:block;font-size:1.4cqw;color:#5d6466;font-weight:400}
+.credits{inset:0;display:grid;place-content:center;justify-items:center;gap:1cqw;background:#f4ecd6;font-family:var(--f-show);color:#3a3a35;opacity:0;transition:opacity .6s;text-align:center;padding:4cqw}
+.credits.on{opacity:1}
+.credits h3{margin:0 0 1cqw;font-size:3.2cqw;color:#b8402c}
+.credits p{margin:0;font-size:1.9cqw;line-height:1.5}
+.credits p.fic{margin-top:1.4cqw;font-size:1.5cqw;color:#7b6c4e}
+svg.world{transition:transform 1.1s ease;transform-origin:50% 50%}
+.verse rt{font-size:.45em}
+/* 三上新增 */
+.wl-s{transform-box:fill-box;transform-origin:top center;animation:wls 3s infinite alternate ease-in-out}
+@keyframes wls{from{transform:rotate(-3deg)}to{transform:rotate(4deg)}}
+.fx-wind .wl-s{animation-duration:.7s}
+.st-fire{animation:stf .6s infinite alternate}@keyframes stf{to{fill:#f6c14b}}
+.st-steam circle{animation:sts 2s infinite ease-out}.st-steam circle:nth-child(2){animation-delay:-.7s}.st-steam circle:nth-child(3){animation-delay:-1.4s}
+@keyframes sts{from{opacity:.9;transform:translateY(20px)}to{opacity:0;transform:translateY(-30px)}}
+.cd-f{transform-box:fill-box;transform-origin:center bottom;animation:cdf .5s infinite alternate}@keyframes cdf{to{transform:scale(.85,1.1)}}
+.pl-l{animation:pll 1s steps(2) infinite}@keyframes pll{50%{opacity:0}}
+.rain path{animation:rnf .7s linear infinite}@keyframes rnf{from{transform:translate(0,-40px)}to{transform:translate(-12px,40px)}}
+.sn{animation:snf 6s linear infinite}@keyframes snf{from{transform:translateY(-60px)}to{transform:translateY(560px)}}
+</style></style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="h1"></h1>
+    <p id="hsub"></p>
+  </header>
+  <div class="stage" id="stage">
+    <svg class="world" viewBox="0 0 1600 900" aria-hidden="true">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe3ea"/><stop offset="1" stop-color="#f6f2e4"/></linearGradient>
+        <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ccbd8"/><stop offset="1" stop-color="#6fa9bd"/></linearGradient>
+        <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3ecdc"/><stop offset="1" stop-color="#e2d6bd"/></linearGradient>
+        <g id="flyer"><path d="M0 0 q30 -6 60 0 q-30 8 -60 0z" fill="#fff"/><path class="wing" d="M18 -2 q14 -36 34 -40 q-6 26 -16 40z" fill="#fff" stroke="#ccc"/><path d="M60 0 l14 -2 -14 6z" fill="#e5b33c"/></g>
+      </defs>
+      <g id="scenes"></g>
+      <g id="cast"></g>
+      <g id="fgs"></g>
+    </svg>
+    <div class="ov titlecard" id="titlecard"></div>
+    <div class="ov tracker" id="tracker"></div>
+    <div class="ov verse" id="verse"></div>
+    <div class="ov pop" id="pop"></div>
+    <div class="ov scroll" id="scroll"></div>
+    <div class="ov emote" id="emote"></div>
+    <div class="ov burst" id="burst"></div>
+    <div class="ov ticker" id="ticker"></div>
+    <div class="ov count" id="count"></div>
+    <div class="ov inkframe" id="inkframe"></div>
+    <div class="ov flashtag" id="flashtag"></div>
+    <div class="ov orig" id="orig"></div>
+    <div class="ov phone" id="phone"></div>
+    <div class="ov chat" id="chat"></div>
+    <div class="ov zoomcard" id="zoomcard"></div>
+    <div class="ov credits" id="credits"></div>
+    <div class="ov sub" id="sub"></div>
+    <div class="ov fader" id="fader"></div>
+    <div class="start" id="start">
+      <h2 id="starth"></h2>
+      <p id="startp"></p>
+      <button id="go" type="button">開始播放</button>
+    </div>
+  </div>
+  <div class="prog" aria-hidden="true"><i id="progbar"></i></div>
+  <div class="bar">
+    <div class="grp">
+      <button class="b" id="prev" type="button">上一句</button>
+      <button class="b main" id="play" type="button">播放</button>
+      <button class="b" id="next" type="button">下一句</button>
+    </div>
+    <div class="chap" id="chap"></div>
+    <div class="grp">
+      <button class="b" id="voice" type="button" aria-pressed="true">配音：開</button>
+      <select class="b" id="speed" aria-label="語速">
+        <option value="0.9" selected>語速 慢</option>
+        <option value="1">語速 正常</option>
+        <option value="1.15">語速 快</option>
+      </select>
+      <button class="b" id="fs" type="button">全螢幕</button>
+    </div>
+  </div>
+  <p class="note" id="note">本系列：公版聯絡簿・二年級 古詩穿越動畫。鍵盤：<kbd>空白鍵</kbd> 播放／暫停，<kbd>←</kbd><kbd>→</kbd> 上一句／下一句。</p>
+</div>
+
+<script>
+/* ===== 公版聯絡簿二年級：人物與場景工具 KIT2 =====
+   人物原點在腳底，y 往上是負值。成人約 300 高（約 1:3.8 頭身），小孩自動縮小、頭比較大。
+   身體分部位：腿 lgL/lgR、上臂 uL/uR、前臂 fL/fR、頭 hd，手勢和走路靠 CSS class 轉動這些部位。
+   重要：位置寫在外層 <g transform>，動畫寫在內層 <g class>，兩者不可放在同一個元素上。 */
+const KIT2 = {};
+KIT2.OL = 'stroke="#3a2e2c" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"';
+const OL = KIT2.OL;
+
+KIT2.hairBack = function (st, c) {
+  switch (st) {
+    case 'pony': return `<path d="M24 -26 Q66 -8 50 46 Q40 8 20 -8Z" fill="${c}" ${OL}/>`;
+    case 'bob': return `<path d="M-43 18 Q-48 -48 0 -48 Q48 -48 43 18 Q30 22 26 4 L-26 4 Q-30 22 -43 18Z" fill="${c}" ${OL}/>`;
+    case 'long': return `<path d="M-42 50 Q-50 -48 0 -48 Q50 -48 42 50 Q20 40 0 44 Q-20 40 -42 50Z" fill="${c}" ${OL}/>`;
+    case 'braids': return `<g fill="${c}" ${OL}><path d="M-34 -6 Q-50 20 -40 58 Q-30 60 -26 52 Q-34 20 -22 0Z"/><path d="M34 -6 Q50 20 40 58 Q30 60 26 52 Q34 20 22 0Z"/></g><circle cx="-36" cy="56" r="6" fill="#e2533c"/><circle cx="36" cy="56" r="6" fill="#e2533c"/>`;
+    case 'grandma': return `<circle cx="0" cy="-42" r="15" fill="${c}" ${OL}/>`;
+    default: return '';
+  }
+};
+KIT2.hairFront = function (st, c) {
+  const cap = `<path d="M-37 2 Q-41 -42 0 -42 Q41 -42 37 2 Q32 -16 18 -20 Q0 -14 -18 -20 Q-32 -16 -37 2Z" fill="${c}" ${OL}/>`;
+  switch (st) {
+    case 'none': case 'bald': return `<path d="M-14 -30 q10 -6 22 -2" stroke="#fff" stroke-width="4" opacity=".5" fill="none" stroke-linecap="round"/>`;
+    case 'short': return `<path d="M-37 0 Q-42 -44 0 -44 Q42 -44 37 0 Q34 -14 26 -20 L18 -12 L12 -22 L2 -12 L-6 -22 L-14 -12 L-22 -22 Q-34 -14 -37 0Z" fill="${c}" ${OL}/>`;
+    case 'side': return `<path d="M-37 0 Q-42 -44 0 -44 Q42 -44 37 0 Q34 -20 20 -26 Q-10 -12 -30 -18 Q-36 -10 -37 0Z" fill="${c}" ${OL}/>`;
+    case 'bob': case 'long': return `<path d="M-37 -2 Q-40 -44 0 -44 Q40 -44 37 -2 Q30 -22 0 -24 Q-30 -22 -37 -2Z" fill="${c}" ${OL}/>`;
+    case 'baldtop': return `<g fill="${c}" ${OL}><path d="M-37 4 Q-42 -20 -30 -28 Q-28 -10 -34 6Z"/><path d="M37 4 Q42 -20 30 -28 Q28 -10 34 6Z"/></g><path d="M-14 -30 q10 -6 22 -2" stroke="#fff" stroke-width="4" opacity=".5" fill="none" stroke-linecap="round"/>`;
+    case 'bun': return cap + `<circle cx="0" cy="-48" r="14" fill="${c}" ${OL}/><path d="M-22 -54 L22 -44" stroke="#e3b341" stroke-width="4" stroke-linecap="round"/>`;
+    case 'grandma': return cap;
+    default: return cap;
+  }
+};
+KIT2.hat = function (h, o) {
+  const k = '#1d1d1f';
+  switch (h) {
+    case 'futou': return `<path d="M-39 -2 Q-42 -48 0 -50 Q42 -48 39 -2 Q0 -14 -39 -2Z" fill="${k}" ${OL}/><path d="M-17 -46 Q0 -72 17 -46Z" fill="${k}" ${OL}/>`;
+    case 'wrap': return `<path d="M-39 -2 Q-44 -48 0 -50 Q44 -48 39 -2 Q0 -16 -39 -2Z" fill="${o.wrapColor || '#5b4636'}" ${OL}/><circle cx="0" cy="-48" r="10" fill="${o.wrapColor || '#5b4636'}" ${OL}/><path d="M6 -46 Q24 -60 30 -40" stroke="${o.wrapColor || '#5b4636'}" stroke-width="7" fill="none"/>`;
+    case 'fangjin': return `<path d="M-38 -4 Q-40 -40 0 -42 Q40 -40 38 -4 Q0 -14 -38 -4Z" fill="${k}" ${OL}/><rect x="-30" y="-84" width="60" height="50" rx="5" fill="${k}" ${OL}/><rect x="-34" y="-42" width="68" height="10" rx="4" fill="#3a3a3a"/>`;
+    case 'cap': return `<path d="M-39 -10 Q-38 -50 0 -50 Q38 -50 39 -10Z" fill="${o.capColor || '#e2533c'}" ${OL}/><path d="M8 -12 Q50 -16 60 -4 Q32 -2 8 -6Z" fill="${o.capColor || '#e2533c'}" ${OL}/>`;
+    case 'bucket': return `<path d="M-32 -14 Q-30 -50 0 -50 Q30 -50 32 -14Z" fill="${o.capColor || '#c9b48a'}" ${OL}/><path d="M-50 -12 Q0 -26 50 -12 Q0 0 -50 -12Z" fill="${o.capColor || '#c9b48a'}" ${OL}/>`;
+    case 'douli': return `<path d="M-66 -14 L0 -64 L66 -14 Q0 -4 -66 -14Z" fill="#dcc17a" ${OL}/><path d="M-40 -32 L0 -60 M40 -32 L0 -60 M-20 -24 L0 -62 M20 -24 L0 -62" stroke="#b4974e" stroke-width="2"/>`;
+    case 'driver': return `<path d="M-38 -14 Q-36 -46 0 -48 Q36 -46 38 -14Z" fill="#2f4a7a" ${OL}/><path d="M-30 -14 Q0 -2 30 -14 L34 -8 Q0 6 -34 -8Z" fill="#1d1d1f"/><circle cx="0" cy="-30" r="5" fill="#e3b341"/>`;
+    case 'headlamp': return `<path d="M-38 -16 Q0 -30 38 -16" stroke="#333" stroke-width="7" fill="none"/><circle cx="0" cy="-26" r="8" fill="#ff5a4a" ${OL}/>`;
+    default: return '';
+  }
+};
+KIT2.beard = function (b, c) {
+  switch (b) {
+    case 'long': return `<path d="M-22 16 Q0 76 22 16 Q0 28 -22 16Z" fill="${c || '#ece8de'}" ${OL}/>`;
+    case 'goatee': return `<path d="M-9 22 Q0 52 9 22 Q0 28 -9 22Z" fill="${c || '#2a2420'}" ${OL}/><path d="M-14 10 q7 -5 14 0 q7 -5 14 0" stroke="${c || '#2a2420'}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+    case 'mous': return `<path d="M-14 10 q7 -5 14 0 q7 -5 14 0" stroke="${c || '#2a2420'}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`;
+    case 'eight': return `<path d="M-2 9 q-8 -1 -16 9 M2 9 q8 -1 16 9" stroke="${c || '#2a2420'}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+    case 'short': return `<path d="M-24 10 Q-22 34 0 36 Q22 34 24 10 Q12 26 0 26 Q-12 26 -24 10Z" fill="${c || '#2a2420'}" opacity=".9"/><path d="M-14 9 q7 -5 14 0 q7 -5 14 0" stroke="${c || '#2a2420'}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+    default: return '';
+  }
+};
+KIT2.face = function (o) {
+  const sk = o.skin || '#f3cfa8';
+  const eyeOpen = (x) => `<ellipse cx="${x}" cy="-2" rx="6.5" ry="8" fill="#fff" stroke="#2b2626" stroke-width="2.5"/><circle cx="${x + 1}" cy="0" r="3.8" fill="#1d1d1f"/><circle cx="${x + 2.4}" cy="-2" r="1.2" fill="#fff"/>`;
+  const browC = o.browColor || (o.beard === 'long' ? '#8f8b82' : '#2a2420');
+  const d = o.blink != null ? o.blink : ((o.id.charCodeAt(0) * 7 + o.id.length * 13) % 40) / 10;
+  return `
+  <g class="eyes" style="animation-delay:-${d}s">
+   <g class="e-norm">${eyeOpen(-13)}${eyeOpen(13)}</g>
+   <g class="e-happy"><path d="M-20 0 q7 -9 14 0 M6 0 q7 -9 14 0" stroke="#1d1d1f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g>
+   <g class="e-shock"><circle cx="-13" cy="-3" r="10" fill="#fff" stroke="#2b2626" stroke-width="2.5"/><circle cx="13" cy="-3" r="10" fill="#fff" stroke="#2b2626" stroke-width="2.5"/><circle cx="-13" cy="-3" r="3" fill="#1d1d1f"/><circle cx="13" cy="-3" r="3" fill="#1d1d1f"/></g>
+   <g class="e-proud"><path d="M-20 -2 h14 M6 -2 h14" stroke="#1d1d1f" stroke-width="3.5" stroke-linecap="round"/><path d="M-19 -2 q6 7 12 0 M7 -2 q6 7 12 0" fill="#1d1d1f"/></g>
+   <g class="e-shy"><path d="M-20 -3 q7 7 14 0 M6 -3 q7 7 14 0" stroke="#1d1d1f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g>
+   <g class="e-think"><ellipse cx="-13" cy="-2" rx="6.5" ry="8" fill="#fff" stroke="#2b2626" stroke-width="2.5"/><ellipse cx="13" cy="-2" rx="6.5" ry="8" fill="#fff" stroke="#2b2626" stroke-width="2.5"/><circle cx="-10" cy="-6" r="3.6" fill="#1d1d1f"/><circle cx="16" cy="-6" r="3.6" fill="#1d1d1f"/></g>
+  </g>
+  ${o.glasses ? `<g fill="none" stroke="#2b2626" stroke-width="3"><circle cx="-13" cy="-2" r="11"/><circle cx="13" cy="-2" r="11"/><path d="M-2 -3 h4"/></g>` : ''}
+  <g stroke="${browC}" stroke-width="4.5" stroke-linecap="round" fill="none">
+   <path class="b-norm" d="M-21 -15 l12 -2 M9 -17 l12 2"/>
+   <path class="b-sad" d="M-21 -13 l12 -5 M9 -18 l12 5"/>
+   <path class="b-angry" d="M-21 -20 l13 6 M8 -14 l13 -6"/>
+   <path class="b-think" d="M-21 -15 l12 -2 M9 -21 l12 -3"/>
+  </g>
+  <ellipse cx="-24" cy="10" rx="6" ry="4" fill="#f2a7a0" opacity=".5"/><ellipse cx="24" cy="10" rx="6" ry="4" fill="#f2a7a0" opacity=".5"/>
+  <g class="xt x-blush"><ellipse cx="-23" cy="9" rx="9" ry="6" fill="#ee6b6b" opacity=".7"/><ellipse cx="23" cy="9" rx="9" ry="6" fill="#ee6b6b" opacity=".7"/></g>
+  <path d="M0 3 q-3 5 1 6" stroke="#c99a78" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  ${KIT2.beard(o.beard, o.beardColor)}
+  <g class="mouth">
+   <path class="mth m0" d="M-7 15 q7 5 14 0" stroke="#7a3a2a" stroke-width="3" fill="none" stroke-linecap="round"/>
+   <ellipse class="mth m1" cx="0" cy="17" rx="6" ry="4" fill="#7a2f22" stroke="#2b2626" stroke-width="2"/>
+   <path class="mth m2" d="M-9 13 q9 -2 18 0 q-2 13 -9 13 q-7 0 -9 -13z" fill="#7a2f22" stroke="#2b2626" stroke-width="2"/>
+   <path class="mo mo-happy" d="M-10 12 q10 2 20 0 q-3 11 -10 11 q-7 0 -10 -11z" fill="#7a2f22" stroke="#2b2626" stroke-width="2"/>
+   <path class="mo mo-sad" d="M-7 20 q7 -7 14 0" stroke="#7a3a2a" stroke-width="3" fill="none" stroke-linecap="round"/>
+   <ellipse class="mo mo-shock" cx="0" cy="19" rx="5" ry="7" fill="#7a2f22" stroke="#2b2626" stroke-width="2"/>
+   <path class="mo mo-angry" d="M-8 18 h16" stroke="#7a3a2a" stroke-width="3.5" stroke-linecap="round"/>
+   <path class="mo mo-proud" d="M-7 17 q9 4 14 -4" stroke="#7a3a2a" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+  <g class="xt x-tear"><path class="tear2" d="M-16 6 q-5 9 0 13 q5 -4 0 -13z" fill="#5fb0e0"/><path class="tear2" style="animation-delay:-.5s" d="M16 6 q-5 9 0 13 q5 -4 0 -13z" fill="#5fb0e0"/></g>
+  <g class="xt x-sweat"><path d="M40 -26 q-7 13 0 18 q7 -5 0 -18z" fill="#7cc4ea" ${OL}/></g>
+  <g class="xt x-steam" fill="#fff" opacity=".9"><circle class="steam2" cx="-34" cy="-56" r="12"/><circle class="steam2" style="animation-delay:-.5s" cx="34" cy="-56" r="10"/></g>
+  <g class="xt x-spark" fill="#f6c14b"><path d="M48 -40 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z" ${OL}/></g>
+  <g class="xt x-q"><text x="44" y="-34" font-size="34" font-weight="900" fill="#3f7f70" font-family="sans-serif">?</text></g>`;
+};
+/* 手上的道具：畫在手的位置（原點＝手心） */
+KIT2.prop = {
+  phone: `<rect x="-9" y="-16" width="18" height="30" rx="4" fill="#222" ${OL}/><rect x="-6" y="-12" width="12" height="20" fill="#7cc4ea"/>`,
+  book: `<rect x="-20" y="-14" width="40" height="28" rx="2" fill="#c8a35a" ${OL}/><path d="M0 -14 V14" stroke="#2b2626" stroke-width="2"/>`,
+  scroll: `<rect x="-6" y="-26" width="12" height="52" rx="5" fill="#efe2c4" ${OL}/>`,
+  megaphone: `<path d="M-6 -6 L30 -22 L30 22 L-6 6Z" fill="#f6c14b" ${OL}/><rect x="-14" y="-6" width="10" height="20" fill="#e2533c" ${OL}/>`,
+  selfie: `<path d="M0 0 L40 -110" stroke="#444" stroke-width="5"/><rect x="30" y="-134" width="22" height="32" rx="4" fill="#222" ${OL}/>`,
+  broom: `<path d="M0 -60 V40" stroke="#8b6b45" stroke-width="7"/><path d="M-18 40 L18 40 L24 80 L-24 80Z" fill="#d8b665" ${OL}/>`,
+  flashlight: `<rect x="-6" y="-24" width="12" height="34" rx="3" fill="#c8372b" ${OL}/>`,
+  can: `<rect x="-16" y="-12" width="32" height="28" rx="5" fill="#5aa36a" ${OL}/><path d="M16 -6 L34 -18" stroke="#5aa36a" stroke-width="6"/>`,
+  card: `<rect x="-16" y="-22" width="32" height="40" rx="3" fill="#fff6d8" ${OL}/><path d="M-8 -8 h16 M-8 0 h16 M-8 8 h10" stroke="#e2533c" stroke-width="2"/>`,
+  pillow: `<rect x="-30" y="-20" width="60" height="38" rx="14" fill="#fff" ${OL}/>`,
+  toast: `<rect x="-14" y="-14" width="28" height="26" rx="8" fill="#e8c27a" ${OL}/>`,
+  game: `<rect x="-20" y="-12" width="40" height="24" rx="8" fill="#555" ${OL}/><circle cx="-9" cy="0" r="3" fill="#fff"/><circle cx="9" cy="0" r="3" fill="#e2533c"/>`,
+  tablet: `<rect x="-20" y="-26" width="40" height="52" rx="5" fill="#333" ${OL}/><rect x="-15" y="-20" width="30" height="40" fill="#bfe3ef"/>`,
+  clipboard: `<rect x="-18" y="-24" width="36" height="46" rx="3" fill="#c8a35a" ${OL}/><rect x="-13" y="-16" width="26" height="34" fill="#fff"/>`,
+  tools: `<rect x="-22" y="0" width="44" height="28" rx="3" fill="#c8372b" ${OL}/><path d="M-10 0 q10 -14 20 0" stroke="#2b2626" stroke-width="4" fill="none"/>`,
+  brush: `<path d="M0 -30 V20" stroke="#6b4224" stroke-width="5"/><path d="M-4 20 L4 20 L0 34Z" fill="#222"/>`
+};
+/* 主角色產生器 */
+KIT2.person = function (o) {
+  const skin = o.skin || '#f3cfa8', hair = o.hair || '#2a2420', shoe = o.shoe || '#2b2b2b';
+  const child = o.age === 'child';
+  const s = (o.scale || 1) * (child ? 0.72 : (o.age === 'elder' ? 0.97 : 1));
+  const anc = o.kind !== 'modern';
+  const robe = o.robe || '#7d97a0', sleeve = o.sleeve || robe;
+  const top = o.top || '#4f86c6', pants = o.pants || '#33415c';
+  // 腿
+  const leg = (side) => {
+    const body = anc
+      ? `<rect x="-9" y="-4" width="18" height="92" rx="9" fill="${o.legColor || '#e9e1cc'}" ${OL}/>`
+      : `<path d="M-12 -6 Q-13 40 -11 90 Q0 95 11 90 Q13 40 12 -6 Q0 -10 -12 -6Z" fill="${o.skirt ? skin : pants}" ${OL}/>`;
+    return `<g transform="translate(${side * 15} -95)"><g class="lg${side < 0 ? 'L' : 'R'}">${body}<ellipse cx="${side * 4}" cy="92" rx="17" ry="8" fill="${shoe}" ${OL}/></g></g>`;
+  };
+  // 手臂：上臂 48、前臂 46
+  const arm = (side) => {
+    const upper = anc
+      ? `<circle r="14" fill="${sleeve}"/><path d="M-12 -6 C-13 14 -16 34 -17 52 Q0 60 17 52 C16 34 13 14 12 -6 Q0 -14 -12 -6Z" fill="${sleeve}" ${OL}/>`
+      : (o.longSleeve
+        ? `<circle r="12" fill="${o.sleeveColor || top}"/><path d="M-11 -6 Q-13 24 -10 54 Q0 60 10 54 Q13 24 11 -6 Q0 -13 -11 -6Z" fill="${o.sleeveColor || top}" ${OL}/>`
+        : `<path d="M-8 14 Q-9 34 -8 56 Q0 60 8 56 Q9 34 8 14Z" fill="${skin}" ${OL}/><circle r="12" fill="${o.sleeveColor || top}"/><path d="M-13 -6 Q-15 12 -13 27 Q0 32 13 27 Q15 12 13 -6 Q0 -13 -13 -6Z" fill="${o.sleeveColor || top}" ${OL}/>`);
+    const fore = anc
+      ? `<circle cx="0" cy="47" r="10" fill="${skin}" ${OL}/><path d="M-17 -10 C-20 8 -23 26 -23 41 Q0 53 23 41 C23 26 20 8 17 -10 Q0 -18 -17 -10Z" fill="${sleeve}" ${OL}/><circle cy="-4" r="13" fill="${sleeve}"/>`
+      : `<path d="M-8 -10 Q-9 18 -7 44 Q0 48 7 44 Q9 18 8 -10 Q0 -15 -8 -10Z" fill="${o.longSleeve ? (o.sleeveColor || top) : skin}" ${OL}/><circle cy="-4" r="7" fill="${o.longSleeve ? (o.sleeveColor || top) : skin}"/><circle cx="0" cy="47" r="10" fill="${skin}" ${OL}/>`;
+    const p = side > 0 ? o.hand : o.handL;
+    const prop = p ? (KIT2.prop[p] || p) : '';
+    return `<g transform="translate(${side * 42} -212)"><g class="u${side < 0 ? 'L' : 'R'}">${upper}<g transform="translate(0 50)"><g class="f${side < 0 ? 'L' : 'R'}">${fore}<g transform="translate(0 46)">${prop}</g></g></g></g></g>`;
+  };
+  // 身體
+  let torso;
+  if (anc) {
+    const collar = o.collar === 'cross'
+      ? `<path d="M-22 -224 L12 -170 M22 -224 L-4 -196" stroke="${o.collarColor || '#efe6d0'}" stroke-width="7" fill="none"/>`
+      : `<path d="M-20 -226 Q0 -204 20 -226" stroke="${o.collarColor || '#efe6d0'}" stroke-width="7" fill="none"/>`;
+    torso = `<path d="M-40 -228 Q0 -240 40 -228 C48 -170 56 -90 62 -14 Q0 2 -62 -14 C-56 -90 -48 -170 -40 -228Z" fill="${robe}" ${OL}/>${collar}
+      <rect x="-46" y="-156" width="92" height="12" rx="4" fill="${o.belt || '#3e5058'}" ${OL}/>
+      <path d="M-58 -26 Q0 -16 58 -26" stroke="${o.trim || '#0002'}" stroke-width="6" fill="none"/>`;
+  } else {
+    const t = o.topStyle || 'tee';
+    let base = `<path d="M-38 -228 Q0 -238 38 -228 C42 -190 45 -140 44 -106 Q0 -96 -44 -106 C-45 -140 -42 -190 -38 -228Z" fill="${top}" ${OL}/>`;
+    let deco = '';
+    if (t === 'tee') deco = `<path d="M-14 -228 Q0 -214 14 -228" stroke="#2b2626" stroke-width="3" fill="none"/>`;
+    if (t === 'shirt') deco = `<path d="M-14 -228 L0 -206 L14 -228" stroke="#fff" stroke-width="6" fill="none"/><path d="M0 -206 V-110" stroke="#2b2626" stroke-width="2"/>`;
+    if (t === 'hoodie') deco = `<path d="M-30 -232 Q0 -250 30 -232" stroke="${top}" stroke-width="14" fill="none"/><rect x="-24" y="-150" width="48" height="26" rx="6" fill="#0002"/>`;
+    if (t === 'vest') deco = `<path d="M-36 -224 L-6 -224 L-8 -106 L-42 -106Z" fill="${o.vest || '#7a8c4e'}" ${OL}/><path d="M36 -224 L6 -224 L8 -106 L42 -106Z" fill="${o.vest || '#7a8c4e'}" ${OL}/>`;
+    if (t === 'coat') base = `<path d="M-40 -226 Q0 -234 40 -226 L50 -50 Q0 -42 -50 -50Z" fill="${top}" ${OL}/>`, deco = `<path d="M0 -226 V-50" stroke="#2b2626" stroke-width="2.5"/><path d="M-16 -228 L0 -200 L16 -228" stroke="${o.inner || '#9cc3e6'}" stroke-width="8" fill="none"/>`;
+    if (t === 'uniform') deco = `<path d="M-14 -228 L0 -206 L14 -228" stroke="#fff" stroke-width="6" fill="none"/><path d="M0 -206 l-6 12 6 40 6 -40z" fill="#c8372b"/>`;
+    if (t === 'apron') deco = `<path d="M-30 -200 L30 -200 L36 -80 L-36 -80Z" fill="${o.apron || '#7da3c6'}" ${OL}/>`;
+    torso = base + deco + (o.skirt ? `<path d="M-46 -110 L46 -110 L60 -40 L-60 -40Z" fill="${pants}" ${OL}/>` : `<rect x="-44" y="-112" width="88" height="26" fill="${pants}" ${OL}/>`);
+  }
+  const back = (o.backpack ? `<rect x="-52" y="-212" width="104" height="100" rx="18" fill="${o.backpack}" ${OL}/>` : '')
+    + (o.bookbox ? `<g transform="translate(-34 -150)"><rect x="-30" y="-130" width="60" height="140" rx="4" fill="#a8743c" ${OL}/><path d="M-30 -96 h60 M-30 -56 h60" stroke="#6b4224" stroke-width="3"/></g>` : '')
+    + (o.hatOnBack ? `<ellipse cx="0" cy="-180" rx="66" ry="56" fill="#dcc17a" ${OL}/>` : '');
+  const head = o.back
+    ? `<circle r="36" fill="${skin}" ${OL}/>${KIT2.hairBack(o.hairStyle, hair)}<circle r="36" fill="${hair}" ${OL}/>${KIT2.hat(o.hat, o)}`
+    : `${o.hat === 'futou' ? `<path d="M-16 -20 Q-34 14 -30 ${o.tails ? 66 : 40} M16 -20 Q34 14 30 ${o.tails ? 66 : 40}" stroke="#1d1d1f" stroke-width="8" fill="none" stroke-linecap="round"/>` : ''}
+       ${KIT2.hairBack(o.hairStyle, hair)}
+       <circle cx="-36" cy="2" r="8" fill="${skin}" ${OL}/><circle cx="36" cy="2" r="8" fill="${skin}" ${OL}/>
+       <circle r="36" fill="${skin}" ${OL}/>
+       ${o.hat && !['cap', 'bucket', 'douli', 'driver', 'headlamp'].includes(o.hat) ? '' : KIT2.hairFront(o.hairStyle, hair)}
+       ${KIT2.hat(o.hat, o)}
+       ${KIT2.face(o)}`;
+  const hs = child ? 1.2 : 1;
+  return `<g class="ch" id="c-${o.id}"><g transform="scale(${s})"><g class="bod">
+    ${back}${leg(-1)}${leg(1)}
+    ${o.bodyBack || ''}
+    ${torso}
+    ${o.bodyExtra || ''}
+    <rect x="-9" y="-238" width="18" height="16" fill="${skin}"/>
+    ${arm(-1)}${arm(1)}
+    <g transform="translate(0 -264) scale(${hs})"><g class="hd">${head}</g></g>
+  </g></g></g>`;
+};
+/* 柴犬 */
+KIT2.dog = function (o) {
+  return `<g class="ch dog" id="c-${o.id}"><g transform="scale(${o.scale || 1})"><g class="bod">
+   <g transform="translate(-52 -70)"><path class="tail" d="M0 0 q-30 -10 -22 -40 q16 6 14 30" fill="#d9893e" ${OL}/></g>
+   <ellipse cx="0" cy="-58" rx="56" ry="30" fill="#d9893e" ${OL}/>
+   <g fill="#d9893e" ${OL}><rect x="-44" y="-40" width="14" height="40" rx="6"/><rect x="-20" y="-40" width="14" height="40" rx="6"/><rect x="18" y="-40" width="14" height="40" rx="6"/><rect x="36" y="-40" width="14" height="40" rx="6"/></g>
+   <g transform="translate(52 -96)"><path d="M-20 -22 L-14 -46 L-2 -26Z M8 -26 L18 -46 L24 -20Z" fill="#d9893e" ${OL}/><circle r="28" fill="#d9893e" ${OL}/><ellipse cx="6" cy="12" rx="18" ry="13" fill="#fff4e6"/><circle cx="-8" cy="-4" r="3.5" fill="#1d1d1f"/><circle cx="14" cy="-4" r="3.5" fill="#1d1d1f"/><circle cx="10" cy="8" r="4" fill="#1d1d1f"/></g>
+   <path d="M30 -72 q22 6 40 -2" stroke="#c8372b" stroke-width="6" fill="none"/>
+  </g></g></g>`;
+};
+
+/* ===== 場景零件（1600×900，y 往下變大） ===== */
+KIT2.bg = {
+  sky: (c1, c2) => { const id = 'g' + Math.random().toString(36).slice(2, 8); return `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c1 || '#cfe3ea'}"/><stop offset="1" stop-color="${c2 || '#f6f2e4'}"/></linearGradient></defs><rect width="1600" height="900" fill="url(#${id})"/>`; },
+  hills: (y, c, a) => { a = a || 60; return `<path d="M0 ${y} C200 ${y - a} 400 ${y + a * .4} 600 ${y - a * .6} S1000 ${y + a * .3} 1200 ${y - a * .8} S1500 ${y} 1600 ${y - a * .4} V900 H0Z" fill="${c || '#a6bdb5'}"/>`; },
+  peak: (x, y, w, h, c) => `<path d="M${x - w / 2} ${y} L${x} ${y - h} L${x + w / 2} ${y}Z" fill="${c || '#9fb5aa'}"/>`,
+  ground: (y, c) => `<rect y="${y}" width="1600" height="${900 - y}" fill="${c || '#d9c49a'}"/>`,
+  water: (y, c, h) => `<rect y="${y}" width="1600" height="${h || 900 - y}" fill="${c || '#7fb3c4'}"/><g stroke="#e8f5fa" stroke-width="4" fill="none" opacity=".6"><path d="M120 ${y + 40} q30 -10 60 0 M640 ${y + 70} q30 -10 60 0 M1200 ${y + 50} q30 -10 60 0 M380 ${y + 110} q30 -10 60 0 M980 ${y + 120} q30 -10 60 0"/></g>`,
+  sun: (x, y, r, c) => `<circle cx="${x}" cy="${y}" r="${r || 70}" fill="${c || '#f6c14b'}"/>`,
+  moon: (x, y, r) => `<circle cx="${x}" cy="${y}" r="${r || 50}" fill="#f6f0c8"/><circle cx="${x + 14}" cy="${y - 8}" r="${(r || 50) * .2}" fill="#e9e0b0"/>`,
+  cloud: (x, y, s, c) => `<g transform="translate(${x} ${y}) scale(${s || 1})" fill="${c || '#fff'}" opacity=".92"><ellipse cx="0" cy="0" rx="90" ry="34"/><ellipse cx="-50" cy="10" rx="60" ry="26"/><ellipse cx="60" cy="8" rx="64" ry="28"/></g>`,
+  stars: (n, h) => { let s = ''; for (let i = 0; i < (n || 50); i++) s += `<circle cx="${(i * 173) % 1600}" cy="${(i * 97) % (h || 480)}" r="${1.5 + i % 3}" fill="#fff" opacity="${.5 + (i % 5) / 10}"/>`; return s; },
+  tree: (x, y, s, leaf) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><rect x="-12" y="-200" width="24" height="200" fill="#6d4e32" ${OL}/><g fill="${leaf || '#5f9a5a'}" ${OL}><circle cx="-60" cy="-180" r="60"/><circle cx="60" cy="-190" r="64"/><circle cx="0" cy="-230" r="88"/></g></g>`,
+  pine: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><rect x="-10" y="-60" width="20" height="60" fill="#6d4e32"/><g fill="#3f6e4a" ${OL}><path d="M-70 -50 L0 -150 L70 -50Z"/><path d="M-56 -110 L0 -200 L56 -110Z"/><path d="M-40 -170 L0 -250 L40 -170Z"/></g></g>`,
+  bamboo: (x, y, h, n) => { let s = ''; for (let i = 0; i < (n || 6); i++) { const bx = x + i * 34, bh = h - (i % 3) * 40; s += `<rect x="${bx}" y="${y - bh}" width="14" height="${bh}" fill="#6fa35a" ${OL}/>`; for (let k = 1; k < 5; k++) s += `<path d="M${bx} ${y - bh * k / 5} h14" stroke="#2b2626" stroke-width="2"/>`; s += `<path d="M${bx + 7} ${y - bh * .7} q30 -20 50 -10 M${bx + 7} ${y - bh * .45} q-30 -20 -50 -6" stroke="#4f8a45" stroke-width="8" fill="none" stroke-linecap="round"/>`; } return s; },
+  maple: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><rect x="-10" y="-180" width="20" height="180" fill="#5a3d28"/><g fill="#c8442c" ${OL}><circle cx="-50" cy="-170" r="54"/><circle cx="50" cy="-176" r="58"/><circle cx="0" cy="-220" r="74"/></g></g>`,
+  house: (x, y, s, roof, wall) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><rect x="-150" y="-180" width="300" height="180" fill="${wall || '#f3ecdc'}" ${OL}/><path d="M-180 -170 L0 -260 L180 -170Z" fill="${roof || '#5a5e63'}" ${OL}/><rect x="-35" y="-110" width="70" height="110" fill="#8b5e3c" ${OL}/><rect x="-120" y="-130" width="60" height="50" fill="#cfe3ea" ${OL}/><rect x="60" y="-130" width="60" height="50" fill="#cfe3ea" ${OL}/></g>`,
+  building: (x, y, w, h, c, win) => { let s = `<rect x="${x}" y="${y - h}" width="${w}" height="${h}" fill="${c || '#b9c3c9'}" ${OL}/>`; for (let r = y - h + 24; r < y - 30; r += 46) for (let q = x + 18; q < x + w - 30; q += 44) s += `<rect x="${q}" y="${r}" width="24" height="26" fill="${win || '#e6f1f5'}"/>`; return s; },
+  temple: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><rect x="-90" y="-80" width="180" height="80" fill="#c8513c" ${OL}/><path d="M-140 -70 Q-120 -82 -110 -110 L110 -110 Q120 -82 140 -70 Z" fill="#3c3c3c" ${OL}/><path d="M-100 -110 Q0 -150 100 -110" fill="#3c3c3c" ${OL}/><rect x="-24" y="-60" width="48" height="60" fill="#5a2d1e"/></g>`,
+  bell: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-30 0 Q-30 -60 0 -64 Q30 -60 30 0Z" fill="#7a6a3a" ${OL}/><path d="M-36 0 h72" stroke="#2b2626" stroke-width="5"/></g>`,
+  lamp: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><rect x="-5" y="-260" width="10" height="260" fill="#4a5560"/><path d="M-5 -256 q30 -10 40 6" stroke="#4a5560" stroke-width="8" fill="none"/><ellipse cx="36" cy="-246" rx="16" ry="8" fill="#fff3b0" ${OL}/></g>`,
+  rail: (y, c) => `<g stroke="${c || '#6b5a4a'}" stroke-width="6"><path d="M0 ${y} H1600"/><path d="M0 ${y - 36} H1600" stroke-width="5"/></g><g stroke="${c || '#6b5a4a'}" stroke-width="4">${Array.from({ length: 33 }, (_, i) => `<path d="M${i * 50} ${y - 50} V${y}"/>`).join('')}</g>`,
+  sign: (x, y, text, w, c, tc) => `<g transform="translate(${x} ${y})"><rect x="${-(w || 260) / 2}" y="-44" width="${w || 260}" height="64" rx="8" fill="${c || '#6b4224'}" ${OL}/><text y="0" text-anchor="middle" font-size="36" font-weight="700" fill="${tc || '#fff6d8'}" font-family="var(--f-show)">${text}</text></g>`,
+  window: (x, y, w, h, inner) => `<g transform="translate(${x} ${y})"><rect width="${w}" height="${h}" rx="18" fill="#6b7a85" ${OL}/><rect x="14" y="14" width="${w - 28}" height="${h - 28}" rx="12" fill="#bfe3ef"/><g clip-path="none">${inner || ''}</g></g>`,
+  seats: (y, c) => `<g fill="${c || '#3f6e9a'}" ${OL}>${[80, 420, 1000, 1340].map(x => `<rect x="${x}" y="${y}" width="200" height="120" rx="16"/><rect x="${x}" y="${y - 140}" width="40" height="160" rx="12"/>`).join('')}</g>`,
+  rice: (y) => { let s = `<rect y="${y}" width="1600" height="${900 - y}" fill="#8fbccc"/>`; for (let r = 0; r < 6; r++) for (let i = 0; i < 18; i++) s += `<path d="M${i * 92 + (r % 2) * 46} ${y + 30 + r * 34} l-6 -22 M${i * 92 + (r % 2) * 46} ${y + 30 + r * 34} l6 -20 M${i * 92 + (r % 2) * 46} ${y + 30 + r * 34} l0 -24" stroke="#6d9a46" stroke-width="3"/>`; return s; },
+  egret: (x, y, s, fly) => fly
+    ? `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-40 0 q40 -10 80 0 q-40 10 -80 0z" fill="#fff" ${OL}/><path class="wing" d="M-6 -2 q-20 -50 -50 -56 q14 34 30 56z" fill="#fff" ${OL}/><path d="M40 0 l22 -4 -22 8z" fill="#e5b33c"/><path d="M-40 2 l-30 6" stroke="#222" stroke-width="3"/></g>`
+    : `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M0 -60 q30 -10 30 20 q0 30 -30 34 q-26 -4 -24 -30 q2 -20 24 -24z" fill="#fff" ${OL}/><path d="M18 -58 q14 -40 0 -70 q-10 -6 -14 6 q12 24 -2 50" fill="#fff" ${OL}/><path d="M6 -126 l30 4 -30 4z" fill="#e5b33c" ${OL}/><circle cx="6" cy="-126" r="2.5" fill="#222"/><path d="M-4 -6 V40 M10 -6 V40" stroke="#222" stroke-width="3"/></g>`,
+  crow: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><ellipse rx="22" ry="14" fill="#222"/><circle cx="20" cy="-10" r="10" fill="#222"/><path d="M28 -10 l12 2 -12 4z" fill="#555"/><path d="M-20 0 l-16 8" stroke="#222" stroke-width="6"/></g>`,
+  monkey: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><ellipse cx="0" cy="0" rx="22" ry="26" fill="#8a6a4a" ${OL}/><circle cx="0" cy="-34" r="20" fill="#8a6a4a" ${OL}/><ellipse cx="0" cy="-30" rx="13" ry="11" fill="#e8b49a"/><circle cx="-5" cy="-34" r="2.5" fill="#222"/><circle cx="5" cy="-34" r="2.5" fill="#222"/><ellipse class="mky" cx="0" cy="-24" rx="4" ry="3" fill="#6b2a1e"/><path d="M20 10 q30 10 26 -30" stroke="#8a6a4a" stroke-width="6" fill="none"/></g>`,
+  firefly: (x, y, d) => `<g transform="translate(${x} ${y})"><circle class="ffly" style="animation-delay:-${d || 0}s" r="7" fill="#e9ff7a"/></g>`,
+  cicada: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><ellipse rx="12" ry="26" fill="#5a4a2a" ${OL}/><path d="M-10 -10 q-28 30 -12 50 M10 -10 q28 30 12 50" fill="#cfe8f0" opacity=".8" stroke="#2b2626" stroke-width="2"/><circle cx="-7" cy="-24" r="4" fill="#222"/><circle cx="7" cy="-24" r="4" fill="#222"/><path d="M0 -20 v14" stroke="#c99a5a" stroke-width="3"/></g>`,
+  swallow: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-30 0 q30 -8 50 0 q-20 8 -50 0z" fill="#1f2a44"/><path class="wing" d="M-4 -2 q-10 -36 -36 -40 q8 24 22 42z" fill="#1f2a44"/><path d="M-30 0 l-20 -10 M-30 0 l-20 8" stroke="#1f2a44" stroke-width="4"/><circle cx="16" cy="-1" r="3" fill="#c8372b"/></g>`,
+  duck: (x, y, s, male) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><ellipse rx="40" ry="22" fill="${male ? '#c8742c' : '#9a8266'}" ${OL}/><circle cx="34" cy="-20" r="16" fill="${male ? '#3f6e4a' : '#9a8266'}" ${OL}/>${male ? '<path d="M24 -30 q20 -10 30 6" stroke="#fff" stroke-width="5" fill="none"/>' : ''}<path d="M48 -18 l12 2 -12 4z" fill="#e2533c"/><path d="M30 -22 q4 4 8 0" stroke="#222" stroke-width="2.5" fill="none"/></g>`,
+  phoneBig: (msg) => `<g><rect x="-110" y="-200" width="220" height="400" rx="26" fill="#1d1d1f"/><rect x="-96" y="-176" width="192" height="340" rx="10" fill="#f3f7f9"/></g>`,
+  paperTitle: () => `<rect width="1600" height="900" fill="#f4ecd6"/><g opacity=".25" fill="#6b7f78"><path d="M0 700 Q200 520 360 640 T720 600 T1080 640 T1600 560 V900 H0Z"/><path d="M0 780 Q300 640 560 740 T1100 720 T1600 700 V900 H0Z" opacity=".7"/></g>`
+};
+
+/* 背誦挑戰（不用樂樂悠悠，由旁白帶） */
+KIT2.recite = function (o) {
+  const T = g => g.map(i => o.lines[i]).join('');
+  const r = [{ ch: o.ch, scene: 'poem', w: 'n', t: o.intro, rv: { m: 0 } }, { w: 'n', t: '第一輪，看著詩，跟著唸。', rv: { m: 0 } }];
+  o.groups.forEach(g => r.push({ w: 'n', t: T(g), poem: g, rv: { m: 0, hl: g } }));
+  r.push({ w: 'n', t: '第二輪，有些字躲起來了！你還記得嗎？一起唸！', rv: { m: 1 } });
+  o.groups.forEach(g => r.push({ w: 'a', t: T(g), poem: g, rv: { m: 1, hl: g } }));
+  r.push({ w: 'n', t: '最後一輪，只剩每一句的第一個字。換你們自己大聲背！', rv: { m: 2 }, wait: o.wait || 20 });
+  r.push({ w: 'n', t: '答案揭曉！再一起唸一遍。', rv: { m: 0 } });
+  o.groups.forEach(g => r.push({ w: 'a', t: T(g), poem: g, rv: { m: 0, hl: g } }));
+  r.push({ w: 'a', t: o.outro, rv: { m: 0 } });
+  return r;
+};
+
+KIT2.poemScene = `<g class="scene" data-scene="poem"><rect width="1600" height="900" fill="#e7efe9"/><path d="M0 760 C300 700 520 740 800 710 S1300 700 1600 680 V900 H0Z" fill="#b9d0c6"/><use href="#flyer" class="fly" y="120"/></g>`;
+
+/* ===== 固定角色（同一個人在不同部長得一樣） ===== */
+KIT2.CAST = {
+  libai: { kind: 'ancient', robe: '#f4f1e8', sleeve: '#4f78b0', belt: '#3a5a8a', collarColor: '#4f78b0', hairStyle: 'bun', beard: 'mous', bookbox: true },
+  zhangji: { kind: 'ancient', robe: '#7f97a8', belt: '#3e5058', hat: 'futou', beard: 'short' },
+  wangzhihuan: { kind: 'ancient', robe: '#4f7f5a', belt: '#2f4a34', hat: 'futou', beard: 'goatee', bodyExtra: `<g transform="translate(30 -150) rotate(70)"><rect x="-4" y="-50" width="9" height="100" rx="4" fill="#c8a35a" stroke="#2b2626" stroke-width="2.5"/></g>` },
+  yushinan: { kind: 'ancient', age: 'elder', robe: '#6a4a86', belt: '#3c2a4e', hat: 'futou', tails: true, beard: 'long', browColor: '#9a968c', hand: 'brush' },
+  dufu: { kind: 'ancient', robe: '#8a6a4a', sleeve: '#7a5c3e', belt: '#4a3626', collarColor: '#d9ccb0', hat: 'wrap', wrapColor: '#4f4034', beard: 'long', beardColor: '#6f6a62', scale: .97 },
+  liuchangqing: { kind: 'ancient', robe: '#3e5f8a', belt: '#22344e', hat: 'futou', beard: 'eight' },
+  lingche: { kind: 'ancient', robe: '#8d8d86', belt: '#5d5d58', collar: 'cross', collarColor: '#c8742c', hairStyle: 'bald', hatOnBack: true, hand: 'scroll' },
+  weiyingwu: { kind: 'ancient', robe: '#b8bcc0', belt: '#5d6670', hat: 'futou', beard: 'mous' },
+  zhuxi: { kind: 'ancient', robe: '#efe6d0', sleeve: '#e6dcc2', belt: '#3a3a3a', collar: 'cross', collarColor: '#3a3a3a', hat: 'fangjin', beard: 'long', beardColor: '#3a3430', hand: 'book' }
+};
+KIT2.make = (preset, o) => KIT2.person(Object.assign({}, KIT2.CAST[preset] || {}, o));
+/* 畫在場景裡、不會說話的人（背影皇帝、家人、乘客） */
+KIT2.stat = (o) => KIT2.person(Object.assign({ id: 'st' + Math.random().toString(36).slice(2, 6) }, o)).replace('class="ch"', 'class="ch stat on"').replace(/ id="c-[^"]+"/, '');
+
+/* ===== 三上新增：道具 ===== */
+Object.assign(KIT2.prop, {
+  qin: `<g transform="rotate(-70)"><rect x="-70" y="-12" width="140" height="24" rx="10" fill="#6b3e22" ${OL}/><path d="M-60 -4 H60 M-60 2 H60 M-60 8 H60" stroke="#f3e2b8" stroke-width="1.6"/><circle cx="-48" cy="-6" r="2.4" fill="#f3e2b8"/><circle cx="-30" cy="-6" r="2.4" fill="#f3e2b8"/></g>`,
+  fan: `<path d="M0 0 V18" stroke="#8b6b45" stroke-width="4"/><circle cx="0" cy="-12" r="20" fill="#f6efe0" ${OL}/><path d="M-10 -18 q10 8 20 -2" stroke="#d07a8a" stroke-width="3" fill="none"/>`,
+  paddle: `<path d="M0 -70 V60" stroke="#8b6b45" stroke-width="6"/><ellipse cx="0" cy="70" rx="12" ry="26" fill="#d9893e" ${OL}/>`,
+  teapot: `<ellipse cx="0" cy="0" rx="22" ry="17" fill="#8a4a2a" ${OL}/><path d="M20 -4 q16 -4 18 -16" stroke="#8a4a2a" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M-20 -6 q-14 4 -8 16" stroke="#2b2626" stroke-width="3" fill="none"/><circle cy="-18" r="5" fill="#8a4a2a" ${OL}/>`,
+  recorder: `<g transform="rotate(-20)"><rect x="-5" y="-40" width="10" height="70" rx="4" fill="#f4ecd6" ${OL}/><circle cx="0" cy="-20" r="2" fill="#2b2626"/><circle cx="0" cy="-8" r="2" fill="#2b2626"/><circle cx="0" cy="4" r="2" fill="#2b2626"/><path d="M-8 30 h16 l-3 8 h-10z" fill="#f4ecd6" ${OL}/></g>`,
+  scissors: `<circle cx="-8" cy="8" r="8" fill="none" stroke="#3f8a52" stroke-width="5"/><circle cx="8" cy="8" r="8" fill="none" stroke="#3f8a52" stroke-width="5"/><path d="M-4 0 L6 -26 M4 0 L-6 -26" stroke="#9aa1aa" stroke-width="5" stroke-linecap="round"/>`,
+  board: `<rect x="-26" y="-34" width="52" height="40" rx="3" fill="#fff" ${OL}/><path d="M-18 -10 q10 -14 20 0 t16 0" stroke="#3f8a52" stroke-width="3" fill="none"/>`,
+  water: `<rect x="-9" y="-20" width="18" height="34" rx="5" fill="#bfe3ef" ${OL}/><rect x="-6" y="-26" width="12" height="7" fill="#3e6f8f"/>`,
+  whistle: `<path d="M0 -40 V0" stroke="#e2533c" stroke-width="3"/><rect x="-8" y="0" width="16" height="10" rx="4" fill="#f6c14b" ${OL}/>`,
+  laser: `<rect x="-4" y="-20" width="8" height="30" rx="3" fill="#333" ${OL}/>`
+});
+
+/* ===== 三上新增：場景零件 ===== */
+Object.assign(KIT2.bg, {
+  willow: (x, y, s) => { let st = ''; for (let i = 0; i < 26; i++) { const sx = -190 + i * 15, top = -330 + Math.abs(i - 12.5) * 6, len = 210 + (i * 37) % 120; st += `<path class="wl-s" style="animation-delay:-${(i % 6) * .35}s" d="M${sx} ${top} q${(i % 2 ? 14 : -14)} ${len / 2} ${(i % 3) * 8 - 8} ${len}" stroke="${i % 3 ? '#7fb24a' : '#9ccc5a'}" stroke-width="6" fill="none" stroke-linecap="round"/>`; } return `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-10 -120 Q-40 -220 -110 -300 M10 -130 Q40 -230 120 -300 M0 -150 Q0 -260 0 -330" stroke="#6d4e32" stroke-width="16" fill="none" stroke-linecap="round"/><rect x="-18" y="-160" width="36" height="160" rx="8" fill="#6d4e32" ${OL}/><g fill="#8cc152" ${OL}><path d="M-200 -300 Q-160 -390 -40 -370 Q0 -420 60 -380 Q170 -400 200 -300 Q120 -320 0 -310 Q-120 -320 -200 -300Z"/></g>${st}</g>`; },
+  plum: (x, y, s, bloom) => { const f = bloom ? [[-80, -160], [-40, -210], [10, -240], [60, -200], [100, -150], [-110, -110], [30, -170], [-20, -140], [80, -250], [130, -200]].map(([a, b]) => `<g transform="translate(${a} ${b})"><circle r="11" fill="#fff" ${OL}/><circle r="3.5" fill="#f2c14e"/></g>`).join('') : ''; return `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M0 0 Q-10 -80 -60 -140 Q-90 -170 -110 -110 M-4 -60 Q20 -140 10 -240 M-30 -110 Q40 -150 100 -150 M10 -180 Q60 -230 130 -200 M20 -210 Q60 -260 80 -250" stroke="#4a3426" stroke-width="12" fill="none" stroke-linecap="round"/>${f}</g>`; },
+  oriole: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><ellipse rx="22" ry="14" fill="#f2c51e" ${OL}/><circle cx="18" cy="-10" r="11" fill="#f2c51e" ${OL}/><path d="M14 -14 l12 4" stroke="#1d1d1f" stroke-width="4"/><path d="M28 -10 l12 2 -12 4z" fill="#e2533c"/><path d="M-6 -4 q-10 -14 -22 -6" fill="#1d1d1f"/><path d="M-20 4 l-16 6" stroke="#1d1d1f" stroke-width="6"/></g>`,
+  boat: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-160 -40 L160 -40 Q130 20 80 24 L-80 24 Q-130 20 -160 -40Z" fill="#8a6a4a" ${OL}/><path d="M-150 -40 L150 -40" stroke="#5a4030" stroke-width="6"/></g>`,
+  kayak: (x, y, s, c) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-150 0 Q0 -36 150 0 Q0 26 -150 0Z" fill="${c || '#e2533c'}" ${OL}/><ellipse cx="0" cy="-8" rx="30" ry="9" fill="#2b2626"/></g>`,
+  swan: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-80 0 Q-80 -50 0 -50 L70 -50 Q80 0 60 20 L-60 20Z" fill="#fff" ${OL}/><path d="M50 -50 Q60 -120 90 -120 Q110 -120 104 -100 L92 -96 Q80 -100 76 -60" fill="#fff" ${OL}/><path d="M104 -104 l18 6 -18 4z" fill="#f2a33a"/><circle cx="92" cy="-108" r="3" fill="#222"/></g>`,
+  bridge: (x, y, w) => `<g transform="translate(${x} ${y})"><path d="M0 0 Q${w / 2} 60 ${w} 0" stroke="#e8e2d2" stroke-width="8" fill="none"/><path d="M0 -80 Q${w / 2} 40 ${w} -80" stroke="#cfc8b4" stroke-width="4" fill="none"/>${Array.from({ length: 9 }, (_, i) => { const t = (i + 1) / 10, xx = w * t; const yy = 4 * 60 * t * (1 - t) * .5 * 2; return `<path d="M${xx} ${yy - 2} V${-80 + 4 * 120 * t * (1 - t) * .5 * 2}" stroke="#cfc8b4" stroke-width="2"/>`; }).join('')}<rect x="-14" y="-110" width="28" height="140" fill="#e8e2d2" ${OL}/><rect x="${w - 14}" y="-110" width="28" height="140" fill="#e8e2d2" ${OL}/></g>`,
+  taxi: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-200 -30 L-180 -90 Q-170 -110 -140 -112 L-90 -170 Q-80 -180 -60 -180 L70 -180 Q90 -180 104 -168 L150 -112 Q190 -110 200 -80 L204 -30Z" fill="#f6c81e" ${OL}/><path d="M-80 -160 L-10 -160 L-10 -116 L-120 -116Z M10 -160 L84 -160 L124 -116 L10 -116Z" fill="#bfe3ef" ${OL}/><rect x="-36" y="-206" width="72" height="26" rx="6" fill="#fff" ${OL}/><text y="-187" text-anchor="middle" font-size="18" font-weight="900" fill="#2b2626" font-family="sans-serif">TAXI</text><circle cx="-120" cy="-28" r="34" fill="#333" ${OL}/><circle cx="-120" cy="-28" r="13" fill="#aaa"/><circle cx="120" cy="-28" r="34" fill="#333" ${OL}/><circle cx="120" cy="-28" r="13" fill="#aaa"/></g>`,
+  city: (y, lit, c) => { let s = ''; const bs = [[0, 120, 160], [130, 90, 230], [230, 140, 130], [380, 80, 280], [470, 120, 190], [600, 100, 250], [710, 150, 150], [870, 90, 300], [970, 130, 200], [1110, 110, 240], [1230, 150, 170], [1390, 100, 260], [1500, 100, 180]]; bs.forEach(([x, w, h], k) => { s += `<rect x="${x}" y="${y - h}" width="${w}" height="${h + 200}" fill="${c || '#4a5568'}"/>`; for (let r = y - h + 16; r < y; r += 30) for (let q = x + 12; q < x + w - 14; q += 26) if ((q * 7 + r * 3 + k) % 5 > (lit ? 0 : 3)) s += `<rect class="${lit ? 'citylit' : ''}" x="${q}" y="${r}" width="12" height="14" fill="${lit ? '#ffe28a' : '#d7e3ea'}" opacity="${lit ? .95 : .6}"/>`; }); return s; },
+  stove: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-46 0 L-40 -80 L40 -80 L46 0Z" fill="#a8743c" ${OL}/><g stroke="#6b4224" stroke-width="3">${[-30, -15, 0, 15, 30].map(a => `<path d="M${a} -78 V-2"/>`).join('')}</g><ellipse cx="0" cy="-82" rx="38" ry="10" fill="#3a2e2c"/><ellipse class="st-fire" cx="0" cy="-86" rx="26" ry="7" fill="#e2533c"/><g transform="translate(0 -96)"><ellipse rx="34" ry="26" fill="#6b6f77" ${OL}/><path d="M30 -6 q20 -6 22 -22" stroke="#6b6f77" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M-22 -22 Q0 -46 22 -22" stroke="#2b2626" stroke-width="4" fill="none"/></g><g class="st-steam" fill="#fff" opacity=".8"><circle cx="48" cy="-140" r="10"/><circle cx="58" cy="-166" r="13"/><circle cx="50" cy="-196" r="10"/></g></g>`,
+  screen: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})">${[-150, -50, 50].map(a => `<rect x="${a}" y="-260" width="100" height="250" fill="#efe6d0" ${OL}/><path d="M${a + 10} -60 L${a + 40} -150 L${a + 60} -110 L${a + 90} -170 V-60Z" fill="#a8b8a8" opacity=".8"/>`).join('')}<path d="M-150 -10 h300" stroke="#6b4224" stroke-width="10"/></g>`,
+  candle: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><rect x="-10" y="-60" width="20" height="60" fill="#f4ecd6" ${OL}/><path class="cd-f" d="M0 -64 q-10 -16 0 -32 q10 16 0 32z" fill="#ffd36b" ${OL}/><circle cy="-76" r="40" fill="#ffd36b" opacity=".2"/></g>`,
+  scope: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M0 0 L-40 0 M0 0 L40 0 M0 0 L0 -110" stroke="#333" stroke-width="7" stroke-linecap="round"/><path d="M-40 0 L0 -110 L40 0" stroke="#333" stroke-width="5" fill="none"/><g transform="translate(0 -120) rotate(-30)"><rect x="-80" y="-14" width="160" height="28" rx="8" fill="#e8e2d2" ${OL}/><rect x="70" y="-18" width="22" height="36" rx="4" fill="#3e6f8f" ${OL}/></g></g>`,
+  mat: (x, y, w) => `<rect x="${x}" y="${y}" width="${w}" height="70" rx="6" fill="#d8c48a" ${OL}/><g stroke="#b29a5a" stroke-width="3">${Array.from({ length: Math.floor(w / 30) }, (_, i) => `<path d="M${x + 15 + i * 30} ${y + 6} V${y + 64}"/>`).join('')}</g>`,
+  milky: () => `<path d="M-50 40 C300 200 600 120 900 300 S1400 360 1650 520" stroke="#e8e4ff" stroke-width="110" fill="none" opacity=".18"/><path d="M-50 40 C300 200 600 120 900 300 S1400 360 1650 520" stroke="#fff" stroke-width="40" fill="none" opacity=".15"/>`,
+  plane: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-40 0 L40 0 L52 -6 L40 -10 L-40 -6Z" fill="#cfd6dc"/><path d="M-6 -4 L-20 -24 L-10 -24 L10 -4Z" fill="#cfd6dc"/><circle class="pl-l" cx="-40" cy="-3" r="4" fill="#ff5a4a"/><circle class="pl-l" style="animation-delay:-.5s" cx="40" cy="-3" r="4" fill="#9fffa0"/></g>`,
+  tent: (x, y, s, c) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-110 0 L0 -130 L110 0Z" fill="${c || '#e2953c'}" ${OL}/><path d="M0 -130 L-24 0 L24 0Z" fill="#ffe7a0" opacity=".85"/></g>`,
+  pavilion: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-260 -380 Q0 -460 260 -380 L230 -350 L-230 -350Z" fill="#8a5a3a" ${OL}/><rect x="-220" y="-350" width="24" height="350" fill="#a8743c" ${OL}/><rect x="196" y="-350" width="24" height="350" fill="#a8743c" ${OL}/><rect x="-230" y="-120" width="460" height="20" fill="#a8743c" ${OL}/></g>`,
+  sanheyuan: (y) => `<rect y="${y - 330}" width="1600" height="330" fill="#c8513c"/><g fill="#a8402c">${Array.from({ length: 30 }, (_, r) => Array.from({ length: 20 }, (_, i) => `<rect x="${i * 84 + (r % 2) * 42}" y="${y - 330 + r * 22}" width="78" height="18" opacity=".35"/>`).join('')).slice(0, 15).join('')}</g><path d="M-20 ${y - 330} L1620 ${y - 330} L1560 ${y - 400} L40 ${y - 400}Z" fill="#4a4a4a" ${OL}/>`
+});
+
+/* ===== 三上新增：固定角色 ===== */
+Object.assign(KIT2.CAST, {
+  lishangyin: { kind: 'ancient', robe: '#34507a', belt: '#1f3150', hat: 'futou', beard: 'eight' },
+  dulei: { kind: 'ancient', robe: '#3f6a4f', sleeve: '#36604a', belt: '#24402f', collarColor: '#e6dcc2', hat: 'wrap', wrapColor: '#4a3a2a', beard: 'short' },
+  menghaoran: { kind: 'ancient', robe: '#b89a72', belt: '#6b5434', hat: 'futou', beard: 'goatee' },
+  wangwei: { kind: 'ancient', robe: '#a7b8a4', belt: '#5d6e5a', hat: 'futou', beard: 'short', hand: 'qin' },
+  dumu: { kind: 'ancient', robe: '#9a4a3a', belt: '#5a2a20', collarColor: '#f0d9a0', hat: 'futou', beard: 'mous', hand: 'fan' },
+  hezhizhang: { kind: 'ancient', age: 'elder', robe: '#7a5a9a', belt: '#4a3460', hat: 'futou', tails: true, beard: 'long', browColor: '#c8c4bc', hand: 'brush' }
+});
+
+/* ===== 五年級新增 ===== */
+Object.assign(KIT2.CAST, {
+  wangmian: { kind: 'ancient', robe: '#d9d2c2', belt: '#6f6858', hat: 'wrap', wrapColor: '#4a4a4a', beard: 'short', hand: 'brush' },
+  wangweiYoung: { kind: 'ancient', robe: '#a7b8a4', belt: '#5d6e5a', hat: 'futou' },
+  zhengxie: { kind: 'ancient', robe: '#6f7f8f', belt: '#3e4650', collarColor: '#d9d2c2', hat: 'wrap', wrapColor: '#2a2a2a', beard: 'mous', hand: 'scroll' },
+  sushi: { kind: 'ancient', robe: '#2f4a7a', sleeve: '#3a5a8a', belt: '#1f3150', hat: 'fangjin', beard: 'long', beardColor: '#2a2420' },
+  liuyuxi: { kind: 'ancient', robe: '#3f6a4f', belt: '#24402f', hat: 'futou', beard: 'short' },
+  huangtingjian: { kind: 'ancient', robe: '#9cbf9a', belt: '#4f6f4d', hat: 'wrap', wrapColor: '#2a2a2a', beard: 'long', beardColor: '#2a2420', hand: 'scroll' }
+});
+Object.assign(KIT2.prop, {
+  umbrella: `<path d="M0 0 V-90" stroke="#333" stroke-width="4"/><path d="M-60 -80 Q0 -140 60 -80Z" fill="#e98aa6" ${OL}/>`,
+  rope: `<path d="M0 0 q30 40 0 80 q-30 40 0 60" stroke="#e2533c" stroke-width="5" fill="none"/>`,
+  puShan: `<path d="M0 0 V22" stroke="#8b6b45" stroke-width="4"/><ellipse cy="-16" rx="22" ry="26" fill="#d8b665" ${OL}/>`
+});
+KIT2.bg.rainLayer = (cls) => `<g class="${cls || 'rain'}" stroke="#cfe3f2" stroke-width="3" opacity=".7">${Array.from({ length: 70 }, (_, i) => `<path d="M${(i * 137) % 1600} ${(i * 71) % 900} l-12 34"/>`).join('')}</g>`;
+KIT2.bg.snowLayer = () => `<g class="snow" fill="#fff">${Array.from({ length: 60 }, (_, i) => `<circle class="sn" style="animation-delay:-${(i * .37) % 6}s" cx="${(i * 149) % 1600}" cy="${(i * 53) % 400}" r="${3 + i % 4}"/>`).join('')}</g>`;
+KIT2.bg.ink = (inner) => `${KIT2.bg.sky('#e9e3d2', '#f4efe2')}${inner || ''}`;
+
+/* ===== 二年級新增 ===== */
+Object.assign(KIT2.CAST, {
+  duqiuniang: { kind: 'ancient', robe: '#b8402c', sleeve: '#c8503c', belt: '#e3b341', collarColor: '#e3b341', trim: '#e3b341', hairStyle: 'bun', hair: '#2a2420', legColor: '#f2e2c8' },
+  liyannian: { kind: 'ancient', robe: '#8a2f2f', sleeve: '#7a2626', belt: '#3a1a1a', collarColor: '#f0d9a0', hat: 'futou', beard: 'mous', hand: 'qin' },
+  yuqian: { kind: 'ancient', robe: '#2e3f6e', belt: '#e3b341', collarColor: '#d9d2c2', hat: 'futou', tails: true, beard: 'short' },
+  wanganshi: { kind: 'ancient', robe: '#6a3f7a', sleeve: '#5e3670', belt: '#3a2048', hat: 'fangjin', beard: 'goatee', hand: 'brush' },
+  luoyin: { kind: 'ancient', robe: '#b89a5a', belt: '#6b5434', hat: 'wrap', wrapColor: '#2a2a2a', beard: 'goatee', bookbox: true },
+  wangchangling: { kind: 'ancient', robe: '#4f6a3a', belt: '#2a3a1f', collarColor: '#e6dcc2', hat: 'futou', beard: 'short' },
+  liufangping: { kind: 'ancient', robe: '#c4c8cc', sleeve: '#b4b9be', belt: '#5d6670', hat: 'futou', beard: 'goatee' }
+});
+Object.assign(KIT2.prop, {
+  honey: `<rect x="-14" y="-22" width="28" height="34" rx="6" fill="#f2b21e" ${OL}/><rect x="-16" y="-30" width="32" height="10" rx="3" fill="#8a5a2a" ${OL}/>`,
+  disc: `<circle r="24" fill="#1f3a5a" ${OL}/><circle r="16" fill="#3e6f8f"/><circle cx="-6" cy="-4" r="2" fill="#fff"/><circle cx="5" cy="3" r="2" fill="#fff"/><circle cx="2" cy="-9" r="1.6" fill="#fff"/>`,
+  redpacket: `<rect x="-14" y="-20" width="28" height="38" rx="3" fill="#d4282c" ${OL}/><circle cy="-4" r="7" fill="#e3b341"/>`,
+  cup: `<path d="M-12 -14 H12 L9 12 H-9Z" fill="#f4ecd6" ${OL}/><path d="M12 -8 q10 2 0 12" stroke="#3a2e2c" stroke-width="3" fill="none"/>`,
+  mic: `<rect x="-4" y="-10" width="8" height="30" rx="3" fill="#333"/><circle cy="-16" r="10" fill="#555" ${OL}/>`,
+  letter: `<rect x="-20" y="-26" width="40" height="48" rx="3" fill="#fff6d8" ${OL}/><path d="M-10 -10 h20 M-10 0 h20 M-10 10 h12" stroke="#e2533c" stroke-width="2"/>`,
+  ledger: `<rect x="-20" y="-26" width="40" height="50" rx="3" fill="#3e6f8f" ${OL}/><rect x="-14" y="-18" width="28" height="12" fill="#fff"/>`
+});
+Object.assign(KIT2.bg, {
+  /* 鳳凰樹：紅花大樹 */
+  flame: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-18 0 L-12 -220 Q0 -240 12 -220 L18 0Z" fill="#7a5a3a" ${OL}/><path d="M0 -200 L-120 -280 M0 -210 L110 -290" stroke="#7a5a3a" stroke-width="14" stroke-linecap="round"/>${[[-200, -300, 110], [-60, -360, 130], [90, -350, 120], [210, -300, 100], [0, -280, 120], [-120, -250, 80], [140, -250, 80]].map(([a, b, r]) => `<ellipse cx="${a}" cy="${b}" rx="${r}" ry="${r * .55}" fill="#4f8a45"/>`).join('')}${Array.from({ length: 40 }, (_, i) => `<circle cx="${-260 + (i * 53) % 520}" cy="${-400 + (i * 37) % 200}" r="${10 + i % 3 * 3}" fill="${i % 4 ? '#e2533c' : '#f2803c'}"/>`).join('')}</g>`,
+  /* 蜂箱 */
+  hive: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><rect x="-60" y="-110" width="120" height="110" fill="#d9a85a" ${OL}/><rect x="-70" y="-126" width="140" height="20" fill="#a8743c" ${OL}/><rect x="-24" y="-20" width="48" height="8" fill="#3a2e2c"/><path d="M-60 -60 H60" stroke="#a8743c" stroke-width="3"/></g>`,
+  bee: (x, y, d) => `<g transform="translate(${x} ${y})"><g class="bee" style="animation-delay:-${d || 0}s"><ellipse rx="11" ry="8" fill="#f2c51e" ${OL}/><path d="M-3 -7 V7 M4 -7 V7" stroke="#2b2626" stroke-width="3"/><ellipse cx="-2" cy="-12" rx="7" ry="5" fill="#e8f5fa" opacity=".9"/></g></g>`,
+  /* 春聯門 */
+  door: (x, y, s, fresh) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><rect x="-120" y="-300" width="240" height="300" fill="#6b3e22" ${OL}/><rect x="-110" y="-290" width="105" height="290" fill="#8a5a3a"/><rect x="5" y="-290" width="105" height="290" fill="#8a5a3a"/>${[-165, 140].map(a => `<rect x="${a}" y="-300" width="26" height="250" fill="${fresh ? '#d4282c' : '#c9907a'}" ${OL}/>`).join('')}<rect x="-90" y="-350" width="180" height="40" fill="${fresh ? '#d4282c' : '#c9907a'}" ${OL}/><text y="-322" text-anchor="middle" font-size="26" font-family="var(--f-show)" fill="${fresh ? '#ffe28a' : '#8a6a5a'}">${fresh ? '新年新希望' : '五福臨門'}</text></g>`,
+  /* 燈塔 */
+  lighthouse: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s || 1})"><path d="M-20 0 L-12 -120 L12 -120 L20 0Z" fill="#f4f1e8" ${OL}/><path d="M-17 -40 H17 M-14 -80 H14" stroke="#c8372b" stroke-width="10"/><rect x="-14" y="-140" width="28" height="20" fill="#f6c14b" ${OL}/><path class="lt-beam" d="M0 -130 L160 -170 L160 -90Z" fill="#fff6c0" opacity=".35"/></g>`
+});
+
+/* ===== 二年級新增 ===== */
+Object.assign(KIT2.CAST, {
+  jiadao: { kind: 'ancient', robe: '#8d8d86', belt: '#5d5d58', hat: 'wrap', wrapColor: '#3a3a3a', beard: 'short', scale: .96 },
+  lipin: { kind: 'ancient', robe: '#7f97a8', belt: '#3e5058', hat: 'futou', beard: 'short', bodyExtra: `<g transform="translate(-30 -190)"><ellipse rx="34" ry="28" fill="#c8a35a" stroke="#3a2e2c" stroke-width="3"/></g>` },
+  liqiao: { kind: 'ancient', robe: '#9a3a3a', sleeve: '#8a3232', belt: '#4a1f1f', collarColor: '#f0d9a0', hat: 'futou', beard: 'long', beardColor: '#2a2420' },
+  baijuyi: { kind: 'ancient', age: 'elder', robe: '#d9c48a', belt: '#7a6434', hat: 'futou', beard: 'long', browColor: '#c8c4bc' },
+  libaiKid: { kind: 'ancient', age: 'child', robe: '#f4f1e8', sleeve: '#4f78b0', belt: '#3a5a8a', hairStyle: 'bun' }
+});
+Object.assign(KIT2.prop, {
+  jar: `<rect x="-12" y="-22" width="24" height="34" rx="6" fill="#dff1f6" opacity=".9" ${OL}/>${[[-4, 2], [4, -4], [0, 6], [-5, -8], [5, 6]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r="4" fill="#d4282c"/>`).join('')}`,
+  kite: `<path d="M0 0 L60 -200" stroke="#555" stroke-width="2"/><path d="M60 -250 L95 -200 L60 -150 L25 -200Z" fill="#e2533c" ${OL}/>`,
+  mooncake: `<circle r="16" fill="#d9a85a" ${OL}/><circle r="9" fill="none" stroke="#a8743c" stroke-width="3"/>`,
+  oar: `<path d="M0 -60 V50" stroke="#8b6b45" stroke-width="6"/><ellipse cx="0" cy="62" rx="10" ry="20" fill="#d9893e" ${OL}/>`,
+  lens: `<circle cx="0" cy="-14" r="13" fill="#dff1f6" stroke="#333" stroke-width="4"/><path d="M8 -4 L18 12" stroke="#333" stroke-width="5"/>`
+});
+
+</script>
+<script>window.OFFLINE_BASE_RATE=.9;window.ONLINE_NARRATION="../../narration/2-luzhai.mp3";window.ONLINE_CUES={"0": [1.0, 7.848], "1": [9.04, 16.526], "2": [17.35, 25.518], "3": [26.27, 30.818], "4": [31.59, 39.006], "5": [39.79, 43.402], "6": [44.27, 47.21], "7": [48.03, 53.836], "8": [54.63, 60.964], "9": [61.75, 65.026], "10": [65.87, 78.85], "11": [79.55, 90.224], "12": [91.32, 105.932], "13": [106.63, 119.874], "14": [120.96, 127.414], "15": [128.27, 131.594], "16": [132.43, 145.074], "17": [145.75, 153.308], "18": [154.11, 162.928], "19": [163.63, 169.628], "20": [170.39, 178.054], "21": [178.79, 182.354], "22": [183.19, 191.528], "23": [192.27, 207.036], "24": [208.08, 217.786], "25": [218.51, 225.694], "26": [226.47, 232.3], "27": [233.07, 238.972], "28": [239.71, 251.54], "29": [252.15, 257.836], "30": [258.71, 264.516], "31": [265.31, 275.688], "32": [296.71, 303.142], "33": [303.87, 309.556], "34": [310.39, 316.196], "35": [316.87, 326.024]};window.OFFLINE_AUDIO=window.ONLINE_CUES;</script><script>window.SCRIPT={"id": "luzhai", "shortTitle": "鹿柴", "alias": "", "byline": "唐．王維", "hook": "二年級的小妍跟媽媽去溪頭森林步道。樹林好安靜，一個人都看不到，可是遠遠的地方，卻傳來說話的聲音。一位唐朝詩人在大樹下說：這座山，我也來過。", "lines": ["空山不見人，", "但聞人語響。", "返景入深林，", "復照青苔上。"], "zyFull": [[["空", "ㄎㄨㄥ"], ["山", "ㄕㄢ"], ["不", "ㄅㄨˋ"], ["見", "ㄐㄧㄢˋ"], ["人", "ㄖㄣˊ"]], [["但", "ㄉㄢˋ"], ["聞", "ㄨㄣˊ"], ["人", "ㄖㄣˊ"], ["語", "ㄩˇ"], ["響", "ㄒㄧㄤˇ"]], [["返", "ㄈㄢˇ"], ["景", "ㄧㄥˇ"], ["入", "ㄖㄨˋ"], ["深", "ㄕㄣ"], ["林", "ㄌㄧㄣˊ"]], [["復", "ㄈㄨˋ"], ["照", "ㄓㄠˋ"], ["青", "ㄑㄧㄥ"], ["苔", "ㄊㄞˊ"], ["上", "ㄕㄤˋ"]]], "poemSay": ["空山不見人", "但聞人語響", "返影入深林", "復照青苔上"], "who": {"ww": {"name": "王維", "color": "#b8402c", "pitch": 0.9, "rate": 0.96, "tts": {"voice": "zh-TW-YunJheNeural", "pitch": "-6Hz", "rate": "-4%"}}, "xy": {"name": "小妍", "color": "#3e6f8f", "pitch": 1.5, "rate": 1.05, "tts": {"voice": "zh-TW-HsiaoYuNeural", "pitch": "+25Hz", "rate": "+5%"}}, "mm": {"name": "媽媽", "color": "#a8741c", "pitch": 1.05, "rate": 1, "tts": {"voice": "zh-TW-HsiaoChenNeural", "pitch": "+0Hz", "rate": "+0%"}}}, "groups": [[0, 1], [2, 3]], "credits": ["詩文：唐．王維〈鹿柴〉（公有領域）", "字詞注音、作者資料：教育部《重編國語辭典修訂本》", "本動畫故事為穿越情節改編，人物與現代場景為虛構"], "titleRead": "〈鹿柴〉　唐．王維", "titleSay": "鹿寨，唐朝，王維。", "beats": [{"w": "n", "t": "二年級的小妍，跟媽媽到溪頭森林步道散步。", "ch": 1, "scene": "forest", "scr": "溪頭的森林步道，高高的樹。小妍和媽媽走在步道上，四周一個人都沒有。"}, {"w": "xy", "t": "媽媽，這裡好安靜，一個人都沒有。", "ch": 1, "mood": {"xy": null}, "g": {"xy": null}}, {"w": "mm", "t": "咦？可是你聽……", "ch": 1, "mood": {"mm": null}, "g": {"mm": null}}, {"w": "xy", "t": "有人在說話！可是我看不到人！", "ch": 1, "act": "愣住", "mood": {"xy": "shock"}, "g": {"xy": null}}, {"w": "ww", "t": "這就是我寫的詩。", "ch": 1, "act": "從大樹後面走出來", "mood": {"ww": null}, "g": {"ww": null}}, {"w": "xy", "t": "你是誰？", "ch": 1, "act": "嚇一跳", "mood": {"xy": "shock"}, "g": {"xy": null}}, {"w": "ww", "t": "我是王維，唐朝人。", "ch": 1, "act": "拱手", "mood": {"ww": null}, "g": {"ww": "bow"}}, {"w": "ww", "t": "空山不見人，但聞人語響。", "ch": 2, "scr": "遠遠的樹林裡，傳來「哈哈哈」的說話聲，可是看不到人。", "burst": "哈哈哈……", "fxt": "大字「哈哈哈……」", "mood": {"ww": null}, "g": {"ww": null}, "hl": [0, 1]}, {"w": "xy", "t": "「但聞」是什麼？", "ch": 2, "mood": {"xy": null}, "g": {"xy": null}}, {"w": "ww", "t": "「但」是只，「聞」是聽到。山裡看不到人，只聽到有人說話的聲音。", "ch": 2, "mood": {"ww": null}, "g": {"ww": null}}, {"w": "mm", "t": "樹林很大，聲音會傳得很遠，所以聽得到，看不到。", "ch": 2, "mood": {"mm": null}, "g": {"mm": null}}, {"w": "n", "t": "王維是唐朝的詩人，也很會畫畫。他在山裡有一座山莊，山莊裡有一個地方叫「鹿柴」。", "ch": 3, "scene": "tang", "scr": "畫面變成水墨色調，字卡「唐朝 · 王維的山莊」。山裡的樹林，一隻鹿在吃草。", "fxt": "畫面四角出現捲軸邊框", "say": "王維是唐朝的詩人，也很會畫畫。他在山裡有一座山莊，山莊裡有一個地方叫「鹿寨」。"}, {"w": "ww", "t": "「柴」在這裡要唸「寨」，是圍起來的柵欄。我常常在那裡，看著山林發呆。", "ch": 3, "mood": {"ww": null}, "g": {"ww": null}}, {"w": "ww", "t": "返景入深林，復照青苔上。", "ch": 4, "scene": "forest", "scr": "傍晚了，太陽快下山。一道金色的陽光，從樹葉中間照進來，照在地上的青苔上。", "mood": {"ww": null}, "g": {"ww": null}, "say": "返影入深林，復照青苔上。", "hl": [2, 3]}, {"w": "xy", "t": "「返景」是什麼？", "ch": 4, "mood": {"xy": null}, "g": {"xy": null}, "say": "「返影」是什麼？"}, {"w": "ww", "t": "「景」在這裡唸「影」，是陽光。傍晚的陽光，斜斜地照進樹林裡。", "ch": 4, "mood": {"ww": null}, "g": {"ww": null}}, {"w": "xy", "t": "陽光照在地上綠綠的東西上面，好漂亮！", "ch": 4, "act": "蹲下來", "mood": {"xy": null}, "g": {"xy": null}}, {"w": "mm", "t": "那叫青苔。「復照」，就是又照在青苔上。", "ch": 4, "mood": {"mm": null}, "g": {"mm": null}}, {"w": "xy", "t": "媽媽，我要把它畫下來！", "ch": 5, "scr": "小妍拿出小本子，畫下一道陽光和綠綠的青苔。", "mood": {"xy": null}, "g": {"xy": null}}, {"w": "mm", "t": "好啊，你跟王維一樣，是小畫家。", "ch": 5, "act": "笑", "mood": {"mm": "happy"}, "g": {"mm": null}}, {"w": "ww", "t": "空山不見人。", "ch": 5, "act": "揮手", "mood": {"ww": "happy"}, "g": {"ww": "wave"}}, {"w": "xy", "t": "但聞人語響！王維伯伯，再見！", "ch": 5, "act": "揮手", "mood": {"xy": "happy"}, "g": {"xy": "wave"}}, {"w": "n", "t": "安靜的山，遠遠的聲音，一道照在青苔上的陽光。王維的詩，就像一幅畫。", "ch": 5}], "acts": ["一個人都沒有", "空山不見人", "回憶時光——山裡的王維", "返景入深林", "金色的青苔"], "chapters": ["片頭", "一個人都沒有", "空山不見人", "回憶時光", "返景入深林", "金色的青苔", "背誦"], "page": ""};</script>
+<script>
+/* 鹿柴 */
+(function () {
+  const bg = KIT2.bg, O = KIT2.OL;
+  const cedar = (x, s) => `<g transform="translate(${x} 780) scale(${s})"><rect x="-12" y="-420" width="24" height="420" fill="#6b4a32" ${O}/>${[0, 1, 2, 3].map(i => `<path d="M${-90 + i * 14} ${-120 - i * 80} L0 ${-260 - i * 80} L${90 - i * 14} ${-120 - i * 80}Z" fill="#3f6e4a" ${O}/>`).join('')}</g>`;
+  window.LESSON = {
+    id: 'luzhai', seal: '林',
+    chapters: ['一個人都沒有', '空山不見人', '回憶時光', '返景入深林', '金色的青苔'],
+    zy: ['柴', '景', '苔'],
+    flash: ['tang'], flashTag: { tang: '回憶時光 · 唐朝王維的山莊' },
+    css: `.lz-beam{opacity:0;transition:opacity 2s}.fx-sunset .lz-beam{opacity:.55}.lz-moss{transition:fill 2s}.fx-sunset .lz-moss{fill:#c8d84a}
+      .lz-eve{opacity:0;transition:opacity 2s}.fx-sunset .lz-eve{opacity:.35}`,
+    scenes: `
+    <g class="scene" data-scene="forest">
+      ${bg.sky('#9fc8a8', '#e6f0e0')}
+      ${[80, 260, 420, 1180, 1340, 1500].map((x, i) => cedar(x, 1 + (i % 2) * .2)).join('')}
+      <rect class="lz-eve" width="1600" height="900" fill="#f2a13c"/>
+      <path class="lz-beam" d="M1500 0 L1300 0 L700 820 L1000 820Z" fill="#ffe7a0"/>
+      <rect y="780" width="1600" height="120" fill="#8a7a5a"/>
+      <ellipse class="lz-moss" cx="850" cy="820" rx="220" ry="34" fill="#5a8a3a"/>
+      <path d="M560 900 L700 780 H900 L1040 900Z" fill="#b8a888"/>
+    </g>
+    <g class="scene" data-scene="tang">
+      ${bg.ink()}${bg.peak(400, 640, 900, 420, '#b9b4a6')}${bg.peak(1200, 640, 700, 300, '#c4bfb1')}
+      <g transform="translate(1100 760)"><ellipse cx="0" cy="-70" rx="70" ry="34" fill="#a8743c" ${O}/><circle cx="64" cy="-110" r="22" fill="#a8743c" ${O}/><path d="M60 -130 l-10 -40 M70 -130 l14 -40" stroke="#6b4224" stroke-width="5"/>${[-50, -20, 30, 50].map(a => `<rect x="${a - 5}" y="-46" width="10" height="46" fill="#a8743c"/>`).join('')}</g>
+      <rect y="760" width="1600" height="140" fill="#c9bfa6"/>
+    </g>`,
+    cast:
+      KIT2.make('wangwei', { id: 'ww', hand: '' }) +
+      KIT2.person({ id: 'xy', kind: 'modern', age: 'child', hairStyle: 'pony', hat: 'bucket', capColor: '#e98aa6', top: '#f2c14e', topStyle: 'tee', pants: '#5a6b8f' }) +
+      KIT2.person({ id: 'mm', kind: 'modern', hairStyle: 'bob', hair: '#3a2a20', top: '#3f7f70', topStyle: 'shirt', pants: '#4a5560', backpack: '#c8742c' }),
+    place: { forest: { mm: [520, 850], xy: [740, 850] }, tang: { ww: [600, 850] } },
+    cues: [
+      { m: '媽媽，這裡好安靜', mood: { xy: 'think' } },
+      { m: '有人在說話', mood: { xy: 'shock' } },
+      { m: '這就是我寫的詩', pos: { ww: [1060, 850, -1] }, mood: { ww: 'happy' } },
+      { m: '空山不見人，但聞人語響。', g: { ww: 'open' } },
+      { m: '樹林很大，聲音會傳得很遠', g: { mm: 'point' } },
+      { m: '返景入深林，復照青苔上。', cls: ['sunset'], pos: { ww: [1060, 850, -1] }, g: { ww: 'point' } },
+      { m: '陽光照在地上綠綠的東西', cls: ['sunset'], mood: { xy: 'happy' } },
+      { m: '媽媽，我要把它畫下來', cls: ['sunset'], g: { xy: 'up' } },
+      { m: '空山不見人。', any: false, cls: ['sunset'], g: { ww: 'wave' } },
+      { m: '但聞人語響！王維伯伯', cls: ['sunset'], g: { xy: 'wave' } }
+    ],
+    reciteIntro: '背誦挑戰！先背安靜的山，再背陽光和青苔。',
+    reciteOutro: '返景入深林，復照青苔上！〈鹿柴〉背起來了！'
+  };
+})();
+
+window.LESSON.hub='../../index.html';
+</script>
+<script>
+/* ===== 播放器：把 window.SCRIPT（劇本自動轉出的台詞）和 window.LESSON（畫面設定）合起來播放 =====
+   台詞一律來自 docs/scripts/*.md，這裡不改任何一個字。 */
+(function () {
+  const S = window.SCRIPT, C = window.LESSON;
+  const L = Object.assign({}, S, C);
+  const $ = id => document.getElementById(id);
+  if (C.css) { const st = document.createElement('style'); st.textContent = C.css; document.head.appendChild(st); }
+  const isRender = /[?&]render=1/.test(location.search);
+  if (isRender) document.documentElement.classList.add('render');
+  const POEM = S.lines;
+
+  // ---------- 說話的人 ----------
+  const WHO = Object.assign({ n: { name: '旁白', color: '#5a6b6b', pitch: 1, rate: 1, tts: { voice: 'zh-TW-HsiaoChenNeural', pitch: '+0Hz', rate: '-3%' } },
+    a: { name: '全體', color: '#b8402c', pitch: 1.15, rate: 1, tts: { voice: 'zh-TW-HsiaoChenNeural', pitch: '+10Hz', rate: '+0%' } } }, S.who, C.who || {});
+
+  // ---------- 組合台詞 ----------
+  const B = [];
+  B.push({ ch: 0, scene: 'title', w: 'n', t: S.titleRead, say: S.titleSay });
+  S.beats.forEach(b => B.push(Object.assign({}, b)));
+  // 畫面設定：cues 用「台詞或【畫面】裡的一段字」找到那一句，把位置、道具、表情等加上去
+  let from = 1;
+  (C.cues || []).forEach(cue => {
+    let hit = -1;
+    for (let i = cue.any ? 1 : from; i < B.length; i++) { const b = B[i]; if ((b.t || '').includes(cue.m) || (b.scr || '').includes(cue.m) || (b.fxt || '').includes(cue.m)) { hit = i; break; } }
+    if (hit < 0) { console.warn('cue not found', cue.m); (window.CUEMISS = window.CUEMISS || []).push(cue.m); return; }
+    const b = B[hit];
+    for (const k in cue) {
+      if (k === 'm' || k === 'any') continue;
+      if (['pos', 'mood', 'g'].includes(k)) b[k] = Object.assign({}, b[k] || {}, cue[k]);
+      else b[k] = cue[k];
+    }
+    if (!cue.any) from = hit;
+  });
+  const recStart = B.length;
+  KIT2.recite({ ch: S.chapters.length - 1, lines: POEM, groups: S.groups, wait: C.wait || 20, intro: C.reciteIntro || '背誦挑戰！我們分成兩段來背。', outro: C.reciteOutro || `〈${S.shortTitle}〉背起來了！` }).forEach(b => B.push(b));
+  B.push({ scene: 'credits', w: 'n', t: '資料來源', silent: true, hold: 4 });
+
+  // 每一句的段落、場景往下延續
+  let cc = 0, cs = 'title';
+  B.forEach(b => { if (b.ch != null) cc = b.ch; else b.ch = cc; if (b.scene) cs = b.scene; else b.scene = cs; });
+
+  // ---------- 讀音 ----------
+  function ttsText(b) {
+    if (b.silent) return '';
+    let t = b.say || b.t;
+    if (b.poem) t = b.poem.map(i => S.poemSay[i] + S.lines[i].slice(-1)).join('');
+    t = t.replace(/[「」〈〉…（）《》]/g, '');
+    return t;
+  }
+
+  // ---------- 畫面 ----------
+  document.title = S.shortTitle + '｜公版聯絡簿二年級';
+  $('h1').innerHTML = `<span class="seal">${C.seal || S.shortTitle[0]}</span>${S.shortTitle}`;
+  $('hsub').innerHTML = `${S.byline} · 公版聯絡簿・二年級` + (C.hub ? ` · <a href="#" onclick="parent.postMessage({type:'poetry-close'},'*');return false">回到全部動畫</a>` : '');
+  $('starth').textContent = S.hook;
+  $('startp').textContent = '按下開始後會自動配音和播放字幕。最後有三輪背誦挑戰。';
+  $('titlecard').innerHTML = `<div class="tag">${C.tag || '古詩穿越劇'}</div><div class="big" style="--ts:${C.titleSize || Math.min(12, 80 / S.shortTitle.length).toFixed(1) + 'cqw'}">${S.shortTitle}</div><div class="by">${S.byline}${S.alias ? '｜' + S.alias : ''}</div>`;
+  $('tracker').innerHTML = S.chapters.slice(1, -1).map(c => `<span>${c}</span>`).join('');
+  $('scenes').insertAdjacentHTML('beforeend', C.scenes + `<g class="scene" data-scene="title">${C.titleArt || KIT2.bg.paperTitle()}</g>` + KIT2.poemScene + `<g class="scene" data-scene="credits"><rect width="1600" height="900" fill="#f4ecd6"/></g>`);
+  $('cast').insertAdjacentHTML('beforeend', C.cast);
+  $('fgs').insertAdjacentHTML('beforeend', C.fg || '');
+  $('credits').innerHTML = `<h3>資料來源</h3>` + S.credits.map((l, i) => `<p${i === S.credits.length - 1 ? ' class="fic"' : ''}>${l}</p>`).join('');
+
+  const stage = $('stage'), sub = $('sub'), verse = $('verse'), scroll = $('scroll'), tracker = $('tracker'), count = $('count');
+  const scenes = [...document.querySelectorAll('[data-scene]')];
+  const chars = {}; document.querySelectorAll('#cast .ch').forEach(el => chars[el.id.slice(2)] = el);
+  const PUNC = /[，。；：、？！「」　]/;
+  const ZY = {}; // 背誦卷軸只標生難字
+  (C.zy || []).forEach(c => { for (const ln of S.zyFull) for (const [h, z] of ln) if (h === c) ZY[c] = z; });
+  function zy(ch) { return ZY[ch] ? `<ruby>${ch}<rt>${ZY[ch]}</rt></ruby>` : ch; }
+  function line(i, mode) { let k = 0; return [...POEM[i]].map(ch => { if (PUNC.test(ch)) return `<span class="c">${ch}</span>`; const hide = (mode === 1 && k % 2 === 1) || (mode === 2 && k > 0); k++; return `<span class="c${hide ? ' hide' : ''}">${zy(ch)}</span>`; }).join(''); }
+  // 長的詞（例如念奴嬌）可以在 LESSON.rows 把幾個小句排成一行
+  const ROWS = C.rows || POEM.map((_, i) => [i]);
+  const rowLen = r => r.reduce((a, i) => a + POEM[i].length, 0);
+  const rowHTML = (r, mode) => r.map(i => line(i, mode)).join('');
+  const maxLen = Math.max(...ROWS.map(rowLen));
+  scroll.style.setProperty('--ss', Math.min(3.2, 40 / (maxLen + 1.5), 70 / (ROWS.length * 1.75 + 3)).toFixed(2) + 'cqw');
+  function renderScroll(rv) {
+    scroll.innerHTML = `<div class="tt">${S.shortTitle}</div>` + ROWS.map(r => `<div class="ln${rv.hl && r.some(i => rv.hl.includes(i)) ? ' hl' : ''}">${rowHTML(r, rv.m)}</div>`).join('') + `<div class="au">${S.byline}</div>`;
+  }
+  function renderVerse(show, hl) {
+    if (!show) { verse.style.opacity = 0; return; }
+    const vs = Math.min(2.3, 30 / (maxLen + 2), 26 / (ROWS.length * 1.6 + 1.5));
+    verse.style.setProperty('--vs', vs.toFixed(2) + 'cqw');
+    verse.style.opacity = 1;
+    verse.innerHTML = `<small>${S.shortTitle}</small>` + ROWS.map(r => `<div class="ln${hl && r.some(i => hl.includes(i)) ? ' hl' : ''}">${rowHTML(r, 0)}</div>`).join('');
+  }
+  const origHTML = i => S.zyFull[i].map(([h, z]) => `<ruby>${h}<rt>${z}</rt></ruby>`).join('');
+  // 同一個場景裡，狀態一路累積
+  function stateAt(i) {
+    let s = i; while (s > 0 && B[s - 1].scene === B[i].scene) s--;
+    const st = { pos: Object.assign({}, (C.place || {})[B[i].scene] || {}), props: [], cls: [], mood: {}, g: {}, burst: null, phone: null, chat: [], card: null, cam: null };
+    for (let k = s; k <= i; k++) {
+      const b = B[k];
+      if (b.pos) Object.assign(st.pos, b.pos);
+      if (b.props) st.props = b.props;
+      if (b.cls) st.cls = b.cls;
+      if (b.mood) Object.assign(st.mood, b.mood);
+      if (b.g && k >= i - 1) Object.assign(st.g, b.g);
+      if ('phone' in b) st.phone = b.phone;
+      if (b.chat) st.chat = st.chat.concat(b.chat);
+      if ('card' in b) st.card = b.card;
+      if ('cam' in b) st.cam = b.cam;
+      st.burst = b.burst || null;
+    }
+    for (const k in st.pos) if (st.pos[k] === null) delete st.pos[k];
+    return st;
+  }
+  let cur = -1, lastScene = null, stageCls = [], lastPos = {};
+  function render(i) {
+    const b = B[i], st = stateAt(i);
+    const swap = lastScene !== b.scene;
+    const flash = (C.flash || []).includes(b.scene);
+    const apply = () => {
+      scenes.forEach(g => g.classList.toggle('on', g.dataset.scene === b.scene));
+      stageCls.forEach(c => stage.classList.remove('fx-' + c));
+      stageCls = st.cls.slice(); if (flash) stageCls.push('flash');
+      stageCls.forEach(c => stage.classList.add('fx-' + c));
+      $('flashtag').textContent = flash ? (C.flashTag || {})[b.scene] || '回憶時光' : '';
+      $('flashtag').classList.toggle('on', flash);
+      for (const k in chars) {
+        const el = chars[k], p = st.pos[k];
+        if (p) {
+          const moved = !swap && lastPos[k] && (Math.abs(lastPos[k][0] - p[0]) > 20);
+          if (swap) el.style.transition = 'none';
+          const sc = p[2] || 1;
+          el.style.transform = `translate(${p[0]}px,${p[1]}px) scale(${sc},${Math.abs(sc)})`;
+          el.classList.add('on');
+          if (swap) { el.getBoundingClientRect(); el.style.transition = ''; }
+          if (moved) { el.classList.add('walking'); clearTimeout(el._wt); el._wt = setTimeout(() => el.classList.remove('walking'), 1300); }
+          lastPos[k] = p;
+        } else { el.classList.remove('on'); delete lastPos[k]; }
+        el.classList.toggle('talk', b.w === k || (b.w === 'a' && !!p));
+        ['angry', 'sad', 'happy', 'shock', 'proud', 'think', 'shy'].forEach(m => el.classList.toggle('mood-' + m, st.mood[k] === m));
+        ['wave', 'point', 'bow', 'open', 'hold', 'chin', 'up', 'look'].forEach(g => el.classList.toggle('g-' + g, st.g[k] === g));
+      }
+      document.querySelectorAll('.prop').forEach(pr => pr.classList.toggle('on', st.props.includes(pr.dataset.prop)));
+      $('titlecard').classList.toggle('on', b.scene === 'title');
+      $('credits').classList.toggle('on', b.scene === 'credits');
+      const plain = ['title', 'poem', 'credits'].includes(b.scene);
+      tracker.style.opacity = (plain || flash) ? 0 : 1;
+      [...tracker.children].forEach((sp, k) => { sp.className = b.ch === k + 1 ? 'cur' : (b.ch > k + 1 ? 'done' : ''); });
+      renderVerse(!plain && !flash, b.hl);
+      if (b.hl && !plain) { $('orig').innerHTML = b.hl.map(origHTML).join('<br>') + `<small>原句</small>`; $('orig').classList.add('on'); } else $('orig').classList.remove('on');
+      if (b.scene === 'poem') { scroll.classList.add('on'); renderScroll(b.rv || { m: 0 }); } else scroll.classList.remove('on');
+      if (st.phone) { $('phone').innerHTML = `<div><span class="app">${st.phone.app || 'LINE'}</span>${st.phone.msgs.map(m => `<p>${m}</p>`).join('')}</div>`; $('phone').classList.add('on'); } else $('phone').classList.remove('on');
+      if (st.chat.length && !flash) { $('chat').innerHTML = st.chat.slice(-5).map(m => `<p><b>聊天室</b>${m}</p>`).join(''); $('chat').classList.add('on'); } else $('chat').classList.remove('on');
+      if (st.card) { $('zoomcard').innerHTML = st.card; $('zoomcard').classList.add('on'); } else $('zoomcard').classList.remove('on');
+      if (st.burst) { $('burst').textContent = st.burst; $('burst').classList.add('on'); } else $('burst').classList.remove('on');
+      const svg = document.querySelector('svg.world');
+      if (st.cam) { svg.style.transformOrigin = `${st.cam[1] / 16}% ${st.cam[2] / 9}%`; svg.style.transform = `scale(${st.cam[0]})`; } else svg.style.transform = '';
+      const who = WHO[b.w];
+      sub.innerHTML = b.silent ? '' : `<div style="--who:${who.color}"><b>${who.name}</b>${b.t}</div>`;
+      count.classList.remove('on');
+    };
+    if (swap && lastScene !== null) { $('fader').classList.add('on'); setTimeout(() => { apply(); $('fader').classList.remove('on'); }, 450); } else apply();
+    lastScene = b.scene; cur = i;
+    $('progbar').style.width = ((i + 1) / B.length * 100) + '%';
+    [...$('chap').children].forEach((bt, k) => bt.classList.toggle('cur', k === b.ch));
+  }
+  let timers = [], token = 0;
+  let localAudio = null; const synth = null; let voice = null, voiceOn = true, speed = 0.9, playing = false;
+  const keep = []; let curU = null;
+  function countdown(sec, my, done) {
+    let left = sec; count.textContent = left; count.classList.add('on');
+    const tick = () => { if (my !== token) return; left--; if (left <= 0) { count.classList.remove('on'); done && done(); } else { count.textContent = left; timers.push(setTimeout(tick, 1000)); } };
+    timers.push(setTimeout(tick, 1000));
+  }
+  // ---------- 轉 MP4 用 ----------
+  window.ENGINE = { id: S.id, title: S.shortTitle,
+    beats: B.map((b, i) => ({ i, who: b.w, name: WHO[b.w].name, text: b.t, say: ttsText(b), tts: WHO[b.w].tts, wait: b.wait || 0, silent: !!b.silent, hold: b.hold || 0, tickMs: 0, sceneChange: i === 0 || B[i - 1].scene !== b.scene })),
+    show(i) { clearAll(); render(i); const mk = document.getElementById('mk'); if (mk) mk.style.background = ['#ff0000', '#00ff00', '#0000ff'][i % 3]; },
+    countdown(sec) { countdown(sec, token); }, state: i => stateAt(i) };
+  window.LESSONDATA = { B, S, C, WHO };
+  if (isRender) { $('start').hidden = true; const mk = document.createElement('div'); mk.id = 'mk'; mk.style.cssText = 'position:fixed;left:2px;top:2px;width:10px;height:10px;z-index:99999;background:#888'; document.body.appendChild(mk); render(0); return; }
+
+  // ---------- 課堂播放（瀏覽器語音） ----------
+  function pickVoice() { if (!synth) return; const vs = synth.getVoices(); voice = vs.find(v => /zh[-_]TW/i.test(v.lang)) || vs.find(v => /zh[-_](HK|Hant)/i.test(v.lang)) || vs.find(v => /^zh/i.test(v.lang)) || null; }
+  if (synth) { pickVoice(); synth.onvoiceschanged = pickVoice; }
+  function speak(b, done) {
+    const my=token;let fired=false;
+    const finish=()=>{if(fired||my!==token)return;fired=true;if(localAudio)localAudio.pause();done();};
+    if(b.silent){timers.push(setTimeout(finish,(b.hold||3)*1000));return;}
+    const cue=window.ONLINE_CUES[String(cur)];
+    if(!cue){timers.push(setTimeout(finish,Math.max(2200,ttsText(b).length*250)));return;}
+    const rate=speed/window.OFFLINE_BASE_RATE;
+    if(!voiceOn){timers.push(setTimeout(finish,(cue[1]-cue[0])*1000/rate));return;}
+    const a=localAudio||(localAudio=new Audio(window.ONLINE_NARRATION));
+    if(!a.isConnected){a.id='lesson-narration';a.hidden=true;document.body.appendChild(a);}
+    a.preload='metadata';
+    const fail=()=>{if(my!==token)return;$('note').textContent='配音載入失敗，請檢查網路後再按播放，或切換影片模式。';setPlaying(false);clearAll();};
+    a.onerror=fail;
+    a.ontimeupdate=()=>{if(my===token&&a.currentTime>=cue[1]-.015)finish();};
+    a.onended=finish;
+    const begin=()=>{if(my!==token)return;a.currentTime=cue[0];a.playbackRate=rate;a.play().catch(fail);};
+    if(a.readyState>=1)begin();else a.onloadedmetadata=begin;
+    timers.push(setTimeout(()=>{if(my===token&&a.readyState<1)fail();},20000));
+  }
+  function clearAll(){token++;curU=null;timers.forEach(clearTimeout);timers=[];if(localAudio){localAudio.pause();localAudio.onloadedmetadata=null;localAudio.ontimeupdate=null;localAudio.onended=null;}}
+  function step(i) {
+    clearAll(); if (i < 0 || i >= B.length) { setPlaying(false); return; }
+    render(i); const my = token, b = B[i]; if (!playing) return;
+    timers.push(setTimeout(() => {
+      if (my !== token) return; speak(b, () => {
+        const after = () => timers.push(setTimeout(() => { if (my === token) next(); }, 700 / speed));
+        if (b.wait) countdown(b.wait, my, () => next()); else after();
+      });
+    }, (B[i - 1] && B[i - 1].scene !== b.scene ? 550 : 250)));
+  }
+  function next() { if (cur + 1 >= B.length) { setPlaying(false); return; } step(cur + 1); }
+  function setPlaying(p) { playing = p; $('play').textContent = p ? '暫停' : '播放'; }
+  $('go').onclick = () => { $('start').hidden = true; pickVoice(); if (!Object.keys(window.OFFLINE_AUDIO).length && !$('nov')) { $('note').insertAdjacentHTML('afterbegin', '<strong id="nov">本篇尚未附離線錄音，目前以字幕播放。</strong> '); } setPlaying(true); step(0); };
+  $('play').onclick = () => { if (!$('start').hidden) { $('go').click(); return; } if (playing) { setPlaying(false); clearAll(); } else { setPlaying(true); step(cur < 0 ? 0 : cur); } };
+  $('prev').onclick = () => { $('start').hidden = true; step(Math.max(0, cur - 1)); };
+  $('next').onclick = () => { $('start').hidden = true; step(Math.min(B.length - 1, cur + 1)); };
+  $('voice').onclick = e => { voiceOn = !voiceOn; e.target.setAttribute('aria-pressed', voiceOn); e.target.textContent = '配音：' + (voiceOn ? '開' : '關'); if (playing) step(cur); };
+  $('speed').onchange = e => { speed = +e.target.value; if (playing) step(cur); };
+  $('fs').onclick = () => { const f = stage.requestFullscreen || stage.webkitRequestFullscreen; if (f) { try { const r = f.call(stage); r && r.catch && r.catch(() => { }); } catch (e) { } } };
+  S.chapters.forEach((c, k) => { const bt = document.createElement('button'); bt.type = 'button'; bt.textContent = c; bt.onclick = () => { $('start').hidden = true; step(B.findIndex(b => b.ch === k)); }; $('chap').appendChild(bt); });
+  document.addEventListener('keydown', e => { if (e.target.closest && e.target.closest('select')) return; if (e.code === 'Space') { e.preventDefault(); $('play').click(); } else if (e.key === 'ArrowRight') $('next').click(); else if (e.key === 'ArrowLeft') $('prev').click(); });
+  render(0);
+})();
+
+</script>
+<script>document.getElementById("startp").textContent="網頁動畫：臺灣配音慢10%，保留字幕、章節與背誦挑戰。";</script></body>
+</html>
