@@ -29,3 +29,5 @@ document.querySelectorAll('[data-grade]').forEach(b=>b.onclick=()=>{grade=b.data
 $('search').oninput=render;$('webmode').onclick=()=>switchMode('web');$('videomode').onclick=()=>switchMode('video');$('close').onclick=()=>$('viewer').close();$('viewer').addEventListener('close',()=>{$('stage').replaceChildren();opener?.isConnected?opener.focus():$('disembark').focus()});render();
 
 window.addEventListener('message',e=>{if(e.source===$('stage').querySelector('iframe')?.contentWindow&&e.data?.type==='poetry-close')$('viewer').close();});
+
+$('library-open').onclick=()=>{$('library').showModal();$('search').focus();};$('library-close').onclick=()=>$('library').close();document.querySelector('.skip').onclick=e=>{e.preventDefault();$('library').showModal();$('search').focus();};$('cards').addEventListener('click',e=>{if(e.target.closest('button'))$('library').close();},true);

@@ -18,3 +18,15 @@
 .embedded .explore-tools .walk-pad{display:none}
 
 
+/* A compact horizontal workspace; the collection opens as a separate panel. */
+.embedded .intro,.embedded .playlist-links,.embedded footer{display:none}
+#library{width:min(1100px,96vw);height:90vh;max-height:90vh;overflow:auto;background:#f5f0df}
+#library #works{padding:16px 24px}#library .dialoghead{position:sticky;top:0;z-index:8;background:#f5f0df}
+.embedded .voyage{margin:8px;display:grid;grid-template-columns:230px minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);height:710px;max-height:calc(100dvh - 16px);min-height:520px;gap:0;overflow:hidden}
+.embedded .voyage-heading{grid-column:1;grid-row:1;padding:14px 14px 8px}.embedded .voyage-heading h2{font-size:20px}.embedded .voyage-heading .eyebrow,.embedded .map-note{display:none}
+.embedded .destinations{grid-column:1;grid-row:2;display:flex;flex-direction:column;padding:8px 14px;gap:6px}.embedded .destination{display:flex;align-items:center;gap:12px;min-height:48px;padding:6px 10px}.embedded .destination strong{font-size:20px;margin:0}.embedded .destination small{font-size:12px}
+.embedded .rowing-panel{grid-column:1;grid-row:3;align-self:start;position:static;display:flex;flex-direction:column;align-items:stretch;padding:12px 14px;border:0}.embedded .journey-info{min-width:0;flex:none}.embedded .journey-info>span{font-size:18px}.embedded .rowing-controls{width:100%;gap:6px}.embedded .oar{flex:1;padding:8px 4px;font-size:13px}.embedded kbd{display:none}.embedded .landing-actions{margin:4px 0;width:100%;flex-wrap:wrap}.embedded .landing-actions button{flex:1}
+.embedded .scene-toolbar{grid-column:2;grid-row:1;flex-wrap:wrap;padding:10px 14px}.embedded .scene-camera-buttons{max-width:none;flex-direction:row;flex-wrap:wrap;justify-content:start}.embedded .scene-toolbar>div:first-child{display:none}
+.embedded.has-3d .sea-window{grid-column:2;grid-row:2/4;min-height:0}.embedded #three-host{height:100%}
+.embedded .explore-tools{display:none}.embedded .roster-details{position:absolute;right:20px;top:80px;max-height:65vh;max-width:65%;overflow:auto;z-index:8}.embedded .voyage-tip{display:none}
+@media(max-width:600px){.embedded .voyage{grid-template-columns:155px minmax(0,1fr);min-height:500px}.embedded .voyage-heading{padding:10px}.embedded .voyage-heading h2{font-size:17px}.embedded .destinations{padding:6px 8px}.embedded .destination{gap:5px;padding:6px}.embedded .destination strong{font-size:16px}.embedded .destination small{font-size:10px}.embedded .rowing-panel{padding:8px}.embedded .rowing-controls{flex-direction:column}.embedded .scene-toolbar{padding:6px}.embedded .scene-camera-buttons button{font-size:11px;padding:5px}.embedded #mobile-walk{transform:scale(.85);transform-origin:bottom left}}
